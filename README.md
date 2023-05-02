@@ -1,5 +1,5 @@
 # Portfolio-CMS
 
-sql credentials
+username and password
 
 admin:pOJ84C@9

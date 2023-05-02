@@ -1,7 +1,7 @@
 // Thumbnail Toggle Switch
 
-const thumbnailToggleSwitch = document.getElementById('edit-thumbnails');
-const buttons = document.querySelectorAll('.tmb-btn-container');
+const thumbnailToggleSwitch = document.querySelector('[data-switch-type="thumbnail"]');
+const buttons = document.querySelectorAll('[data-button-type="thumbnail"]');
 
 thumbnailToggleSwitch.addEventListener('change', () => {
   buttons.forEach(button => button.classList.toggle('show-buttons'));
@@ -9,18 +9,17 @@ thumbnailToggleSwitch.addEventListener('change', () => {
 
 // Upload Thumbnail
 
-const uploadForms = document.querySelectorAll('.thumbnail-form');
+const uploadForms = document.querySelectorAll('[data-form-type="thumbnail"]');
 
 uploadForms.forEach(uploadForm => {
-  const fileInput = uploadForm.querySelector('input[type="file"]');
-  const projectId = uploadForm.querySelector('input[name="project_id"]');
-  const thumbnail = document.getElementById("thumbnail-" + projectId.value);
+  const projectId = uploadForm.querySelector('[data-project-id="thumbnail"]');
+  const fileInput = uploadForm.querySelector('[data-file-type="thumbnail"]');
+  const thumbnail = document.querySelector(`[data-thumbnail-id="${projectId.value}"]`);
 
   uploadForm.addEventListener('change', (event) => {
     event.preventDefault();
-    const files = fileInput.files;
     const id = projectId.value;
-    console.log(files);
+    const files = fileInput.files;
     const formData = new FormData();
     formData.append('project_id', id);
     formData.append('file', files[0]);
@@ -32,7 +31,9 @@ uploadForms.forEach(uploadForm => {
     .then((response) => response.json())
     .then((data) => {
       if (data.success) {
-        thumbnail.src = data.cover_path; // change the src attribute to the new image URL    
+        const img = thumbnail;
+        img.src = data.cover_path; // change the src attribute to the new image URL
+        console.log(data.message);
       } else {
         console.log(data.error);
       }

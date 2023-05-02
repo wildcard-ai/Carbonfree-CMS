@@ -30,7 +30,7 @@
     <div>
       <label class="toggle-label" for="edit-thumbnails">Edit Thumbnails</label>
       <label class="switch">
-        <input type="checkbox" id="edit-thumbnails" name="edit-thumbnails">
+        <input type="checkbox" data-switch-type="thumbnail">
         <span class="slider"></span>
       </label>
     </div>
@@ -51,14 +51,14 @@
       ?>
       <div class="project">
         <a class="project-link" href="<?php echo url_for('/admin/project.php?id=' . h(u($project['id']))); ?>">
-          <img class="thumbnail" id="thumbnail-<?php echo $project['id']; ?>" src="<?php echo $project_cover; ?>">
+          <img class="thumbnail" data-thumbnail-id="<?php echo $project['id']; ?>" src="<?php echo $project_cover; ?>">
           <div class="project-title"><?php echo h($project['project_name']); ?></div>
         </a>
-        <form id="thumbnail-form-<?php echo $project['id']; ?>" class="thumbnail-form">
-          <input type="hidden" name="project_id" value="<?php echo $project['id']; ?>">
-          <input type="file" name="file" id="file-<?php echo $project['id']; ?>" hidden>
+        <form class="thumbnail-form" data-form-type="thumbnail">
+          <input type="hidden" name="project_id" data-project-id="thumbnail" value="<?php echo $project['id']; ?>">
+          <input type="file" name="file" data-file-type="thumbnail" id="file-<?php echo $project['id']; ?>" hidden>
         </form>
-        <div class="tmb-btn-container">
+        <div class="tmb-btn-container" data-button-type="thumbnail">
           <label class="button button-primary thumbnail-button" for="file-<?php echo $project['id']; ?>">Change</label>
         </div>
       </div>

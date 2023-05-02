@@ -1,3 +1,5 @@
 # Portfolio-CMS
-#sql credentials
-#admin:pOJ84C@9
+
+sql credentials
+
+admin:pOJ84C@9

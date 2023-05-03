@@ -88,7 +88,7 @@ include(SHARED_PATH . '/admin_header.php');
         <span>Delete this project</span>
       </div>
       <div class="wrapper-centered">
-        <form action="project_delete.php" method="get" onsubmit="return confirmDelete();">
+        <form data-form-id="delete-project-form" data-confirm-message="Are you sure you want to delete this project? This action cannot be undone.">
           <input type="hidden" name="project_id" value="<?php echo $project_id; ?>">
           <button class="button button-danger" type="submit">Delete</button>
         </form>

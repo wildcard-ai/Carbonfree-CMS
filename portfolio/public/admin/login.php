@@ -50,10 +50,9 @@ if(is_post_request()) {
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - DC3D</title>
-    <link rel="shortcut icon" href="<?php echo url_for('favicon.ico'); ?>" type="image/x-icon">
+    <link rel="shortcut icon" href="<?php echo url_for('images/favicon.ico'); ?>">
     <link rel="stylesheet" href="<?php echo url_for('admin/css/login.css'); ?>">
   </head>
   <body>

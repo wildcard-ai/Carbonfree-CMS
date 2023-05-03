@@ -131,10 +131,33 @@ visibilityCheckbox.addEventListener("change", function(event) {
 
 // Project Delete
 
-function confirmDelete() {
-  // Display a confirmation dialog box
-  var confirmed = confirm("Are you sure you want to delete this project? This action cannot be undone.");
-  
-  // Return true if the user clicked "OK", indicating confirmation
-  return confirmed;
-}
+const deleteForm = document.querySelector('[data-form-id="delete-project-form"]');
+
+deleteForm.addEventListener('submit', async (event) => {
+  const confirmed = confirm(deleteForm.getAttribute('data-confirm-message'));
+  if (!confirmed) {
+    event.preventDefault();
+    return;
+  }
+
+  const projectId = deleteForm.querySelector('input');
+  const id = projectId.value;
+  const formData = new FormData();
+  formData.append('project_id', id);
+
+  try {
+    const response = await fetch('project_delete.php', {
+      method: 'POST',
+      body: formData
+    });
+    const data = await response.json();
+    if (data.success) {
+      const url = `${data.redirect}?data=${encodeURIComponent(JSON.stringify(data))}`; // Redirect to the project page with the id
+      window.location.href = url;
+    } else {
+      console.log(data.error);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+});

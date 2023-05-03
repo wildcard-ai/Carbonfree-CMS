@@ -11,12 +11,12 @@ thumbnailToggleSwitch.addEventListener('change', () => {
 
 const uploadForms = document.querySelectorAll('[data-form-type="thumbnail"]');
 
-uploadForms.forEach(uploadForm => {
+uploadForms.forEach(async (uploadForm) => {
   const projectId = uploadForm.querySelector('[data-project-id="thumbnail"]');
   const fileInput = uploadForm.querySelector('[data-file-type="thumbnail"]');
   const thumbnail = document.querySelector(`[data-thumbnail-id="${projectId.value}"]`);
 
-  uploadForm.addEventListener('change', (event) => {
+  uploadForm.addEventListener('change', async (event) => {
     event.preventDefault();
     const id = projectId.value;
     const files = fileInput.files;
@@ -24,22 +24,22 @@ uploadForms.forEach(uploadForm => {
     formData.append('project_id', id);
     formData.append('file', files[0]);
 
-    fetch('thumbnail_upload.php', {
-      method: 'POST',
-      body: formData,
-    })
-    .then((response) => response.json())
-    .then((data) => {
+    try {
+      const response = await fetch('thumbnail_upload.php', {
+        method: 'POST',
+        body: formData
+      });
+      const data = await response.json();
       if (data.success) {
         const img = thumbnail;
         img.src = data.cover_path; // change the src attribute to the new image URL
-        console.log(data.message);
+        console.log(data);
       } else {
         console.log(data.error);
       }
-    })
-    .catch((error) => console.log(error));  
-
+    } catch (error) {
+      console.log(error);
+    }
     fileInput.value = '';
   });
 });

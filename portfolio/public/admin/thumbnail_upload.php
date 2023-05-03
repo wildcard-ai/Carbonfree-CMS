@@ -2,11 +2,8 @@
 
   require_once('../../private/initialize.php');
 
-  // Connect to database
-  $conn = mysqli_connect("localhost", "webuser", "password", "portfolio");
-
   // Check connection
-  if (!$conn) {
+  if (!$db) {
     die(json_encode(["success" => false, "error" => "Connection failed."]));
   }
 
@@ -36,16 +33,16 @@
   }
 
   // Prepare SQL query
-  $sql = "UPDATE projects SET cover_path='" . mysqli_real_escape_string($conn, $cover_path) . "'";
-  $sql .= " WHERE id=" . mysqli_real_escape_string($conn, $project_id);
+  $sql = "UPDATE projects SET cover_path='" . mysqli_real_escape_string($db, $cover_path) . "'";
+  $sql .= " WHERE id=" . mysqli_real_escape_string($db, $project_id);
 
   // Execute SQL query to update record in database
-  if (mysqli_query($conn, $sql)) {
+  if (mysqli_query($db, $sql)) {
     echo json_encode(["success" => true, "message" => "Record updated successfully.", "cover_path" => url_for($cover_path)]);
   } else {
     echo json_encode(["success" => false, "error" => "Error updating record."]);
   }
 
   // Close database connection
-  mysqli_close($conn);
+  mysqli_close($db);
 ?>

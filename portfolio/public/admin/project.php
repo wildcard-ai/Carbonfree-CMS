@@ -68,11 +68,10 @@ include(SHARED_PATH . '/admin_header.php');
       </div>
       <div class="wrapper-centered">
         <form>
-          <label class="switch">
-            <input type="hidden" name="project_id" value="<?php echo $project_id; ?>">
-            <input type="checkbox" id="visibility-checkbox" name="visibility-checkbox" <?php if($project["visible"] == "1") { echo " checked"; } ?>>
-            <span class="slider round"></span>
-          </label>
+          <input type="hidden" name="project_id" value="<?php echo $project_id; ?>">
+          <div class="switch-container">
+            <input id="visibility-checkbox" name="visibility-checkbox" class="switch" type="checkbox" data-switch-type="thumbnail" <?php if($project["visible"] == "1") { echo " checked"; } ?>>
+          </div>
         </form>
       </div>
     </div>

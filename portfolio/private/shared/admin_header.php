@@ -41,11 +41,10 @@ $new_project["project_name"] = '';
         <!-- Projet Title -->
         <input class="project-name-input" type="text" data-input-id="project-name" name="project_name" required>
         <!-- Visibility -->
-        <div class="switch-wrapper">
-          <label class="switch">
-            <input type="checkbox" id="visible-input" data-input-id="visible-input" name="visible">
-            <span class="slider round"></span>
-          </label>
+        <div>
+          <div class="switch-container">
+            <input id="visible-input" class="switch" type="checkbox" data-input-id="visible-input" name="visible">
+          </div>
           <label class="toggle-label" for="visible-input">Visibility</label>
         </div>
         <div class="modal-actions">

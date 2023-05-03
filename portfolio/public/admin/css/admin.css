@@ -322,54 +322,31 @@ textarea:focus-within {
 
 /* Toggle switch */
 
-.switch-wrapper {
-  margin-top: 1rem;
+.switch-container {
+  display: inline-block;
 }
 
 .switch {
-  display: inline-block;
-  height: 29px;
-  position: relative;
-  width: 54px;
-}
-
-.switch input {
-  height: 0;
-  opacity: 0;
-  width: 0;
-}
-
-.slider {
   background-color: #fff;
-  border-radius: 34px;
-  border: 1px solid #000;
-  bottom: 0;
+  background-position: left center;
+  box-shadow: 0 0 0 4px transparent;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3.3' fill='%23000'/%3e%3c/svg%3e");
+  background-size: contain;
+  background-repeat: no-repeat;
+  border-radius: 1000px;
   cursor: pointer;
-  left: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
-  transition: 0.4s;
+  height: 29px;
+  margin: 0;
+  transition: background-position .2s ease;
+  vertical-align: top;
+  width: 54px;
+  border: 1px solid #000;
 }
 
-.slider:before {
-  background-color: #000;
-  border-radius: 50%;
-  content: '';
-  height: 23px;
-  left: 2px;
-  position: absolute;
-  top: 2px;
-  transition: 0.4s;
-  width: 23px;
-}
-
-input:checked+.slider {
+input[type="checkbox"]:checked {
+  background-position: right center;
   background-color: #ff90e8;
-}
-
-input:checked+.slider:before {
-  transform: translateX(25px);
 }
 
 .toggle-label {

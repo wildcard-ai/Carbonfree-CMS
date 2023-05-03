@@ -29,10 +29,9 @@
     <!-- Visibility -->
     <div>
       <label class="toggle-label" for="edit-thumbnails">Edit Thumbnails</label>
-      <label class="switch">
-        <input type="checkbox" data-switch-type="thumbnail">
-        <span class="slider"></span>
-      </label>
+      <div class="switch-container">
+        <input id="edit-thumbnails" class="switch" type="checkbox" data-switch-type="thumbnail">
+      </div>
     </div>
   </header>
 

@@ -16,6 +16,11 @@
     die(json_encode(["success" => false, "error" => "Invalid file extension. Only JPG, JPEG, PNG and GIF files are allowed."]));
   }
 
+  // create uploads folder if it doesn't exist
+  if (!is_dir($uploadPath)) {
+    mkdir($uploadPath);
+  }
+
   $filename = uniqid() . "." . $extension;
   $target = $uploadPath . $filename;
   $path = "uploads/" . $filename;
@@ -23,7 +28,7 @@
   if (!move_uploaded_file($file["tmp_name"], $target)) {
     die(json_encode(["success" => false, "error" => "File upload failed."]));
   }
-  
+
   $sql = "INSERT into images ";
   $sql .= "(project_id, path) ";
   $sql .= "VALUES (";

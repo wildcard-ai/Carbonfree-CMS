@@ -322,11 +322,7 @@ textarea:focus-within {
 
 /* Toggle switch */
 
-.switch-container {
-  display: inline-block;
-}
-
-.switch {
+.toggle-switch {
   background-color: #fff;
   background-position: left center;
   box-shadow: 0 0 0 4px transparent;
@@ -341,15 +337,14 @@ textarea:focus-within {
   transition: background-position .2s ease;
   vertical-align: top;
   width: 54px;
-  border: 1px solid #000;
 }
 
-input[type="checkbox"]:checked {
+.toggle-switch:checked {
   background-position: right center;
   background-color: #ff90e8;
 }
 
-.toggle-label {
+.toggle-switch-label {
   vertical-align: middle;
 }
 

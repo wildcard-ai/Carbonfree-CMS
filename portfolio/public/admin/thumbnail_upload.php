@@ -1,5 +1,4 @@
 <?php
-
   require_once('../../private/initialize.php');
 
   // Check connection

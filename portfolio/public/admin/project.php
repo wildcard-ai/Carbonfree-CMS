@@ -69,9 +69,7 @@ include(SHARED_PATH . '/admin_header.php');
       <div class="wrapper-centered">
         <form>
           <input type="hidden" name="project_id" value="<?php echo $project_id; ?>">
-          <div class="switch-container">
-            <input id="visibility-checkbox" name="visibility-checkbox" class="switch" type="checkbox" data-switch-type="thumbnail" <?php if($project["visible"] == "1") { echo " checked"; } ?>>
-          </div>
+          <input id="visibility-checkbox" name="visibility-checkbox" class="toggle-switch" type="checkbox" data-switch-type="thumbnail" <?php if($project["visible"] == "1") { echo " checked"; } ?>>
         </form>
       </div>
     </div>
@@ -95,6 +93,4 @@ include(SHARED_PATH . '/admin_header.php');
     </div>
   </section>
 </main>
-
-<script src="<?php echo url_for('admin/js/project.js'); ?>"></script>
 <?php include(SHARED_PATH . '/admin_footer.php'); ?>

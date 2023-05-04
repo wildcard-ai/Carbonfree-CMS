@@ -1,5 +1,4 @@
 <?php
-
   require_once('../../private/initialize.php');
   require_login();
 
@@ -13,7 +12,6 @@
     insert_project($project);
     redirect_to(url_for('admin/'));
   }
-
 ?>
 
 <?php $page_title = "Projects"; ?>
@@ -28,10 +26,8 @@
     <h2 class="page-title">Projects</h2>
     <!-- Visibility -->
     <div>
-      <label class="toggle-label" for="edit-thumbnails">Edit Thumbnails</label>
-      <div class="switch-container">
-        <input id="edit-thumbnails" class="switch" type="checkbox" data-switch-type="thumbnail">
-      </div>
+      <label class="toggle-switch-label" for="edit-thumbnails">Edit Thumbnails</label>
+      <input id="edit-thumbnails" class="toggle-switch" type="checkbox" data-switch-type="thumbnail">
     </div>
   </header>
 
@@ -73,6 +69,4 @@
     <?php } ?>
   </section>
 </main>
-
-<script src="<?php echo url_for('admin/js/thumbnail.js'); ?>"></script>
 <?php include(SHARED_PATH . '/admin_footer.php'); ?>

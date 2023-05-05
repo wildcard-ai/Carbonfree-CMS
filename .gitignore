@@ -1,5 +1,5 @@
 
-*.jpeg
-*.png
-*.jpg
-*.gif
+public/uploads/*.jpeg
+public/uploads/*.png
+public/uploads/*.jpg
+public/uploads/*.gif

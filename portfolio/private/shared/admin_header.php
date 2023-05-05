@@ -29,7 +29,7 @@ $new_project["project_name"] = '';
       <div class="navbar">
         <a class="item <?php echo (is_page( 'index' )) ? 'active':''; ?>" href="<?php echo url_for('admin'); ?>">Projects</a>
         <a class="item <?php echo (is_page( 'password' )) ? 'active':''; ?>" href="<?php echo url_for('admin/password.php'); ?>">Password</a>
-        <a class="button button-light logout" href="<?php echo url_for('admin/logout.php'); ?>">Log out</a>
+        <a class="button button-light logout" href="<?php echo url_for('admin/login.php?action=logout'); ?>">Log out</a>
       </div>
     </div>
   </div>

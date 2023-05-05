@@ -1,6 +1,7 @@
 <?php
 require_once('../../private/initialize.php');
 
+handle_logout();
 already_logged_in();
 
 $errors = [];

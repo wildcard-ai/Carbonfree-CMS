@@ -1,15 +1,18 @@
+html,
 body {
-  background-color: #fff;
-  background-image: url(../images/login-background.jpg);
+  height: 100%;
+}
+
+body {
+  background-color: #f4f4f0;
+  display: grid;
   font-family: 'Segoe UI', Arial, sans-serif;
+  grid-template-rows: 3fr 1fr;
+  margin: 0;
+  place-items: center;
 }
 
 .login-box {
-  background-color: #f4f4f0;
-  border-radius: 0.25rem;
-  border: 1px solid #000;
-  margin: 6.25rem auto;
-  padding: 1.25rem;
   width: 18.75rem;
 }
 

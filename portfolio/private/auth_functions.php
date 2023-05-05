@@ -19,6 +19,13 @@
     return true;
   }
 
+  function handle_logout() {
+    if(isset($_GET['action']) && $_GET['action'] == 'logout') {
+      log_out_admin();
+      redirect_to(url_for('/admin/login.php'));
+    }
+  }
+
   // is_logged_in() contains all the logic for determining if a
   // request should be considered a "logged in" request or not.
   // It is the core of require_login() but it can also be called

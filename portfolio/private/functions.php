@@ -56,8 +56,8 @@ function is_page($page) {
   return $page == basename($_SERVER['PHP_SELF'], '.php');
 }
 
-function load_script($active_page, $js_file) {
-  if (is_page($active_page)) {
+function load_script($page, $js_file) {
+  if (is_page($page)) {
     return '<script src="' . url_for('admin/js/' . $js_file . '.js') . '" defer></script>';
   }
 }

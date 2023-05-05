@@ -11,6 +11,14 @@ body {
   margin: 0;
 }
 
+.mr-auto {
+  margin-right: auto;
+}
+
+.ml-auto {
+  margin-left: auto;
+}
+
 /* Navbar */
 
 button:focus {
@@ -104,7 +112,7 @@ nav {
   text-underline-offset: 5px;
 }
 
-/* Create Project Icon */
+/* Create Project Button */
 
 .plus-icon:before {
   background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8'%3F%3E%3C!-- Generator: Adobe Illustrator 25.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0) --%3E%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1' id='Capa_1' x='0px' y='0px' viewBox='0 0 512 512' style='enable-background:new 0 0 512 512;' xml:space='preserve' width='512' height='512'%3E%3Cg%3E%3Cpath d='M480,224H288V32c0-17.673-14.327-32-32-32s-32,14.327-32,32v192H32c-17.673,0-32,14.327-32,32s14.327,32,32,32h192v192 c0,17.673,14.327,32,32,32s32-14.327,32-32V288h192c17.673,0,32-14.327,32-32S497.673,224,480,224z'/%3E%3C/g%3E%3C/svg%3E");
@@ -114,10 +122,6 @@ nav {
   height: 1rem;
   vertical-align: -0.125rem;
   width: 1rem;
-}
-
-.navbar .create-project-button {
-  display: none;
 }
 
 /* Modal */
@@ -188,6 +192,10 @@ nav {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.page-header .create-project-button {
+  display: none;
 }
 
 /* Main */
@@ -283,9 +291,20 @@ main {
   color: #000;
 }
 
-.create-project-button {
-  margin-left: auto;
-  margin-right: 0.5rem;
+/* Floating button */
+
+.create-project-float {
+	border-radius: 1000px;
+	bottom: 1rem;
+	box-shadow: 2px 2px 3px #999;
+	height: 60px;
+	right: 1rem;
+	width: 60px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  margin: 0;
 }
 
 /* Alerts */
@@ -516,6 +535,14 @@ textarea:focus-within {
     flex-direction: column;
   }
 
+  .create-project-float {
+    display: none;
+  }
+
+  .page-title {
+    flex-basis: 100%;
+  }
+
   nav {
     align-items: center;
     display: flex;
@@ -533,16 +560,12 @@ textarea:focus-within {
     width: 100%;
   }
 
+  .page-header .create-project-button {
+    display: block;
+  }
+
   .modal-edit-project .modal-content {
     margin: 10% auto;
-  }
-
-  .nav>.create-project-button {
-    display: none;
-  }
-
-  .navbar>.create-project-button {
-    display: block;
   }
 
   .file-list {

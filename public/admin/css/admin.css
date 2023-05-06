@@ -21,11 +21,6 @@ body {
 
 /* Navbar */
 
-button:focus {
-  outline: 0.063rem dotted;
-  outline: 0.313rem auto #e59700;
-}
-
 nav {
   background-color: #fff;
   border-bottom: 1px solid #7a7a7a;
@@ -46,6 +41,11 @@ nav {
   margin-right: 1rem;
   padding: 0.3125rem 0;
   text-decoration: none;
+}
+
+nav button:focus {
+  outline: 0.063rem dotted;
+  outline: 0.313rem auto #e59700;
 }
 
 .toggle {
@@ -92,7 +92,6 @@ nav {
 }
 
 .item {
-  border-radius: 0.3rem;
   color: #000;
   font-size: 1rem;
   font-weight: 400;
@@ -100,16 +99,13 @@ nav {
   padding: 0.5rem 1rem;
   text-align: center;
   text-decoration: none;
+  border: 1px solid transparent;
 }
 
+.active,
 .item:hover {
-  color: #000;
-}
-
-.active {
-  text-decoration-line: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 5px;
+  border: 1px solid #000;
+  border-radius: 1000px;
 }
 
 /* Create Project Button */
@@ -591,14 +587,11 @@ textarea:focus-within {
   .navbar {
     flex-direction: row;
     margin-top: 0;
+    justify-content: flex-end;
   }
 
   .item {
     min-width: 0;
-  }
-
-  .logout {
-    margin-left: auto;
   }
 
 }

@@ -9,7 +9,6 @@
     $project = [];
     $project['project_name'] = $_POST['project_name'] ?? '';
 
-    insert_project($project);
     redirect_to(url_for('admin/'));
   }
 ?>
@@ -51,7 +50,7 @@
         } elseif (!empty($image['path'])) {
             $project_cover = url_for($image['path']);
         } else {
-            $project_cover = url_for('admin/images/no-thumbnail.jpg');
+            $project_cover = url_for('images/no-thumbnail.jpg');
         }
       ?>
       <div class="project">

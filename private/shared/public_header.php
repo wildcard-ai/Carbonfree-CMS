@@ -20,9 +20,9 @@
   <button class="toggle" data-toggle-target="menu"><i class="hamburger-icon"></i></button>
   <div class="menu" data-toggle-id="menu">
     <div class="navbar">
-      <a class="item<?php echo (is_page( 'index' )) ? ' active':''; ?>" href="<?php echo url_for('/'); ?>">Work</a>
-      <a class="item<?php echo (is_page( 'about' )) ? ' active':''; ?>" href="<?php echo url_for('/about.php'); ?>">About</a>
-      <a class="item<?php echo (is_page( 'contact' )) ? ' active':''; ?>" href="<?php echo url_for('/contact.php'); ?>">Contact</a>
+      <a class="item<?php echo (is_page('index')) ? ' active':''; ?>" href="<?php echo url_for('/'); ?>">Work</a>
+      <a class="item<?php echo (is_page('about')) ? ' active':''; ?>" href="<?php echo url_for('/about.php'); ?>">About</a>
+      <a class="item<?php echo (is_page('contact')) ? ' active':''; ?>" href="<?php echo url_for('/contact.php'); ?>">Contact</a>
     </div>
   </div>
 </nav>

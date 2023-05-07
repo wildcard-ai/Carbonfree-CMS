@@ -43,46 +43,6 @@ uploadForms.forEach(async (uploadForm) => {
   });
 });
 
-// Modal
-
-function modal(form) {
-  const modal = document.querySelector('[data-modal-id="modal-wrapper"]');
-  const openModalBtn = document.querySelector('[data-modal-target="modal-wrapper"]');
-  const closeModalBtn = document.querySelector('[data-modal-action="close"]');
-  const body = document.body;
-
-  // Open modal
-  openModalBtn.addEventListener('click', function() {
-    modal.style.display = 'block';
-    body.style.overflow = 'hidden';
-  });
-
-  // Close modal on clicking X
-  closeModalBtn.addEventListener('click', function() {
-    closeModal();
-  });
-
-  // Close modal on click outside
-  window.addEventListener('click', function(event) {
-    if (event.target == modal) {
-      closeModal();
-    }
-  });
-
-  // Close modal on click of close button
-  const closeBtn = document.querySelector('[data-modal-button="close"]');
-  if (closeBtn) {
-    closeBtn.addEventListener('click', closeModal);
-  }
-
-  // Function to close modal and reset form
-  function closeModal() {
-    modal.style.display = 'none';
-    body.style.overflow = 'auto';
-    form.reset();
-  }
-}
-
 // Create Project
 
 const form = document.querySelector('[data-form-id="create-project-form"]');

@@ -16,6 +16,8 @@ $new_project["project_name"] = '';
   <link rel="stylesheet" href="<?php echo url_for('admin/css/admin.css'); ?>">
   <script src="<?php echo url_for('admin/js/script.js'); ?>" defer></script>
   <?php
+    echo load_script('index', 'modal');
+    echo load_script('project', 'modal');
     echo load_script('index', 'thumbnail');
     echo load_script('project', 'project');
   ?>

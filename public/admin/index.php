@@ -20,11 +20,11 @@
 
   <header class="page-header">
     <h2 class="page-title">Projects</h2>
-    <button class="button button-secondary create-project-button" id="open-modal" data-modal-target="modal-wrapper"><i class="plus-icon"></i> Create Project</button>
+    <button class="button button-secondary create-project-button" data-modal-target="modal"><i class="plus-icon"></i> Create Project</button>
     <!-- Visibility -->
     <div class="ml-auto">
-      <label class="toggle-switch-label" for="edit-thumbnails">Edit Thumbnails</label>
-      <input id="edit-thumbnails" class="toggle-switch" type="checkbox" data-switch-type="thumbnail">
+      <label class="toggle-switch-label" for="thumbnail-toggle-switch">Edit Thumbnails</label>
+      <input id="thumbnail-toggle-switch" class="toggle-switch" type="checkbox" data-switch-type="thumbnail">
     </div>
   </header>
 
@@ -60,23 +60,25 @@
     <?php } ?>
   </section>
 </main>
-<label class="button button-secondary create-project-button create-project-float" for="open-modal"><i class="plus-icon"></i></label>
+<label class="button button-secondary create-project-button create-project-float" data-modal-target="modal"><i class="plus-icon"></i></label>
 <div class="modal" data-modal-id="modal-wrapper">
   <div class="modal-content">
     <span class="close" data-modal-action="close">&times;</span>
+    
     <h2>Create Project</h2>
     <form data-form-id="create-project-form">
       <!-- Projet Title -->
       <input class="project-name-input" type="text" data-input-id="project-name" name="project_name" required>
       <!-- Visibility -->
       <div>
-        <input id="visible-input" class="toggle-switch" type="checkbox" data-input-id="visible-input" name="visible">
-        <label class="toggle-switch-label" for="visible-input">Visibility</label>
+        <input id="visibility-toggle-switch" class="toggle-switch" type="checkbox" data-input-id="visible-input" name="visible">
+        <label class="toggle-switch-label" for="visibility-toggle-switch">Visibility</label>
       </div>
       <div class="modal-actions">
         <button class="button button-primary" type="submit">Create</button>
       </div>
     </form>
+
   </div>
 </div>
 <?php include(SHARED_PATH . '/admin_footer.php'); ?>

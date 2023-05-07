@@ -127,17 +127,22 @@
     return $page; // returns an assoc. array
   }
 
-  function delete_project($db, $id) {
+  function delete_project($id) {
+    global $db;
+
     $sql = "DELETE FROM projects ";
     $sql .= "WHERE id='" . db_escape($db, $id) . "' ";
     $sql .= "LIMIT 1";
     $result = mysqli_query($db, $sql);
 
+    // For DELETE statements, $result is true/false
     if($result) {
-        return true;
+      return true;
     } else {
-        $error = mysqli_error($db);
-        return ["success" => false, "error" => $error];
+      // DELETE failed
+      echo mysqli_error($db);
+      db_disconnect($db);
+      exit;
     }
   }
 

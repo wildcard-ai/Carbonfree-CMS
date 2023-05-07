@@ -1,9 +1,8 @@
 // Upload files
 
-const uploadForm = document.getElementById('upload-image-form');
-const fileInput = document.getElementById('file-input');
-const uploadBtn = document.getElementById('upload-btn');
-const fileList = document.getElementById('file-list');
+const uploadForm = document.querySelector('[data-form-id="upload"]');
+const fileInput = document.querySelector('[data-input-id="upload"]');
+const fileList = document.querySelector('[data-list-id="upload"]');
 
 uploadForm.addEventListener('change', (event) => {
   event.preventDefault();
@@ -20,6 +19,7 @@ uploadForm.addEventListener('change', (event) => {
   .then((response) => response.json())
   .then((data) => {
     if (data.success) {
+      console.log(data);
       const img = document.createElement('img');
       img.classList.add('uploaded-image');
       img.src = data.path;
@@ -35,13 +35,13 @@ uploadForm.addEventListener('change', (event) => {
 
 // Project Name Edit
 
-const editButton = document.getElementById('edit-project-name');
-const saveButton = document.getElementById('save-project-name');
-const cancelButton = document.getElementById('cancel-project-name');
-const projectNameWrappers = document.getElementsByClassName('project-name-wrapper');
-const projectNameFormWrappers = document.getElementsByClassName('project-name-form-wrapper');
-const projectNameInput = document.getElementById('project-name-input');
-const editWrappers = document.getElementsByClassName('edit-wrapper');
+const editButton = document.querySelector('[data-button-edit="project-name"]');
+const projectNameWrappers = document.querySelectorAll('[data-title-collapse="project-name"]');
+const editWrappers = document.querySelectorAll('[data-edit-collapse="project-name"]');
+const projectNameFormWrappers = document.querySelectorAll('[data-form-collapse="project-name"]');
+const projectNameInput = document.querySelector('[data-input-id="project-name"]');
+const saveButton = document.querySelector('[data-button-save="project-name"]');
+const cancelButton = document.querySelector('[data-button-cancel="project-name"]');
 
 let originalProjectName = '';
 
@@ -58,7 +58,7 @@ function hideFormWrappers() {
 }
 
 function saveProjectName() {
-  const form = document.getElementById('edit-project-name-form');
+  const form = document.querySelector('[data-form-id="project-name"]');
   const projectId = form.querySelector('[name="project-id"]').value;
   const projectName = form.querySelector('[name="project-name"]').value;
   const formData = new FormData();
@@ -106,7 +106,7 @@ cancelButton.addEventListener('click', (event) => {
 
 // Project Visibility
 
-const visibilityCheckbox = document.getElementById("visibility-checkbox");
+const visibilityCheckbox = document.querySelector('[data-checkbox-type="visibility"]');
 
 // Fetch form data and submit to PHP script
 visibilityCheckbox.addEventListener("change", function(event) {
@@ -129,35 +129,6 @@ visibilityCheckbox.addEventListener("change", function(event) {
   .catch(error => console.error(error));
 });
 
-// Project Delete
+// Modal
 
-const deleteForm = document.querySelector('[data-form-id="delete-project-form"]');
-
-deleteForm.addEventListener('submit', async (event) => {
-  const confirmed = confirm(deleteForm.getAttribute('data-confirm-message'));
-  if (!confirmed) {
-    event.preventDefault();
-    return;
-  }
-
-  const projectId = deleteForm.querySelector('input');
-  const id = projectId.value;
-  const formData = new FormData();
-  formData.append('project_id', id);
-
-  try {
-    const response = await fetch('project_delete.php', {
-      method: 'POST',
-      body: formData
-    });
-    const data = await response.json();
-    if (data.success) {
-      const url = '.'; // Redirect to the Projects page
-      window.location.href = url;
-    } else {
-      console.log(data.error);
-    }
-  } catch (error) {
-    console.log(error);
-  }
-});
+modal();

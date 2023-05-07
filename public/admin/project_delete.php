@@ -6,17 +6,17 @@
     die(json_encode(["success" => false, "error" => "Connection failed."]));
   }
 
-  // Retrieve ID of the page to be deleted
+  // Retrieve ID of the project to be deleted
   $project_id = $_POST['project_id'];
 
-  // Construct DELETE query
-  $sql = "DELETE FROM projects WHERE id=" . db_escape($db, $project_id);
+  // Delete project from database
+  $delete_result = delete_project($db, $project_id);
 
-  // Execute SQL query to update record in database
-  if (mysqli_query($db, $sql)) {
-    echo json_encode(["success" => true, "message" => "Page with ID $project_id was deleted successfully.", "redirect" => url_for('/admin/')]);
+  if ($delete_result === true) {
+    $_SESSION['message'] = "The project was deleted successfully.";
+    echo json_encode(["success" => true, "message" => "The project was deleted successfully."]);
   } else {
-    echo json_encode(["success" => false, "error" => "Error deleting record." . mysqli_error($db)]);
+    echo json_encode($delete_result);
   }
 
   // Close database connection

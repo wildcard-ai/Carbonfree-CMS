@@ -7,18 +7,18 @@
   }
 
   // Get input values
-  $project_id = $_POST['project_id'] ?? null;
-  $visible = $_POST['visible'] ?? null;
+  $project = [];
+  $project['id'] = $_POST['project_id'] ?? '';
+  $project['visible'] = $_POST['visible'] ?? '';
 
   // Prepare SQL query
-  $sql = "UPDATE projects SET visible='" . db_escape($db, $visible) . "'";
-  $sql .= " WHERE id=" . db_escape($db, $project_id);
+  $result = update_project($db, $project);
 
   // Execute SQL query to update record in database
-  if (mysqli_query($db, $sql)) {
-    echo json_encode(["success" => true, "message" => "Record updated successfully."]);
+  if ($result === true) {
+    echo json_encode(["success" => true, "message" => "Project visibility updated successfully."]);
   } else {
-    echo json_encode(["success" => false, "error" => "Error updating record."]);
+    echo json_encode($result);
   }
 
   // Close database connection

@@ -18,7 +18,7 @@ if(is_post_request()) {
   $result = update_admin($admin);
   if($result === true) {
     $_SESSION['message'] = 'Account updated.';
-    redirect_to(url_for('/admin/administrator'));
+    redirect_to(url_for('/admin/password.php'));
   } else {
     $errors = $result;
   }
@@ -40,7 +40,7 @@ if(is_post_request()) {
     <?php echo display_errors($errors); ?>
     <?php echo display_session_message(); ?>
 
-    <form action="<?php echo url_for('admin/administrator/'); ?>" method="post">
+    <form action="<?php echo url_for('admin/password.php'); ?>" method="post">
       <p>
         Passwords should be at least 8 characters and include at least one uppercase letter, lowercase letter, number, and symbol.
       </p>

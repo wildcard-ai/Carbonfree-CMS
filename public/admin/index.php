@@ -16,9 +16,6 @@
 <?php $page_title = "Projects"; ?>
 <?php include(SHARED_PATH . '/admin_header.php'); ?>
 
-<?php echo display_errors($errors); ?>
-<?php echo display_session_message(); ?>
-
 <main>
 
   <header class="page-header">
@@ -31,14 +28,8 @@
     </div>
   </header>
 
-  <?php
-    if (!empty($_GET['data'])) {
-      $data = json_decode($_GET['data']);
-      $isValid = $data && property_exists($data, 'message');
-      $message = $isValid ? $data->message : 'Invalid data format.';
-      echo '<div class="alert alert-primary">' . $message . '</div>';
-    }
-  ?>
+  <?php echo display_errors($errors); ?>
+  <?php echo display_session_message(); ?>
 
   <section class="projects-list">
     <?php while($project = mysqli_fetch_assoc($project_set)) { ?>

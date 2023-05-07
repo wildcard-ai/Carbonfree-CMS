@@ -24,22 +24,21 @@ uploadForms.forEach(async (uploadForm) => {
     formData.append('project_id', id);
     formData.append('file', files[0]);
 
-    try {
-      const response = await fetch('thumbnail_upload.php', {
-        method: 'POST',
-        body: formData
-      });
-      const data = await response.json();
-      if (data.success) {
+    fetch('thumbnail_upload.php', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
         const img = thumbnail;
         img.src = data.cover_path; // change the src attribute to the new image URL
-        console.log(data);
-      } else {
-        console.log(data.error);
-      }
-    } catch (error) {
-      console.log(error);
-    }
+        // Do something with the data
+    })
+    .catch(error => {
+        console.error(error);
+    });
+
     fileInput.value = '';
   });
 });

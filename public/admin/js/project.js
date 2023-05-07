@@ -76,7 +76,7 @@ function saveProjectName() {
     const newProjectNameElements = document.getElementsByClassName('new-project-name');
     const newProjectNameArray = Array.from(newProjectNameElements);
     newProjectNameArray.forEach(element => {
-      element.textContent = data.newprojectname;
+      element.textContent = data.newProjectName;
     });
     originalProjectName = projectName;
     hideFormWrappers();
@@ -152,7 +152,7 @@ deleteForm.addEventListener('submit', async (event) => {
     });
     const data = await response.json();
     if (data.success) {
-      const url = `${data.redirect}?data=${encodeURIComponent(JSON.stringify(data))}`; // Redirect to the project page with the id
+      const url = '.'; // Redirect to the Projects page
       window.location.href = url;
     } else {
       console.log(data.error);

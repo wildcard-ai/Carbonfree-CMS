@@ -53,7 +53,7 @@ function display_session_message() {
 }
 
 function is_page($page) {
-  return $page == basename($_SERVER['PHP_SELF'], '.php');
+  return basename($_SERVER['PHP_SELF'], '.php') == $page;
 }
 
 function load_script($page, $js_file) {

@@ -4,13 +4,6 @@
 
   $project_set = find_all_projects();
 
-  //Create project
-  if(is_post_request()) {
-    $project = [];
-    $project['project_name'] = $_POST['project_name'] ?? '';
-
-    redirect_to(url_for('admin/'));
-  }
 ?>
 
 <?php $page_title = "Projects"; ?>

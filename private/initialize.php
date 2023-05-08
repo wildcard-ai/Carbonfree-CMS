@@ -1,9 +1,7 @@
 <?php
-  // Start output buffering
-  ob_start();
+  ob_start(); // output buffering is turned on
 
-  // Start session
-  session_start();
+  session_start(); // turn on sessions
 
   // Assign file paths to PHP constants
   // __FILE__ returns the current path to this file
@@ -32,7 +30,6 @@
 
   // Set up database connection
   $db = db_connect();
-
   $errors = [];
 
   // Set up website name

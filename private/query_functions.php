@@ -146,6 +146,52 @@
     }
   }
 
+  function validate_project($project) {
+    $errors = [];
+
+    // project_name
+    if(is_blank($project['project_name'])) {
+      $errors[] = "Name cannot be blank.";
+    } elseif(!has_length($project['project_name'], ['min' => 2, 'max' => 255])) {
+      $errors[] = "Name must be between 2 and 255 characters.";
+    }
+
+    // visible
+    // Make sure we are working with a string
+    $visible_str = (string) $project['visible'];
+    if(!has_inclusion_of($visible_str, ["0","1"])) {
+      $errors[] = "Visible must be true or false.";
+    }
+
+    return $errors;
+  }
+
+  function insert_project($project) {
+    global $db;
+
+    $errors = validate_project($project);
+    if(!empty($errors)) {
+      return $errors;
+    }
+
+    $sql = "INSERT INTO projects ";
+    $sql .= "(project_name, visible) ";
+    $sql .= "VALUES (";
+    $sql .= "'" . db_escape($db, $project['project_name']) . "',";
+    $sql .= "'" . db_escape($db, $project['visible']) . "'";
+    $sql .= ")";
+    $result = mysqli_query($db, $sql);
+    // For INSERT statements, $result is true/false
+    if($result) {
+      return true;
+    } else {
+      // INSERT failed
+      echo mysqli_error($db);
+      db_disconnect($db);
+      exit;
+    }
+  }
+
   function update_project($db, $project) {
     $fields = array_filter($project, function($value, $key) {
       return in_array($key, ['project_name', 'cover_path', 'visible']);

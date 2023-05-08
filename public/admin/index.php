@@ -2,6 +2,22 @@
   require_once('../../private/initialize.php');
   require_login();
 
+  if(is_post_request()) {
+
+    $project = [];
+    $project['project_name'] = $_POST['project_name'] ?? '';
+    $project['visible'] = $_POST['visible'] ?? '';
+
+    $result = insert_project($project);
+    if($result === true) {
+      $new_id = mysqli_insert_id($db);
+      redirect_to(url_for('/admin/project.php?id=' . $new_id));
+    } else {
+      $errors = $result;
+    }
+  
+  }
+
   $project_set = find_all_projects();
 
 ?>
@@ -54,17 +70,19 @@
   </section>
 </main>
 <label class="button button-secondary create-project-button create-project-float" data-modal-target="modal"><i class="plus-icon"></i></label>
+<!-- Modal -->
 <div class="modal" data-modal-id="modal-wrapper">
   <div class="modal-content">
     <span class="close" data-modal-action="close">&times;</span>
     
     <h2>Create Project</h2>
-    <form data-form-id="create-project-form">
+    <form data-form-id="create-project-form" action="<?php echo url_for('/admin/index.php'); ?>" method="post">
       <!-- Projet Title -->
-      <input class="project-name-input" type="text" data-input-id="project-name" name="project_name" required>
+      <input class="project-name-input" type="text" name="project_name" required>
       <!-- Visibility -->
       <div>
-        <input id="visibility-toggle-switch" class="toggle-switch" type="checkbox" data-input-id="visible-input" name="visible">
+        <input type="hidden" name="visible" value="0">
+        <input class="toggle-switch" id="visibility-toggle-switch" type="checkbox" name="visible" value="1">
         <label class="toggle-switch-label" for="visibility-toggle-switch">Visibility</label>
       </div>
       <div class="modal-actions">

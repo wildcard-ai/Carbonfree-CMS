@@ -42,3 +42,9 @@ function modal(form = null) {
     }
   }
 }
+
+// Create Project
+
+const form = document.querySelector('[data-form-id="create-project-form"]');
+// Clear form
+modal(form);

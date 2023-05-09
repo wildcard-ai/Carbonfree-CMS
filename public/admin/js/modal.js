@@ -3,8 +3,7 @@
 function modal(form = null, resetValidation = null) {
   const modal = document.querySelector('[data-modal-id="modal-wrapper"]');
   const openModalBtns = document.querySelectorAll('[data-modal-target="modal"]');
-  const closeModalBtn = document.querySelector('[data-modal-action="close"]');
-  const closeBtn = document.querySelector('[data-modal-button="close"]');
+  const closeModalBtns = document.querySelectorAll('[data-modal-action="close"]');
   const body = document.body;
 
   // Loop through all open modal buttons and add an event listener to each
@@ -16,9 +15,12 @@ function modal(form = null, resetValidation = null) {
     });
   });
 
-  // Close modal on clicking X
-  closeModalBtn.addEventListener('click', function() {
-    closeModal();
+  // Loop through all close modal buttons and add an event listener to each
+  closeModalBtns.forEach(function(closeModalBtn) {
+    // Close modal
+    closeModalBtn.addEventListener('click', function() {
+      closeModal();
+    });
   });
 
   // Close modal on click outside
@@ -28,10 +30,12 @@ function modal(form = null, resetValidation = null) {
     }
   });
 
-  // Close modal on click of close button
-  if (closeBtn) {
-    closeBtn.addEventListener('click', closeModal);
-  }
+  // Close modal on pressing Esc key
+  window.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+      closeModal();
+    }
+  });
 
   // Function to close modal and reset form
   function closeModal() {

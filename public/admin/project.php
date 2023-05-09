@@ -110,7 +110,7 @@ include(SHARED_PATH . '/admin_header.php');
     <h2>Delete this Project?</h2>
     <p>Are you sure you want to delete this project and its images? This action cannot be undone.</p>
     <div class="modal-actions">
-      <button class="button button-light" data-modal-button="close">Cancel</button>
+      <button class="button button-light" data-modal-action="close">Cancel</button>
       <form method="post" action="<?php echo url_for('admin/project.php?id=' . h(u($project['id']))); ?>">
         <button class="button button-danger" type="submit">Delete</button>
       </form>

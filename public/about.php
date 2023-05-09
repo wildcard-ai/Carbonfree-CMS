@@ -9,7 +9,7 @@ require_once('../private/initialize.php');
 
 <main class="about">
   <img class="myphoto" src="<?php echo url_for('images/myphoto.jpg'); ?>">
-  <h1>Joanne Dawson</h1>
+  <h1>Jane Doe</h1>
   <p>2D Artist <i class="location-icon"></i> Seattle, Washington</p>
 </main>
 

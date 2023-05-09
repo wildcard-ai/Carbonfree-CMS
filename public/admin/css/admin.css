@@ -338,6 +338,12 @@ textarea:focus-within {
   outline: 0.125rem solid #ff90e8;
 }
 
+/* Input validation */
+
+.danger {
+  border-color: #eb3939;
+}
+
 /* Toggle switch */
 
 .toggle-switch {

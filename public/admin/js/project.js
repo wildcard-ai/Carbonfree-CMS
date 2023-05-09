@@ -38,7 +38,7 @@ uploadForm.addEventListener('change', (event) => {
 const editButton = document.querySelector('[data-button-edit="project-name"]');
 const projectNameWrappers = document.querySelectorAll('[data-title-collapse="project-name"]');
 const editWrappers = document.querySelectorAll('[data-edit-collapse="project-name"]');
-const projectNameFormWrappers = document.querySelectorAll('[data-form-collapse="project-name"]');
+const formWrappers = document.querySelectorAll('[data-form-collapse="project-name"]');
 const projectNameInput = document.querySelector('[data-input-id="project-name"]');
 const saveButton = document.querySelector('[data-button-save="project-name"]');
 const cancelButton = document.querySelector('[data-button-cancel="project-name"]');
@@ -47,14 +47,14 @@ let originalProjectName = '';
 
 function showFormWrappers() {
   projectNameWrappers[0].style.display = 'none';
-  projectNameFormWrappers[0].style.display = 'block';
+  formWrappers[0].style.display = 'block';
   projectNameInput.focus();
   projectNameInput.select();
 }
 
 function hideFormWrappers() {
   projectNameWrappers[0].style.display = 'block';
-  projectNameFormWrappers[0].style.display = 'none';
+  formWrappers[0].style.display = 'none';
 }
 
 function saveProjectName() {

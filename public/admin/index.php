@@ -4,11 +4,11 @@
 
   if(is_post_request()) {
 
-    $project = [];
-    $project['project_name'] = $_POST['project_name'] ?? '';
-    $project['visible'] = $_POST['visible'] ?? '';
+    $new_project = [];
+    $new_project['project_name'] = $_POST['project_name'] ?? '';
+    $new_project['visible'] = $_POST['visible'] ?? '';
 
-    $result = insert_project($project);
+    $result = insert_project($new_project);
     if($result === true) {
       $new_id = mysqli_insert_id($db);
       redirect_to(url_for('/admin/project.php?id=' . $new_id));
@@ -16,6 +16,11 @@
       $errors = $result;
     }
   
+  } else {
+    // display the blank form
+    $new_project = [];
+    $new_project["project_name"] = '';
+    $new_project["visible"] = '';
   }
 
   $project_set = find_all_projects();
@@ -78,15 +83,15 @@
     <h2>Create Project</h2>
     <form data-form-id="create-project-form" action="<?php echo url_for('/admin/index.php'); ?>" method="post">
       <!-- Projet Title -->
-      <input class="project-name-input" type="text" name="project_name" required>
+      <input data-input-id="create-project-form" class="project-name-input" type="text" name="project_name" value="<?php echo h($new_project['project_name']); ?>">
       <!-- Visibility -->
       <div>
         <input type="hidden" name="visible" value="0">
-        <input class="toggle-switch" id="visibility-toggle-switch" type="checkbox" name="visible" value="1">
+        <input class="toggle-switch" id="visibility-toggle-switch" type="checkbox" name="visible" value="1"<?php if($new_project['visible'] == 1) { echo " checked"; } ?>>
         <label class="toggle-switch-label" for="visibility-toggle-switch">Visibility</label>
       </div>
       <div class="modal-actions">
-        <button class="button button-primary" type="submit">Create</button>
+        <button data-button-id="create-project-form" class="button button-primary" type="submit">Create</button>
       </div>
     </form>
 

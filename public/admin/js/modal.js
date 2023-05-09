@@ -1,6 +1,6 @@
 // Modal
 
-function modal(form = null) {
+function modal(form = null, resetValidation = null) {
   const modal = document.querySelector('[data-modal-id="modal-wrapper"]');
   const openModalBtns = document.querySelectorAll('[data-modal-target="modal"]');
   const closeModalBtn = document.querySelector('[data-modal-action="close"]');
@@ -37,14 +37,9 @@ function modal(form = null) {
   function closeModal() {
     modal.style.display = 'none';
     body.style.overflow = 'auto';
-    if (form) {
+    if (form && resetValidation) {
       form.reset();
+      resetValidation();
     }
   }
 }
-
-// Create Project
-
-const form = document.querySelector('[data-form-id="create-project-form"]');
-// Clear form
-modal(form);

@@ -152,8 +152,6 @@
     // project_name
     if(is_blank($project['project_name'])) {
       $errors[] = "Name cannot be blank.";
-    } elseif(!has_length($project['project_name'], ['min' => 2, 'max' => 255])) {
-      $errors[] = "Name must be between 2 and 255 characters.";
     }
 
     // visible

@@ -46,7 +46,7 @@ if(is_post_request()) {
       </p>
       <div class="pw-wrapper">
         <label>Username:</label>
-        <input type="text" name="username" value="">
+        <input type="text" name="username" value="" required>
       </div>
 
       <div class="pw-wrapper">

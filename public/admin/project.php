@@ -8,7 +8,6 @@ $project = find_project_by_id($project_id);
 $image_set = find_images_by_project_id($project_id);
 
 $page_title = h($project["project_name"]);
-include(SHARED_PATH . '/admin_header.php');
 
 // Delete Project
 if(is_post_request()) {
@@ -19,6 +18,8 @@ if(is_post_request()) {
 } else {
   $project = find_project_by_id($project_id);
 }
+
+include(SHARED_PATH . '/admin_header.php');
 
 ?>
 
@@ -54,11 +55,11 @@ if(is_post_request()) {
           <?php echo $page_title; ?>
         </div>
         <div class="project-name-form-wrapper" data-form-collapse="project-name">
-          <form data-form-id="project-name" method="post">
+          <form data-form-id="project-name">
             <input type="hidden" name="project-id" value="<?php echo $project_id; ?>">
             <input class="project-name-input" type="text" data-input-id="project-name" name="project-name" value="<?php echo $project["project_name"]; ?>" required>
-            <button class="button button-secondary" data-button-save="project-name">Save</button>
-            <button class="button button-primary" data-button-cancel="project-name">Cancel</button>
+            <button class="button button-secondary" data-button-save="project-name" type="submit">Save</button>
+            <button class="button button-primary" data-button-cancel="project-name" type="button">Cancel</button>
           </form>
         </div>
       </div>

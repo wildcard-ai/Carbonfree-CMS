@@ -1,4 +1,4 @@
-<footer>&copy; <?php echo date('Y'); ?> Joanne Dawson</footer>
+<footer>&copy; <?php echo date('Y'); ?> Jane Doe</footer>
 </body>
 </html>
 

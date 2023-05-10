@@ -3,14 +3,14 @@
 function modal(form = null, resetValidation = null) {
   const modal = document.querySelector('[data-modal-id="modal-wrapper"]');
   const openModalBtns = document.querySelectorAll('[data-modal-target="modal"]');
-  const closeModalBtns = document.querySelectorAll('[data-modal-action="close"]');
+  const closeModalBtns = document.querySelectorAll('[data-dismiss="modal"]');
   const body = document.body;
 
   // Loop through all open modal buttons and add an event listener to each
   openModalBtns.forEach(function(openModalBtn) {
     // Open modal
     openModalBtn.addEventListener('click', function() {
-      modal.style.display = 'block';
+      modal.style.display = 'flex';
       body.style.overflow = 'hidden';
     });
   });

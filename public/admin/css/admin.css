@@ -11,6 +11,11 @@ body {
   margin: 0;
 }
 
+p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
 .mr-auto {
   margin-right: auto;
 }
@@ -124,39 +129,49 @@ nav button:focus {
 
 .modal {
   background-color: rgba(0, 0, 0, 0.4);
-  display: none;
-  height: 100%;
-  left: 0;
-  overflow: auto;
   position: fixed;
   top: 0;
-  width: 100%;
-  z-index: 1;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1050;
+  display: none;
+  overflow: hidden;
+  outline: 0;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0.5rem;
 }
 
-.modal-content {
-  background-color: #fff;
-  border: 2px solid #000;
+.modal-dialog {
   max-width: 500px;
-  padding: 20px;
-  width: calc(100% - 16px);
-  top: 50%;
-  left: 50%;
-  position: relative;
-  transform: translate(-50%, -50%);
+  align-self: center;
+  width: 100%;
 }
 
-.modal-content h2 {
-  margin-top: 0;
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.modal-title {
   text-align: center;
+  font-size: 1.25rem;
+  margin: 0;
+  font-weight: 500;
 }
 
-.close {
+.modal-header .close {
+  padding: 1rem;
+  margin: -1rem -1rem -1rem auto;
   cursor: pointer;
-  float: right;
   font-size: 28px;
   font-weight: bold;
   line-height: 1rem;
+  display: block;
+  background-color: transparent;
+  border: 0;
 }
 
 .close:hover,
@@ -166,11 +181,32 @@ nav button:focus {
   text-decoration: none;
 }
 
-.modal-actions {
+.modal-content {
+    border: 2px solid #000;
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    width: 100%;
+    pointer-events: auto;
+    background-color: #fff;
+    background-clip: padding-box;
+    outline: 0;
+}
+
+.modal-body {
+  padding: 1rem;
+}
+
+.modal-footer {
   display: flex;
   gap: 1rem;
   justify-content: flex-end;
-  margin-top: 20px;
+  padding: 1rem;
 }
 
 /* Section */

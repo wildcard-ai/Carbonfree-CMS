@@ -77,24 +77,28 @@
 <label class="button button-secondary create-project-button create-project-float" data-modal-target="modal"><i class="plus-icon"></i></label>
 <!-- Modal -->
 <div class="modal" data-modal-id="modal-wrapper">
-  <div class="modal-content">
-    <span class="close" data-modal-action="close">&times;</span>
-    
-    <h2>Create Project</h2>
-    <form data-form-id="create-project-form" action="<?php echo url_for('/admin/index.php'); ?>" method="post">
-      <!-- Projet Title -->
-      <input data-input-id="create-project-form" class="project-name-input" type="text" name="project_name" value="<?php echo h($new_project['project_name']); ?>">
-      <!-- Visibility -->
-      <div>
-        <input type="hidden" name="visible" value="0">
-        <input class="toggle-switch" id="visibility-toggle-switch" type="checkbox" name="visible" value="1"<?php if($new_project['visible'] == 1) { echo " checked"; } ?>>
-        <label class="toggle-switch-label" for="visibility-toggle-switch">Visibility</label>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Create Project</h5>
+        <button class="close" data-dismiss="modal"><span>×</span></button>
       </div>
-      <div class="modal-actions">
-        <button data-button-id="create-project-form" class="button button-primary" type="submit">Create</button>
+      <div class="modal-body">
+        <form id="create-project" data-form-id="create-project-form" action="<?php echo url_for('/admin/index.php'); ?>" method="post">
+          <!-- Projet Title -->
+          <input data-input-id="create-project-form" class="project-name-input" type="text" name="project_name" value="<?php echo h($new_project['project_name']); ?>">
+          <!-- Visibility -->
+          <div>
+            <input type="hidden" name="visible" value="0">
+            <input class="toggle-switch" id="visibility-toggle-switch" type="checkbox" name="visible" value="1"<?php if($new_project['visible'] == 1) { echo " checked"; } ?>>
+            <label class="toggle-switch-label" for="visibility-toggle-switch">Visibility</label>
+          </div>
+        </form>
       </div>
-    </form>
-
+      <div class="modal-footer">
+        <button form="create-project" data-button-id="create-project-form" class="button button-primary" type="submit">Create</button>
+      </div>
+    </div>
   </div>
 </div>
 <?php include(SHARED_PATH . '/admin_footer.php'); ?>

@@ -11,7 +11,7 @@ if(!isset($page_title)) { $page_title = 'Admin Panel'; }
   <title><?php echo h($page_title) . ' - ' . $site_name; ?></title>
   <link rel="icon" href="<?php echo url_for('images/favicon.ico'); ?>">
   <link rel="stylesheet" href="<?php echo url_for('admin/css/admin.css'); ?>">
-  <script src="<?php echo url_for('admin/js/script.js'); ?>" defer></script>
+  <script src="<?php echo url_for('admin/js/navbar.js'); ?>" defer></script>
   <?php
     echo load_script('index', 'modal');
     echo load_script('index', 'newproject');

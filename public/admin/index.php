@@ -86,7 +86,7 @@
       <div class="modal-body">
         <form id="create-project" data-form-id="create-project-form" action="<?php echo url_for('/admin/index.php'); ?>" method="post">
           <!-- Projet Title -->
-          <input data-input-id="create-project-form" class="project-name-input" type="text" name="project_name" value="<?php echo h($new_project['project_name']); ?>">
+          <input data-input-id="create-project-form" class="project-name-input" type="text" name="project_name" value="<?php echo h($new_project['project_name']); ?>" autocomplete="off">
           <!-- Visibility -->
           <div>
             <input type="hidden" name="visible" value="0">

@@ -62,9 +62,9 @@ if(is_post_request()) {
       <?php echo display_errors($errors); ?>
       <form action="<?php echo url_for('/admin/login.php'); ?>" method="post">
         <label for="username">Username</label>
-        <input class="input" type="text" id="username" name="username" value="<?php echo h($username); ?>" required>
+        <input class="input" type="text" id="username" name="username" value="<?php echo h($username); ?>" autocomplete="username" required>
         <label for="password">Password</label>
-        <input class="input" type="password" id="password" name="password" value="" required>
+        <input class="input" type="password" id="password" name="password" value="" autocomplete="current-password" required>
         <input class="button button-primary login" type="submit" value="Login">
       </form>
     </div>

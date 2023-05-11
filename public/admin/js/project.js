@@ -128,7 +128,3 @@ visibilityCheckbox.addEventListener("change", function(event) {
   })
   .catch(error => console.error(error));
 });
-
-// Modal for deleting a project
-
-modal();

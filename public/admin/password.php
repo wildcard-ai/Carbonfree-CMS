@@ -46,22 +46,22 @@ if(is_post_request()) {
       </p>
       <div class="pw-wrapper">
         <label>Username:</label>
-        <input type="text" name="username" value="" required>
+        <input type="text" name="username" value="" autocomplete="username" required>
       </div>
 
       <div class="pw-wrapper">
         <label>Email:</label>
-        <input type="text" name="email" value="">
+        <input type="text" name="email" value="" autocomplete="email">
       </div>
 
       <div class="pw-wrapper">
         <label>Password:</label>
-        <input type="password" name="password" value="">
+        <input type="password" name="password" value="" autocomplete="new-password">
       </div>
 
       <div class="pw-wrapper">
         <label>Confirm Password:</label>
-        <input type="password" name="confirm_password" value="">
+        <input type="password" name="confirm_password" value="" autocomplete="new-password">
       </div>
 
       <div>

@@ -1,28 +1,28 @@
 // form validation for create project
 
-const form = document.querySelector('[data-form-id="create-project-form"]');
-const input = document.querySelector('[data-input-id="create-project-form"]');
+const createProjectForm = document.querySelector('[data-form-id="create-project-form"]');
+const createProjectInput = document.querySelector('[data-input-id="create-project-form"]');
 
-form.addEventListener("submit", formValidation);
-input.addEventListener("keyup", resetValidation);
+createProjectForm.addEventListener("submit", formValidation);
+createProjectInput.addEventListener("keyup", function(event) {
+  resetValidation(createProjectInput, event);
+});
 
 function formValidation(event) {
-  if(input.value.trim() === '') {
+  if(createProjectInput.value.trim() === '') {
     event.preventDefault();
-    input.focus();
-    input.classList.add('danger'); // Add red border to input field
+    createProjectInput.focus();
+    createProjectInput.classList.add('danger'); // Add red border to input field
     return false;
   } else {
     return true;
   }
 }
 
-function resetValidation(event) {
+function resetValidation(inputElement, event) {
   if (event && event.keyCode === 13) {
     // Ignore Enter key
     return;
   }
-  return input.classList.remove('danger'); // Remove red border from input field
+  inputElement.classList.remove('danger'); // Remove red border from input field
 }
-
-modal(form, resetValidation);

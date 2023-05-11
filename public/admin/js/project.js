@@ -1,4 +1,4 @@
-// Upload files
+/* Upload files */ 
 
 const uploadForm = document.querySelector('[data-form-id="upload"]');
 const fileInput = document.querySelector('[data-input-id="upload"]');
@@ -33,7 +33,8 @@ uploadForm.addEventListener('change', (event) => {
   fileInput.value = '';
 });
 
-// Project Name Edit
+/* Details */
+// Project Name
 
 const editButton = document.querySelector('[data-button-edit="project-name"]');
 const projectNameWrappers = document.querySelectorAll('[data-title-collapse="project-name"]');
@@ -104,7 +105,7 @@ cancelButton.addEventListener('click', (event) => {
   editWrappers[0].style.display = 'block';
 });
 
-// Project Visibility
+/* Project Visibility */
 
 const visibilityCheckbox = document.querySelector('[data-checkbox-type="visibility"]');
 

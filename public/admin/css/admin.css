@@ -100,7 +100,10 @@ input, select {
 }
 
 body {
-  font: 400 1rem/1.5 'Segoe UI', Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: 400;
+  font-family: 'Segoe UI', Arial, sans-serif;
   background: #f9f9f9;
   color: #000;
   margin: 0;
@@ -166,7 +169,6 @@ nav {
   box-shadow: inset 0 0.063rem 0 0 rgba(255,255,255,0.5);
   cursor:pointer;
   font-size: 1.25rem;
-  line-height: 1;
   padding: 0.25rem 0.75rem;
 }
 
@@ -279,7 +281,6 @@ nav {
   font-size: 1.25rem;
   margin: 0;
   font-weight: 400;
-  line-height: 1;
   margin-bottom: 2px;
 }
 
@@ -289,7 +290,6 @@ nav {
   cursor: pointer;
   font-size: 28px;
   font-weight: 400;
-  line-height: 1;
   display: block;
   background-color: transparent;
   border: 0;
@@ -368,13 +368,14 @@ main {
   border-width: 1px;
   cursor: pointer;
   display: inline-block;
+  font-family: 'Segoe UI', Arial, sans-serif;
   font-size: 1rem;
   font-weight: 400;
-  line-height: 1.5;
   padding: 0.375rem 0.75rem;
   text-align: center;
   text-decoration: none;
   transition: all 0.14s ease-out;
+  line-height: 1.2;
 }
 
 /* .button:hover {
@@ -385,6 +386,10 @@ main {
 .button:active {
   box-shadow: 0 0 0 #000;
   transform: translate(0, 0);
+}
+
+.button:focus {
+  box-shadow: 0 0 0 0.2rem rgba(0,123,255,.5);
 }
 
 .button-primary {
@@ -487,21 +492,20 @@ textarea {
   width: 100%;
 }
 
-input:focus-within,
-textarea:focus-within {
-  outline: 0.125rem solid #a3dcfd;
-}
-
-input[type="text"],
-input[type="password"] {
-  box-shadow: inset 0 0 5px #d3efff;
+input:focus,
+textarea:focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
 }
 
 /* Input validation */
 
 .danger {
   border-color: #eb3939;
-  box-shadow: inset 0 0 5px #fd92b6!important;
+}
+
+.danger:focus {
+  box-shadow: 0 0 0 0.2rem rgba(255,0,85,.25);
 }
 
 /* Toggle switch */
@@ -588,10 +592,10 @@ input[type="password"] {
 /* Project */
 
 .upload-edit-wrapper {
-  background-color: #fff;
-  border-radius: 4px 4px 0 0;
-  border: 1px solid #000;
-  border-bottom: none;
+  background-color: #dcf2ff;
+  /* border-radius: 4px 4px 0 0; */
+  /* border: 1px solid #000; */
+  /* border-bottom: none; */
   display: flex;
   justify-content: space-between;
   padding: 0.5rem 1rem;
@@ -599,8 +603,8 @@ input[type="password"] {
 
 .file-list {
   background-color: #fff;
-  border-radius: 0 0 4px 4px;
-  border: 1px solid #000;
+  /* border-radius: 0 0 4px 4px; */
+  /* border: 1px solid #000; */
   display: grid;
   gap: 1rem;
   grid-template-columns: 1fr 1fr;
@@ -609,8 +613,8 @@ input[type="password"] {
 }
 
 .uploaded-image {
-  border-radius: 4px;
-  border: 1px solid #000;
+  /* border-radius: 4px; */
+  /* border: 1px solid #000; */
   height: 123px;
   object-fit: cover;
   width: 100%;
@@ -626,9 +630,9 @@ input[type="password"] {
 }
 
 .details-wrapper {
-  background-color: #fff;
-  border-radius: 4px;
-  border: 1px solid #000;
+  background-color: #dcf2ff;
+  /* border-radius: 4px; */
+  /* border: 1px solid #000; */
   display: flex;
   justify-content: space-between;
   min-height: 56px;

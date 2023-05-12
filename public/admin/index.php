@@ -33,7 +33,7 @@
 <main>
 
   <header class="page-header">
-    <h2 class="page-title">Projects</h2>
+    <h2 class="page-title separator">Projects</h2>
     <button class="button button-secondary create-project-button" data-modal-target="modal"><i class="plus-icon"></i> Create Project</button>
     <!-- Visibility -->
     <div class="ml-auto">
@@ -74,7 +74,7 @@
     <?php } ?>
   </section>
 </main>
-<label class="button button-secondary create-project-button create-project-float" data-modal-target="modal"><i class="plus-icon"></i></label>
+<label class="create-project-button create-project-float" data-modal-target="modal"><i class="plus-icon"></i></label>
 <!-- Modal -->
 <div class="modal" data-modal-id="modal-wrapper">
   <div class="modal-dialog">
@@ -96,7 +96,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button form="create-project" data-button-id="create-project-form" class="button button-primary" type="submit">Create</button>
+        <button form="create-project" data-button-id="create-project-form" class="button button-secondary" type="submit">Create</button>
       </div>
     </div>
   </div>

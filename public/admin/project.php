@@ -58,8 +58,10 @@ include(SHARED_PATH . '/admin_header.php');
           <form data-form-id="project-name">
             <input type="hidden" name="project-id" value="<?php echo $project_id; ?>">
             <input class="project-name-input" type="text" data-input-id="project-name" name="project-name" value="<?php echo $project["project_name"]; ?>" required>
-            <button class="button button-secondary" data-button-save="project-name" type="submit">Save</button>
-            <button class="button button-primary" data-button-cancel="project-name" type="button">Cancel</button>
+            <div class="button-container">
+              <button class="button button-secondary" data-button-save="project-name" type="submit">Save</button>
+              <button class="button button-primary" data-button-cancel="project-name" type="button">Cancel</button>
+            </div>
           </form>
         </div>
       </div>

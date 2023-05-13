@@ -206,8 +206,8 @@ nav {
   font-size: 1rem;
   font-weight: 400;
   min-width: 8.75rem;
-  padding: 0.5rem 1rem;
-  padding-bottom: calc(0.5rem + 2px);
+  padding: calc(0.5rem + 2px) 1rem;
+  padding-bottom: 0.5rem;
   text-align: center;
   text-decoration: none;
   background-color: #d3efff;
@@ -245,8 +245,18 @@ nav {
 
 /* Modal */
 
+.modal-backdrop {
+  backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.514);
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1040;
+}
+
 .modal {
-  background-color: rgba(0, 0, 0, 0.4);
   position: fixed;
   top: 0;
   right: 0;
@@ -462,7 +472,7 @@ main {
   justify-content: center;
   position: fixed;
   margin: 0;
-  background-color: #fb94c1;
+  background-color: #f5458e;
 }
 
 /* Alerts */
@@ -479,6 +489,12 @@ main {
   color: #004085;
   background-color: #cce5ff;
   border-color: #b8daff;
+}
+
+.alert-danger {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
 }
 
 /* Input fields */
@@ -637,6 +653,10 @@ textarea:focus {
   justify-content: space-between;
   min-height: 56px;
   padding: 0.5rem 1rem;
+}
+
+.details-wrapper:not(:last-child) {
+  margin-bottom: 1px;
 }
 
 .details-wrapper span {

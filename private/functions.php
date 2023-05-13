@@ -28,7 +28,7 @@ function is_post_request() {
 function display_errors($errors=array()) {
   $output = '';
   if(!empty($errors)) {
-    $output .= "<div class=\"error-message\">";
+    $output .= "<div class=\"alert alert-danger\">";
     foreach($errors as $error) {
       $output .= h($error);
     }

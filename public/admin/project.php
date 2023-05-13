@@ -7,8 +7,6 @@ $project_id = isset($_GET['id']) ? $_GET['id'] : null;
 $project = find_project_by_id($project_id);
 $image_set = find_images_by_project_id($project_id);
 
-$page_title = h($project["project_name"]);
-
 // Delete Project
 if(is_post_request()) {
   // Delete project from database
@@ -25,7 +23,7 @@ include(SHARED_PATH . '/admin_header.php');
 
 <main>
   <header class="page-header">
-    <h2 class="page-title new-project-name"><?php echo $page_title; ?></h2>
+    <h2 class="page-title new-project-name"><?php echo $project["project_name"]; ?></h2>
   </header>
 
   <section class="images-section">
@@ -52,7 +50,7 @@ include(SHARED_PATH . '/admin_header.php');
       <div class="form-wrapper">
         <div><span>Project Title</span></div>
         <div class="project-name-wrapper new-project-name" data-title-collapse="project-name">
-          <?php echo $page_title; ?>
+          <?php echo $project["project_name"]; ?>
         </div>
         <div class="project-name-form-wrapper" data-form-collapse="project-name">
           <form data-form-id="project-name">
@@ -60,7 +58,29 @@ include(SHARED_PATH . '/admin_header.php');
             <input class="project-name-input" type="text" data-input-id="project-name" name="project-name" value="<?php echo $project["project_name"]; ?>" required>
             <div class="button-container">
               <button class="button button-secondary" data-button-save="project-name" type="submit">Save</button>
-              <button class="button button-primary" data-button-cancel="project-name" type="button">Cancel</button>
+              <button class="button button-light" data-button-cancel="project-name" type="button">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="edit-wrapper" data-edit-collapse="project-name">
+        <button class="button button-primary" data-button-edit="project-name">Edit</button>
+      </div>
+    </div>
+
+    <div class="details-wrapper">
+      <div class="form-wrapper">
+        <div><span>Description</span></div>
+        <div class="project-name-wrapper new-project-name" data-title-collapse="project-name">
+          <?php echo $project["description"]; ?>
+        </div>
+        <div class="project-name-form-wrapper" data-form-collapse="project-name">
+          <form data-form-id="project-name">
+            <input type="hidden" name="project-id" value="<?php echo $project_id; ?>">
+            <input class="project-name-input" type="text" data-input-id="project-name" name="project-name" value="<?php echo $project["description"]; ?>" required>
+            <div class="button-container">
+              <button class="button button-secondary" data-button-save="project-name" type="submit">Save</button>
+              <button class="button button-light" data-button-cancel="project-name" type="button">Cancel</button>
             </div>
           </form>
         </div>

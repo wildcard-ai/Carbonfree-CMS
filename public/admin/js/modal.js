@@ -11,6 +11,7 @@ openModalBtns.forEach(function(openModalBtn) {
   openModalBtn.addEventListener('click', function() {
     modal.style.display = 'flex';
     body.style.overflow = 'hidden';
+    createModalBackdrop();
   });
 });
 
@@ -40,9 +41,28 @@ window.addEventListener('keydown', function(event) {
 function closeModal() {
   modal.style.display = 'none';
   body.style.overflow = 'auto';
+  destroyModalBackdrop();
 
   if (typeof createProjectForm !== 'undefined' && typeof createProjectInput !== 'undefined') {
     createProjectForm.reset();
     resetValidation(createProjectInput);
+  }
+}
+
+function createModalBackdrop() {
+  var modalBackdrop = document.querySelector('.modal-backdrop');
+
+  if (!modalBackdrop) {
+    var divElement = document.createElement('div');
+    divElement.setAttribute('class', 'modal-backdrop');
+    body.appendChild(divElement);
+  }
+}
+
+function destroyModalBackdrop() {
+  var modalBackdrop = document.querySelector('.modal-backdrop');
+
+  if (modalBackdrop) {
+    modalBackdrop.parentNode.removeChild(modalBackdrop);
   }
 }

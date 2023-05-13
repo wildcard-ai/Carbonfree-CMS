@@ -21,9 +21,9 @@ function slideToggle(element, action) {
   
   if (action === 'slideDown') {
     element.classList.remove('collapse');
-    var height = getHeight(element);
+    var height = element.clientHeight;
   } else {
-    element.style.height = getHeight(element) + 'px';
+    element.style.height = element.clientHeight + 'px';
     element.classList.remove('open');
   }
 
@@ -48,8 +48,4 @@ function slideToggle(element, action) {
     element.removeEventListener('transitionend', onTransitionEnd);
     isAnimating = false;
   });
-}
-
-function getHeight(element) {
-  return element.clientHeight;
 }

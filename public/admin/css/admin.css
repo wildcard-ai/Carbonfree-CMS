@@ -798,9 +798,10 @@ textarea:focus {
   }
 
   .menu {
-    display: block;
+    display: flex;
     flex-basis: auto;
     flex-grow: 1;
+    justify-content: flex-end;
   }
 
   .navbar {

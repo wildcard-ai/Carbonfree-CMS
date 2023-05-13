@@ -1,6 +1,6 @@
-var toggleButton = document.querySelector('[data-toggle="collapse"]');
-var menu = document.querySelector('[data-menu="collapse"]');
-var isAnimating = false; // Flag to track animation state
+const toggleButton = document.querySelector('[data-toggle="collapse"]');
+const menu = document.querySelector('[data-menu="collapse"]');
+let isAnimating = false; // Flag to track animation state
 
 toggleButton.addEventListener('click', function() {
   if (isAnimating) {

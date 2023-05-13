@@ -1,58 +1,55 @@
 const toggleButton = document.querySelector('[data-toggle="collapse"]');
 const menu = document.querySelector('[data-menu="collapse"]');
-let isAnimating = false; // Flag to track animation state
+let isAnimating = false;
 
 toggleButton.addEventListener('click', function() {
   if (isAnimating) {
-    return; // Do nothing if animation is already in progress
+    return;
   }
 
   var isMenuToggled = toggleButton.classList.contains('toggled');
 
   if (!isMenuToggled) {
-    slideDown(menu);
+    slideToggle(menu, 'slideDown');
   } else {
-    slideUp(menu);
+    slideToggle(menu, 'slideUp');
   }
 });
 
-function slideDown(element) {
-  isAnimating = true; // Set the flag to indicate animation is in progress
-  element.classList.remove('collapse');
-  var height = element.clientHeight; // Get the current height of the element
-  element.classList.add('collapsing');
-
-  setTimeout(function() {
-    element.style.height = height + 'px'; // Animate to the computed height
-  }, 0);
-
-  element.addEventListener('transitionend', function onTransitionEnd() {
-    element.removeEventListener('transitionend', onTransitionEnd);
-    element.classList.remove('collapsing');
-    element.classList.add('open');
-    toggleButton.classList.add('toggled');
-    isAnimating = false; // Reset the flag after animation completes
-    element.style.height = ''; // Remove the inline height style
-  });
-}
-
-function slideUp(element) {
-  isAnimating = true; // Set the flag to indicate animation is in progress
-  var height = element.clientHeight; // Get the original height
-  element.style.height = height + 'px'; // Set the initial height
+function slideToggle(element, action) {
+  isAnimating = true;
   
-  element.classList.remove('open');
+  if (action === 'slideDown') {
+    element.classList.remove('collapse');
+    var height = getHeight(element);
+  } else {
+    element.style.height = getHeight(element) + 'px';
+    element.classList.remove('open');
+  }
+
   element.classList.add('collapsing');
+
   setTimeout(function() {
-    element.style.height = ''; // Animate to height 0
+    element.style.height = action === 'slideDown' ? height + 'px' : '';
   }, 0);
 
   element.addEventListener('transitionend', function onTransitionEnd() {
-    element.removeEventListener('transitionend', onTransitionEnd);
     element.classList.remove('collapsing');
-    element.classList.add('collapse');
-    toggleButton.classList.remove('toggled');
-    isAnimating = false; // Reset the flag after animation completes
+
+    if (action === 'slideDown') {
+      element.classList.add('open');
+      toggleButton.classList.add('toggled');
+      element.style.height = '';
+    } else {
+      element.classList.add('collapse');
+      toggleButton.classList.remove('toggled');
+    }
+
+    element.removeEventListener('transitionend', onTransitionEnd);
+    isAnimating = false;
   });
 }
 
+function getHeight(element) {
+  return element.clientHeight;
+}

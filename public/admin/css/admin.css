@@ -185,9 +185,6 @@ nav {
   width: 1.5rem;
 }
 
-/* chatgpt generated classes for navbar toggler */
-
-
 .menu {
   flex-basis: 100%;
 }
@@ -206,8 +203,6 @@ nav {
 .open {
   display: block;
 }
-
-/* END chatgpt generated classes for navbar toggler */
 
 .navbar {
   display: flex;

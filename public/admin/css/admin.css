@@ -160,7 +160,7 @@ nav {
   outline: 0.313rem auto #e59700;
 } */
 
-.toggle {
+.navbar-toggler {
   background-color: #f5458e;
   /* background: linear-gradient(to bottom, #333333 5%, #262626 100%); */
   border-color: rgba(255, 255, 255, 0.1);
@@ -172,7 +172,7 @@ nav {
   padding: 0.25rem 0.75rem;
 }
 
-.toggle:hover {
+.navbar-toggler:hover {
   /* background: linear-gradient(to bottom, #262626 5%, #333333 100%); */
   background-color: #f12c7e;
 }
@@ -185,14 +185,29 @@ nav {
   width: 1.5rem;
 }
 
+/* chatgpt generated classes for navbar toggler */
+
+
 .menu {
-  display: none;
   flex-basis: 100%;
 }
 
-.show {
+.collapse {
+  display: none;
+}
+
+.collapsing {
+  position: relative;
+  height: 0;
+  overflow: hidden;
+  transition: height 0.35s ease;
+}
+
+.open {
   display: block;
 }
+
+/* END chatgpt generated classes for navbar toggler */
 
 .navbar {
   display: flex;
@@ -246,8 +261,7 @@ nav {
 /* Modal */
 
 .modal-backdrop {
-  backdrop-filter: blur(10px);
-  background-color: rgba(255, 255, 255, 0.514);
+  background-color: rgba(0, 0, 0, 0.5);
   position: fixed;
   top: 0;
   right: 0;
@@ -473,6 +487,7 @@ main {
   position: fixed;
   margin: 0;
   background-color: #f5458e;
+  cursor: pointer;
 }
 
 /* Alerts */
@@ -778,7 +793,7 @@ textarea:focus {
     padding: 0 1rem;
   }
 
-  .nav .toggle {
+  .navbar-toggler {
     display: none;
   }
 

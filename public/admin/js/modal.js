@@ -9,9 +9,11 @@ const body = document.body;
 openModalBtns.forEach(function(openModalBtn) {
   // Open modal
   openModalBtn.addEventListener('click', function() {
-    modal.style.display = 'flex';
-    body.style.overflow = 'hidden';
     createModalBackdrop();
+    setTimeout(function() {
+      modal.style.display = 'flex';
+      body.style.overflow = 'hidden';
+    }, 150);
   });
 });
 
@@ -50,17 +52,13 @@ function closeModal() {
 }
 
 function createModalBackdrop() {
-  var modalBackdrop = document.querySelector('.modal-backdrop');
-
-  if (!modalBackdrop) {
-    var divElement = document.createElement('div');
-    divElement.setAttribute('class', 'modal-backdrop');
-    body.appendChild(divElement);
-  }
+  const divElement = document.createElement('div');
+  divElement.setAttribute('class', 'modal-backdrop');
+  body.appendChild(divElement);
 }
 
 function destroyModalBackdrop() {
-  var modalBackdrop = document.querySelector('.modal-backdrop');
+  const modalBackdrop = document.querySelector('.modal-backdrop');
 
   if (modalBackdrop) {
     modalBackdrop.parentNode.removeChild(modalBackdrop);

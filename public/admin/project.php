@@ -77,7 +77,7 @@ include(SHARED_PATH . '/admin_header.php');
         <div class="project-name-form-wrapper" data-form-collapse="description">
           <form data-form-id="description">
             <input type="hidden" name="project-id" value="<?php echo $project_id; ?>">
-            <input class="project-name-input" type="text" data-input-id="description" name="description" value="<?php echo $project["description"]; ?>" required>
+            <textarea class="project-description" data-input-id="description" name="description" rows="4" cols="50"><?php echo $project["description"]; ?></textarea>
             <div class="button-container">
               <button class="button button-secondary" data-button-save="description" type="submit">Save</button>
               <button class="button button-light" data-button-cancel="description" type="button">Cancel</button>

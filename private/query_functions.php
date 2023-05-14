@@ -196,20 +196,14 @@
     }, ARRAY_FILTER_USE_BOTH);
     
     $sql = "UPDATE projects SET ";
-    //$set = [];
   
     foreach($fields as $key => $value) {
-      //$set[] = "$key='" . db_escape($db, $value) . "'";
       $sql .= "$key='" . db_escape($db, $value) . "' ";
     }
-
-    // Remove the last comma from the string
-    //$sql = rtrim($sql, ",");
   
-    //$sql .= implode(', ', $set);
     $sql .= "WHERE id='" . db_escape($db, $project['id']) . "' ";
     $sql .= "LIMIT 1";
-  
+
     $result = mysqli_query($db, $sql);
 
     if($result) {

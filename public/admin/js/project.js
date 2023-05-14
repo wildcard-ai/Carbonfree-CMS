@@ -67,7 +67,7 @@ function saveProjectName() {
   formData.append('project_name', projectName);
 
   // Create fetch request
-  fetch("project_name.php", {
+  fetch("project_details.php", {
     method: "POST",
     body: formData
   })
@@ -77,7 +77,7 @@ function saveProjectName() {
     const newProjectNameElements = document.querySelectorAll('[data-new-project-title="project-name"]');
     const newProjectNameArray = Array.from(newProjectNameElements);
     newProjectNameArray.forEach(element => {
-      element.textContent = data.newProjectName;
+      element.textContent = data.newText;
     });
     originalProjectName = projectName;
     hideProjectNameFormWrappers();
@@ -138,7 +138,7 @@ function saveDescription() {
   formData.append('description', description);
 
   // Create fetch request
-  fetch("project_description.php", {
+  fetch("project_details.php", {
     method: "POST",
     body: formData
   })
@@ -148,7 +148,7 @@ function saveDescription() {
     const newDescriptionElements = document.querySelectorAll('[data-new-description="description"]');
     const newDescriptionArray = Array.from(newDescriptionElements);
     newDescriptionArray.forEach(element => {
-      element.textContent = data.newDescription;
+      element.textContent = data.newText;
     });
     originalDescription = description;
     hideDescriptionFormWrappers();

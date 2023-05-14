@@ -23,7 +23,7 @@ include(SHARED_PATH . '/admin_header.php');
 
 <main>
   <header class="page-header">
-    <h2 class="page-title new-project-name"><?php echo $project["project_name"]; ?></h2>
+    <h2 class="page-title" data-new-project-title="project-name"><?php echo $project["project_name"]; ?></h2>
   </header>
 
   <section class="images-section">
@@ -49,7 +49,7 @@ include(SHARED_PATH . '/admin_header.php');
     <div class="details-wrapper">
       <div class="form-wrapper">
         <div><span>Project Title</span></div>
-        <div class="project-name-wrapper new-project-name" data-title-collapse="project-name">
+        <div class="project-name-wrapper" data-title-collapse="project-name" data-new-project-title="project-name">
           <?php echo $project["project_name"]; ?>
         </div>
         <div class="project-name-form-wrapper" data-form-collapse="project-name">
@@ -71,22 +71,22 @@ include(SHARED_PATH . '/admin_header.php');
     <div class="details-wrapper">
       <div class="form-wrapper">
         <div><span>Description</span></div>
-        <div class="project-name-wrapper new-project-name" data-title-collapse="project-name">
+        <div class="project-name-wrapper" data-title-collapse="description" data-new-description="description">
           <?php echo $project["description"]; ?>
         </div>
-        <div class="project-name-form-wrapper" data-form-collapse="project-name">
-          <form data-form-id="project-name">
+        <div class="project-name-form-wrapper" data-form-collapse="description">
+          <form data-form-id="description">
             <input type="hidden" name="project-id" value="<?php echo $project_id; ?>">
-            <input class="project-name-input" type="text" data-input-id="project-name" name="project-name" value="<?php echo $project["description"]; ?>" required>
+            <input class="project-name-input" type="text" data-input-id="description" name="description" value="<?php echo $project["description"]; ?>" required>
             <div class="button-container">
-              <button class="button button-secondary" data-button-save="project-name" type="submit">Save</button>
-              <button class="button button-light" data-button-cancel="project-name" type="button">Cancel</button>
+              <button class="button button-secondary" data-button-save="description" type="submit">Save</button>
+              <button class="button button-light" data-button-cancel="description" type="button">Cancel</button>
             </div>
           </form>
         </div>
       </div>
-      <div class="edit-wrapper" data-edit-collapse="project-name">
-        <button class="button button-primary" data-button-edit="project-name">Edit</button>
+      <div class="edit-wrapper" data-edit-collapse="description">
+        <button class="button button-primary" data-button-edit="description">Edit</button>
       </div>
     </div>
   </section>

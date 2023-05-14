@@ -36,26 +36,26 @@ uploadForm.addEventListener('change', (event) => {
 /* Details */
 // Project Name
 
-const editButton = document.querySelector('[data-button-edit="project-name"]');
+const editProjectNameButton = document.querySelector('[data-button-edit="project-name"]');
 const projectNameWrappers = document.querySelectorAll('[data-title-collapse="project-name"]');
-const editWrappers = document.querySelectorAll('[data-edit-collapse="project-name"]');
-const formWrappers = document.querySelectorAll('[data-form-collapse="project-name"]');
+const editProjectNameWrappers = document.querySelectorAll('[data-edit-collapse="project-name"]');
+const formProjectNameWrappers = document.querySelectorAll('[data-form-collapse="project-name"]');
 const projectNameInput = document.querySelector('[data-input-id="project-name"]');
-const saveButton = document.querySelector('[data-button-save="project-name"]');
-const cancelButton = document.querySelector('[data-button-cancel="project-name"]');
+const saveProjectNameButton = document.querySelector('[data-button-save="project-name"]');
+const cancelProjectNameButton = document.querySelector('[data-button-cancel="project-name"]');
 
 let originalProjectName = '';
 
-function showFormWrappers() {
+function showProjectNameFormWrappers() {
   projectNameWrappers[0].style.display = 'none';
-  formWrappers[0].style.display = 'block';
+  formProjectNameWrappers[0].style.display = 'block';
   projectNameInput.focus();
   projectNameInput.select();
 }
 
-function hideFormWrappers() {
+function hideProjectNameFormWrappers() {
   projectNameWrappers[0].style.display = 'block';
-  formWrappers[0].style.display = 'none';
+  formProjectNameWrappers[0].style.display = 'none';
 }
 
 function saveProjectName() {
@@ -67,42 +67,113 @@ function saveProjectName() {
   formData.append('project_name', projectName);
 
   // Create fetch request
-  fetch("project_name_edit.php", {
+  fetch("project_name.php", {
     method: "POST",
     body: formData
   })
   .then(response => response.json())
   .then(data => {
     console.log(data);
-    const newProjectNameElements = document.getElementsByClassName('new-project-name');
+    const newProjectNameElements = document.querySelectorAll('[data-new-project-title="project-name"]');
     const newProjectNameArray = Array.from(newProjectNameElements);
     newProjectNameArray.forEach(element => {
       element.textContent = data.newProjectName;
     });
     originalProjectName = projectName;
-    hideFormWrappers();
-    editWrappers[0].style.display = 'block';
+    hideProjectNameFormWrappers();
+    editProjectNameWrappers[0].style.display = 'block';
   })
   .catch(error => console.error(error));
 }
 
-editButton.addEventListener('click', (event) => {
+editProjectNameButton.addEventListener('click', (event) => {
   event.preventDefault();
-  showFormWrappers();
-  editWrappers[0].style.display = 'none';
+  showProjectNameFormWrappers();
+  editProjectNameWrappers[0].style.display = 'none';
   originalProjectName = projectNameInput.value;
 });
 
-saveButton.addEventListener('click', (event) => {
+saveProjectNameButton.addEventListener('click', (event) => {
   event.preventDefault();
   saveProjectName();
 });
 
-cancelButton.addEventListener('click', (event) => {
+cancelProjectNameButton.addEventListener('click', (event) => {
   event.preventDefault();
   projectNameInput.value = originalProjectName;
-  hideFormWrappers();
-  editWrappers[0].style.display = 'block';
+  hideProjectNameFormWrappers();
+  editProjectNameWrappers[0].style.display = 'block';
+});
+
+// Description
+
+const editDescriptionButton = document.querySelector('[data-button-edit="description"]');
+const descriptionWrappers = document.querySelectorAll('[data-title-collapse="description"]');
+const editDescriptionWrappers = document.querySelectorAll('[data-edit-collapse="description"]');
+const formDescriptionWrappers = document.querySelectorAll('[data-form-collapse="description"]');
+const descriptionInput = document.querySelector('[data-input-id="description"]');
+const saveDescriptionButton = document.querySelector('[data-button-save="description"]');
+const cancelDescriptionButton = document.querySelector('[data-button-cancel="description"]');
+
+let originalDescription = '';
+
+function showDescriptionFormWrappers() {
+  descriptionWrappers[0].style.display = 'none';
+  formDescriptionWrappers[0].style.display = 'block';
+  descriptionInput.focus();
+  descriptionInput.select();
+}
+
+function hideDescriptionFormWrappers() {
+  descriptionWrappers[0].style.display = 'block';
+  formDescriptionWrappers[0].style.display = 'none';
+}
+
+function saveDescription() {
+  const form = document.querySelector('[data-form-id="description"]');
+  const projectId = form.querySelector('[name="project-id"]').value;
+  const description = form.querySelector('[name="description"]').value;
+  const formData = new FormData();
+  formData.append('project_id', projectId);
+  formData.append('description', description);
+
+  // Create fetch request
+  fetch("project_description.php", {
+    method: "POST",
+    body: formData
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+    const newDescriptionElements = document.querySelectorAll('[data-new-description="description"]');
+    const newDescriptionArray = Array.from(newDescriptionElements);
+    newDescriptionArray.forEach(element => {
+      element.textContent = data.newDescription;
+    });
+    originalDescription = description;
+    hideDescriptionFormWrappers();
+    editDescriptionWrappers[0].style.display = 'block';
+  })
+  .catch(error => console.error(error));
+}
+
+editDescriptionButton.addEventListener('click', (event) => {
+  event.preventDefault();
+  showDescriptionFormWrappers();
+  editDescriptionWrappers[0].style.display = 'none';
+  originalDescription = descriptionInput.value;
+});
+
+saveDescriptionButton.addEventListener('click', (event) => {
+  event.preventDefault();
+  saveDescription();
+});
+
+cancelDescriptionButton.addEventListener('click', (event) => {
+  event.preventDefault();
+  descriptionInput.value = originalDescription;
+  hideDescriptionFormWrappers();
+  editDescriptionWrappers[0].style.display = 'block';
 });
 
 /* Project Visibility */

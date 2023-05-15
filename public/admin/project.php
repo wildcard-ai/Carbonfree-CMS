@@ -2,13 +2,7 @@
 require_once('../../private/initialize.php');
 require_login();
 
-// Delete Project
-if(is_post_request()) {
-  // Delete project from database
-  $result = delete_project($project_id);
-  $_SESSION['message'] = 'Project deleted successfully.';
-  redirect_to(url_for('/admin/'));
-} elseif(isset($_GET['id'])) {
+if(isset($_GET['id'])) {
   $project_id = $_GET['id'];
   $project = find_project_by_id($project_id);
   $image_set = find_images_by_project_id($project_id);
@@ -18,7 +12,15 @@ if(is_post_request()) {
     die();
   }
 } else {
-  // nothing selected; show 404 page
+  redirect_to(url_for('/admin/'));
+}
+
+// Delete Project
+if(is_post_request()) {
+  // Delete project from database
+  $result = delete_project($project_id);
+  $_SESSION['message'] = 'Project deleted successfully.';
+  redirect_to(url_for('/admin/'));
 }
 
 include(SHARED_PATH . '/admin_header.php');

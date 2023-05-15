@@ -62,5 +62,4 @@ function load_script($page, $js_file) {
   }
 }
 
-
 ?>

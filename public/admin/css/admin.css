@@ -160,7 +160,7 @@ nav {
   outline: 0.313rem auto #e59700;
 } */
 
-.navbar-toggler {
+.menu-toggler {
   background-color: #f5458e;
   /* background: linear-gradient(to bottom, #333333 5%, #262626 100%); */
   border-color: rgba(255, 255, 255, 0.1);
@@ -172,7 +172,7 @@ nav {
   padding: 0.25rem 0.75rem;
 }
 
-.navbar-toggler:hover {
+.menu-toggler:hover {
   /* background: linear-gradient(to bottom, #262626 5%, #333333 100%); */
   background-color: #f12c7e;
 }
@@ -189,11 +189,11 @@ nav {
   flex-basis: 100%;
 }
 
-.collapse {
+.closed {
   display: none;
 }
 
-.collapsing {
+.sliding {
   position: relative;
   height: 0;
   overflow: hidden;
@@ -789,7 +789,7 @@ main > section {
     padding: 0 1.5rem;
   }
 
-  .navbar-toggler {
+  .menu-toggler {
     display: none;
   }
 

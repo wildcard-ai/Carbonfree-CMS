@@ -2,19 +2,23 @@
 require_once('../../private/initialize.php');
 require_login();
 
-$project_id = isset($_GET['id']) ? $_GET['id'] : null;
-
-$project = find_project_by_id($project_id);
-$image_set = find_images_by_project_id($project_id);
-
 // Delete Project
 if(is_post_request()) {
   // Delete project from database
   $result = delete_project($project_id);
   $_SESSION['message'] = 'Project deleted successfully.';
   redirect_to(url_for('/admin/'));
-} else {
+} elseif(isset($_GET['id'])) {
+  $project_id = $_GET['id'];
   $project = find_project_by_id($project_id);
+  $image_set = find_images_by_project_id($project_id);
+  if(!$project) {
+    header("HTTP/1.0 404 Not Found");
+    include(SHARED_PATH . '/404.html');
+    die();
+  }
+} else {
+  // nothing selected; show 404 page
 }
 
 include(SHARED_PATH . '/admin_header.php');

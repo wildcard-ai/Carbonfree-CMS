@@ -4,13 +4,9 @@
   box-sizing: border-box;
 }
 
-html {
-  -webkit-tap-highlight-color: rgba(29, 143, 236, 0.5);
-}
-
 body {
   align-items: center;
-  background-color: rgb(244, 244, 240);
+  background-color: #f4f4f0;
   color: #212529;
   display: flex;
   flex-direction: column;
@@ -20,7 +16,6 @@ body {
   height: 100dvh;
   line-height: 1.5;
   margin: 0;
-  text-align: left;
 }
 
 header,
@@ -47,15 +42,9 @@ header a {
 
 /* Navbar */
 
-button:focus {
-  outline: 0.063rem dotted;
-  outline: 0.313rem auto #e59700;
-}
-
 nav {
   background-color: #365de3;
   border-bottom: 2px solid #000;
-  color: #000;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -68,28 +57,21 @@ nav {
   font-size: 1.25rem;
   font-weight: 900;
   margin-right: 1rem;
-  padding-bottom: 0.3125rem;
-  padding-top: 0.3125rem;
+  padding: 0.3125rem 0;
   text-decoration: none;
 }
 
-.toggle {
-  background-color: transparent;
-  background: linear-gradient(to bottom, #dfff00 5%, #dfff00 100%);
-  border-color: rgba(255, 255, 255, 0.1);
+.menu-toggler {
+  background-color: #dfff00;
   border-radius: 0.25rem;
-  border: 0.063rem solid #262626;
-  box-shadow: inset 0 0.063rem 0 0 rgba(255,255,255,.1);
-  color: #000;
-  cursor:pointer;
+  border: 1px solid #262626;
+  cursor: pointer;
   font-size: 1.25rem;
-  line-height: 1;
   padding: 0.25rem 0.75rem;
-  text-shadow:0 0.063rem 0 #ffffff;
 }
 
-.toggle:hover {
-  background: linear-gradient(to bottom, #e3ff2c 5%, #f1ff92 100%);
+.menu-toggler:hover {
+  background-color: #d4f300;
 }
 
 .hamburger-icon {
@@ -101,31 +83,39 @@ nav {
 }
 
 .menu {
-  display: none;
   flex-basis: 100%;
 }
 
-.show {
+.closed {
+  display: none;
+}
+
+.open {
   display: block;
+}
+
+.sliding {
+  position: relative;
+  height: 0;
+  overflow: hidden;
+  transition: height 0.35s ease;
 }
 
 .navbar {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   margin-top: 0.625rem;
 }
 
-.item {
-  border-radius: 0.625rem;
+.nav-link {
   color: #dfff00;
-  font-size: 1.25rem;
-  padding: 0.5rem 1rem;
-  text-align: center;
+  font-size: 1rem;
+  padding: 0.5rem 0;
   text-decoration: none;
 }
 
-.item:hover, .active, .active:hover {
+.nav-link:hover,
+.active {
   text-decoration-line: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 4px;
@@ -349,22 +339,25 @@ footer {
     padding-left: 1.25rem;
   }
 
+  .menu {
+    display: flex;
+    flex-basis: auto;
+    flex-grow: 1;
+  }
+
   .logo,
   nav button {
     display: none;
   }
 
-  .menu {
-    display: block;
-  }
-
-  .item {
+  .nav-link {
     color: #000;
     border-radius: 0;
     padding: 0.5rem 3rem;
+    font-size: 1.125rem;
   }
 
-  .item:hover,
+  .nav-link:hover,
   .active {
     color: #dfff00;
     background-color: #000;

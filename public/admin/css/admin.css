@@ -801,7 +801,7 @@ main > section {
     justify-content: flex-end;
   }
 
-  .item {
+  .nav-link {
     min-width: 0;
   }
 

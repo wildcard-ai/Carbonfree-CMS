@@ -7,9 +7,9 @@ toggleButton.addEventListener('click', function() {
     return;
   }
 
-  const isMenuToggled = this.classList.contains('toggled');
+  const isButtonToggled = this.classList.contains('toggled');
 
-  if (!isMenuToggled) {
+  if (!isButtonToggled) {
     slideToggle(menu, 'slideDown');
   } else {
     slideToggle(menu, 'slideUp');

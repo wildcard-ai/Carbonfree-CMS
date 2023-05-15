@@ -1,9 +1,9 @@
 const toggleButton = document.querySelector('[data-toggle="collapse"]');
 const menu = document.querySelector('[data-menu="collapse"]');
-let isAnimating = false;
+let isSliding = false;
 
 toggleButton.addEventListener('click', function() {
-  if (isAnimating) {
+  if (isSliding) {
     return;
   }
 
@@ -17,7 +17,7 @@ toggleButton.addEventListener('click', function() {
 });
 
 function slideToggle(element, action) {
-  isAnimating = true;
+  isSliding = true;
   const isSlideDown = action === 'slideDown';
   
   if (isSlideDown) {
@@ -47,6 +47,6 @@ function slideToggle(element, action) {
     }
 
     element.removeEventListener('transitionend', onTransitionEnd);
-    isAnimating = false;
+    isSliding = false;
   });
 }

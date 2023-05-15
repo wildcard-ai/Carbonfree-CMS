@@ -162,7 +162,6 @@ nav {
 
 .menu-toggler {
   background-color: #f5458e;
-  /* background: linear-gradient(to bottom, #333333 5%, #262626 100%); */
   border-color: rgba(255, 255, 255, 0.1);
   border-radius: 0.25rem;
   border: 0.063rem solid #b32f66;
@@ -225,14 +224,10 @@ nav {
 }
 
 .item:hover {
-  /* border: 1px solid #000; */
-  /* border-radius: 1000px; */
   background-color: #c1e8ff;
 }
 
 .active {
-  /* border: 1px solid #000; */
-  /* border-radius: 1000px; */
   background-color: #f8a8d9;
   border-bottom: 2px solid #ff6f8e;
 }

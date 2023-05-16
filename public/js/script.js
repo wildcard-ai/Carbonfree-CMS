@@ -41,7 +41,7 @@ function slideToggle(element, action) {
 
   element.addEventListener('transitionend', function onTransitionEnd() {
     element.classList.remove('collapsing');
-		element.classList.add('collapse');
+    element.classList.add('collapse');
     
     if (isSlideDown) {
       element.classList.add('show');

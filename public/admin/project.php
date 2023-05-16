@@ -131,23 +131,23 @@ include(SHARED_PATH . '/admin_header.php');
   </section>
 
 </main>
-<div class="modal" data-modal-id="modal-wrapper">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Delete this Project?</h5>
-        <button class="close" data-dismiss="modal"><span>×</span></button>
-      </div>
-      <div class="modal-body">
-        <p>Are you sure you want to delete this project and its images? This action cannot be undone.</p>
-      </div>
-      <div class="modal-footer">
-        <button class="button button-light" data-dismiss="modal">Cancel</button>
-        <form method="post" action="<?php echo url_for('admin/project.php?id=' . h(u($project['id']))); ?>">
-          <button class="button button-danger" type="submit">Delete</button>
-        </form>
-      </div>
+
+<dialog class="modal" data-dialog="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">Delete this Project?</h5>
+      <button class="close" data-dismiss="modal"><span>×</span></button>
+    </div>
+    <div class="modal-body">
+      <p>Are you sure you want to delete this project and its images? This action cannot be undone.</p>
+    </div>
+    <div class="modal-footer">
+      <button class="button button-light" data-dismiss="modal">Cancel</button>
+      <form method="post" action="<?php echo url_for('admin/project.php?id=' . h(u($project['id']))); ?>">
+        <button class="button button-danger" type="submit">Delete</button>
+      </form>
     </div>
   </div>
 </div>
+
 <?php include(SHARED_PATH . '/admin_footer.php'); ?>

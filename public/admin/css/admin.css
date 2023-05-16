@@ -138,14 +138,14 @@ nav {
   box-shadow: inset 0 -2px #ccecff;
 }
 
-.nav {
+.navbar {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   padding: 0.5rem 1rem;
 }
 
-.logo {
+.navbar-brand {
   color: #000;
   display: inline-block;
   font-size: 22px;
@@ -155,12 +155,7 @@ nav {
   text-decoration: none;
 }
 
-/* nav button:focus {
-  outline: 0.063rem dotted;
-  outline: 0.313rem auto #e59700;
-} */
-
-.menu-toggler {
+.navbar-toggler {
   background-color: #f5458e;
   border-color: rgba(255, 255, 255, 0.1);
   border-radius: 0.25rem;
@@ -171,12 +166,11 @@ nav {
   padding: 0.25rem 0.75rem;
 }
 
-.menu-toggler:hover {
-  /* background: linear-gradient(to bottom, #262626 5%, #333333 100%); */
+.navbar-toggler:hover {
   background-color: #f12c7e;
 }
 
-.hamburger-icon {
+.navbar-toggler-icon {
   background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 0.8)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
   display: inline-block;
   height: 1.5rem;
@@ -184,33 +178,33 @@ nav {
   width: 1.5rem;
 }
 
-.menu {
+.navbar-collapse {
   flex-basis: 100%;
 }
 
-.closed {
+.collapse {
   display: none;
 }
 
-.sliding {
+.collapse.show {
+  display: block;
+}
+
+.collapsing {
   position: relative;
   height: 0;
   overflow: hidden;
   transition: height 0.35s ease;
 }
 
-.open {
-  display: block;
-}
-
-.navbar {
+.navbar-nav {
   display: flex;
   flex-direction: column;
   gap: 1px;
   margin-top: 0.625rem;
 }
 
-.item {
+.nav-link {
   color: #000;
   font-size: 1rem;
   font-weight: 400;
@@ -223,7 +217,7 @@ nav {
   border-bottom: 2px solid #ccecff;
 }
 
-.item:hover {
+.nav-link:hover {
   background-color: #c1e8ff;
 }
 
@@ -250,35 +244,15 @@ nav {
 
 /* Modal */
 
-.modal-backdrop {
-  background-color: rgba(0, 0, 0, 0.5);
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 1040;
-}
-
 .modal {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 1050;
-  display: none;
-  overflow: hidden;
-  outline: 0;
-  flex-direction: column;
-  justify-content: center;
-  padding: 0.5rem;
+  padding: 0;
+  border: none;
+  width: calc(100% - 1rem);
+  max-width: 500px;
 }
 
-.modal-dialog {
-  max-width: 500px;
-  align-self: center;
-  width: 100%;
+.modal::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .modal-header {
@@ -760,7 +734,7 @@ main > section {
     padding-top: 0;
   }
 
-  .nav,
+  .navbar,
   main {
     max-width: 48rem;
     width: 100%;
@@ -780,22 +754,22 @@ main > section {
 
   /* Navbar */
 
-  .nav {
+  .navbar {
     padding: 0 1.5rem;
   }
 
-  .menu-toggler {
+  .navbar-toggler {
     display: none;
   }
 
-  .menu {
+  .navbar-collapse {
     display: flex;
     flex-basis: auto;
     flex-grow: 1;
     justify-content: flex-end;
   }
 
-  .navbar {
+  .navbar-nav {
     flex-direction: row;
     margin-top: 0;
     justify-content: flex-end;

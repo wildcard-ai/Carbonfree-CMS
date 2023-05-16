@@ -1,52 +1,54 @@
 const toggleButton = document.querySelector('[data-toggle="collapse"]');
-const menu = document.querySelector('[data-menu="collapse"]');
-let isSliding = false;
+let isCollapsing = false;
 
 toggleButton.addEventListener('click', function() {
-  if (isSliding) {
+  if (isCollapsing) {
     return;
   }
 
-  const isButtonToggled = this.classList.contains('toggled');
+  const targetId = this.getAttribute('data-target');
+  const target = document.querySelector(targetId);
 
-  if (!isButtonToggled) {
-    slideToggle(menu, 'slideDown');
+  const isShow = target.classList.contains('show');
+
+  if (!isShow) {
+    slideToggle(target, 'slideDown');
   } else {
-    slideToggle(menu, 'slideUp');
+    slideToggle(target, 'slideUp');
   }
 });
 
 function slideToggle(element, action) {
-  isSliding = true;
+  isCollapsing = true;
   const isSlideDown = action === 'slideDown';
   
   if (isSlideDown) {
-    element.classList.remove('closed');
+    toggleButton.classList.remove('collapsed');
+    element.classList.remove('collapse');
     var height = element.clientHeight;
   } else {
+    toggleButton.classList.add('collapsed');
     element.style.height = element.clientHeight + 'px';
-    element.classList.remove('open');
+    element.classList.remove('collapse');
+    element.classList.remove('show');
   }
-
-  element.classList.add('sliding');
-
+  
   setTimeout(function() {
     element.style.height = isSlideDown ? height + 'px' : '';
   }, 0);
 
-  element.addEventListener('transitionend', function onTransitionEnd() {
-    element.classList.remove('sliding');
+  element.classList.add('collapsing');
 
+  element.addEventListener('transitionend', function onTransitionEnd() {
+    element.classList.remove('collapsing');
+    element.classList.add('collapse');
+    
     if (isSlideDown) {
-      element.classList.add('open');
-      toggleButton.classList.add('toggled');
+      element.classList.add('show');
       element.style.height = '';
-    } else {
-      element.classList.add('closed');
-      toggleButton.classList.remove('toggled');
     }
 
     element.removeEventListener('transitionend', onTransitionEnd);
-    isSliding = false;
+    isCollapsing = false;
   });
 }

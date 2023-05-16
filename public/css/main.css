@@ -42,7 +42,7 @@ header a {
 
 /* Navbar */
 
-nav {
+.navbar {
   background-color: #365de3;
   border-bottom: 2px solid #000;
   display: flex;
@@ -51,7 +51,7 @@ nav {
   padding: 0.5rem 1rem;
 }
 
-.logo {
+.navbar-brand {
   color: #dfff00;
   display: inline-block;
   font-size: 1.25rem;
@@ -61,7 +61,7 @@ nav {
   text-decoration: none;
 }
 
-.menu-toggler {
+.navbar-toggler {
   background-color: #dfff00;
   border-radius: 0.25rem;
   border: 1px solid #262626;
@@ -70,11 +70,11 @@ nav {
   padding: 0.25rem 0.75rem;
 }
 
-.menu-toggler:hover {
+.navbar-toggler:hover {
   background-color: #d4f300;
 }
 
-.hamburger-icon {
+.navbar-toggler-icon {
   background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0, 0, 0, 0.8)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
   display: inline-block;
   height: 1.5rem;
@@ -82,26 +82,26 @@ nav {
   width: 1.5rem;
 }
 
-.menu {
+.navbar-collapse {
   flex-basis: 100%;
 }
 
-.closed {
+.collapse {
   display: none;
 }
 
-.open {
+.collapse.show {
   display: block;
 }
 
-.sliding {
+.collapsing {
   position: relative;
   height: 0;
   overflow: hidden;
   transition: height 0.35s ease;
 }
 
-.navbar {
+.navbar-nav {
   display: flex;
   flex-direction: column;
   margin-top: 0.625rem;
@@ -332,20 +332,20 @@ footer {
 
   /* Navbar */
 
-  nav {
+  .navbar {
     background-color: #dfff00;
     justify-content: flex-start;
     padding: 0;
     padding-left: 1.25rem;
   }
 
-  .menu {
+  .navbar-collapse {
     display: flex;
     flex-basis: auto;
     flex-grow: 1;
   }
 
-  .logo,
+  .navbar-brand,
   nav button {
     display: none;
   }
@@ -364,7 +364,7 @@ footer {
     text-decoration: none;
   }
 
-  .navbar {
+  .navbar-nav {
     flex-direction: row;
     gap: 0;
     margin-top: 0;

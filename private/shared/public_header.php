@@ -15,11 +15,11 @@
   <a href="<?php echo url_for('/'); ?>"><?php echo $site_name; ?></a>
 </header>
 
-<nav>
-  <a class="logo" href="<?php echo url_for('/'); ?>"><?php echo $site_name; ?></a>
-  <button class="menu-toggler" data-toggle="collapse"><i class="hamburger-icon"></i></button>
-  <div class="menu closed" data-menu="collapse">
-    <div class="navbar">
+<nav class="navbar">
+  <a class="navbar-brand" href="<?php echo url_for('/'); ?>"><?php echo $site_name; ?></a>
+  <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent"><i class="navbar-toggler-icon"></i></button>
+  <div class="navbar-collapse collapse" id="navbarSupportedContent">
+    <div class="navbar-nav">
       <a class="nav-link<?php echo (is_page('index')) ? ' active':''; ?>" href="<?php echo url_for('/'); ?>">Work</a>
       <a class="nav-link<?php echo (is_page('about')) ? ' active':''; ?>" href="<?php echo url_for('/about.php'); ?>">About</a>
       <a class="nav-link<?php echo (is_page('contact')) ? ' active':''; ?>" href="<?php echo url_for('/contact.php'); ?>">Contact</a>

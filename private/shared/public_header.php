@@ -8,7 +8,7 @@
   <title><?php echo $page_title; ?></title>
   <link rel="icon" href="<?php echo url_for('images/favicon.ico'); ?>">
   <link rel="stylesheet" href="<?php echo url_for('css/main.css'); ?>">
-  <script src="<?php echo url_for('js/script.js'); ?>" defer></script>
+  <script src="<?php echo url_for('js/navbar.js'); ?>" defer></script>
 </head>
 <body>
 <header>

@@ -63,10 +63,10 @@ function toggleElement(element, action) {
     if (isExpanding) {
       // add show class
       element.classList.add('show');
-    }
 
-    // Reset the height inline style
-    element.style.height = null;
+      // Reset the height inline style
+      element.style.height = null;
+    }
 
     // Remove the transitionend event listener
     element.removeEventListener('transitionend', onTransitionEnd);

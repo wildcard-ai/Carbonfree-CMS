@@ -34,6 +34,7 @@ function toggleElement(element, action) {
     return element.getBoundingClientRect().height;
   }
 
+  // calculate a new height of the element
   const isExpanding = action === 'expand';
   let initialHeight, finalHeight;
   if (isExpanding) {
@@ -50,7 +51,7 @@ function toggleElement(element, action) {
   // set the initial height inline style
   element.style.height = initialHeight;
 
-  // calculate new height of the element by adding an inline height and animate to this new height
+  // start animation to this height
   requestAnimationFrame(function() {
     element.style.height = finalHeight;
   });

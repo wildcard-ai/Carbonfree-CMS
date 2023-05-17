@@ -60,11 +60,11 @@ function toggleElement(element, action) {
     // replace collapsing class with collapse class
     element.classList.replace('collapsing', 'collapse');
 
-    if (isExpanding) {
-      // add show class
-      element.classList.add('show');
+    // add show class
+    element.classList.toggle('show', isExpanding);
 
-      // Reset the height inline style
+    // Reset the height inline style
+    if (isExpanding) {
       element.style.height = null;
     }
 

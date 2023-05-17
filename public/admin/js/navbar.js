@@ -1,54 +1,77 @@
 const toggleButton = document.querySelector('[data-toggle="collapse"]');
-let isCollapsing = false;
+let isTransitioning = false;
 
 toggleButton.addEventListener('click', function() {
-  if (isCollapsing) {
+  if (isTransitioning) {
     return;
   }
 
+  // Get the target element
   const targetId = this.getAttribute('data-target');
   const target = document.querySelector(targetId);
 
-  const isShow = target.classList.contains('show');
+  // Check if the target element is already shown
+  const isShown = target.classList.contains('show');
 
-  if (!isShow) {
-    slideToggle(target, 'slideDown');
+  if (!isShown) {
+    // If not shown, trigger expand action
+    toggleElement(target, 'expand');
   } else {
-    slideToggle(target, 'slideUp');
+    // If shown, trigger collapse action
+    toggleElement(target, 'collapse');
   }
 });
 
-function slideToggle(element, action) {
-  isCollapsing = true;
-  const isSlideDown = action === 'slideDown';
-  
-  if (isSlideDown) {
-    toggleButton.classList.remove('collapsed');
-    element.classList.remove('collapse');
-    var height = element.clientHeight;
-  } else {
-    toggleButton.classList.add('collapsed');
-    element.style.height = element.clientHeight + 'px';
-    element.classList.remove('collapse');
-    element.classList.remove('show');
-  }
-  
-  setTimeout(function() {
-    element.style.height = isSlideDown ? height + 'px' : '';
-  }, 0);
+function toggleElement(element, action) {
+  // set the transition state
+  isTransitioning = true;
 
+  // Switch display to block by removing collapse class
+  element.classList.remove('collapse', 'show');
+
+  // get height info
+  function getHeight() {
+    return element.getBoundingClientRect().height;
+  }
+
+  const isExpanding = action === 'expand';
+  let initialHeight, finalHeight;
+  if (isExpanding) {
+    initialHeight = null;
+    finalHeight = getHeight() + 'px';
+  } else {
+    initialHeight = getHeight() + 'px';
+    finalHeight = null;
+  }
+
+  // Add the collapsing class with transition css property to the target element, collapsing class has height 0
   element.classList.add('collapsing');
 
+  // set the initial height inline style
+  element.style.height = initialHeight;
+
+  // calculate new height of the element by adding an inline height and animate to this new height
+  requestAnimationFrame(function() {
+    element.style.height = finalHeight;
+  });
+
+  // handle classes on transition end
   element.addEventListener('transitionend', function onTransitionEnd() {
-    element.classList.remove('collapsing');
-    element.classList.add('collapse');
-    
-    if (isSlideDown) {
+    // replace collapsing class with collapse class
+    element.classList.replace('collapsing', 'collapse');
+
+    if (isExpanding) {
+      // add show class
       element.classList.add('show');
-      element.style.height = '';
     }
 
+    // Reset the height inline style
+    element.style.height = null;
+
+    // Remove the transitionend event listener
     element.removeEventListener('transitionend', onTransitionEnd);
-    isCollapsing = false;
+
+    // Update the transition state
+    isTransitioning = false;
   });
 }

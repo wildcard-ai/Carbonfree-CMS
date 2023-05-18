@@ -26,6 +26,10 @@ function toggleElement(element, action) {
   // set the transition state
   isTransitioning = true;
 
+  // Toggle the collapsed class on the toggle button based on the action
+  const isExpanding = action === 'expand';
+  toggleButton.classList.toggle('collapsed', !isExpanding);
+
   // Switch display to block by removing collapse class
   element.classList.remove('collapse', 'show');
 
@@ -35,7 +39,6 @@ function toggleElement(element, action) {
   }
 
   // calculate a new height of the element
-  const isExpanding = action === 'expand';
   let initialHeight, finalHeight;
   if (isExpanding) {
     initialHeight = null;
@@ -45,19 +48,19 @@ function toggleElement(element, action) {
     finalHeight = null;
   }
 
-  // Add the collapsing class with transition css property to the target element, collapsing class has height 0
-  element.classList.add('collapsing');
-
   // set the initial height inline style
   element.style.height = initialHeight;
 
   // start animation to this height
-  requestAnimationFrame(function() {
+  setTimeout(function() {
     element.style.height = finalHeight;
-  });
+  }, 0);
+
+  // Add the collapsing class with transition css property to the target element, collapsing class has height 0
+  element.classList.add('collapsing');
 
   // handle classes on transition end
-  element.addEventListener('transitionend', function onTransitionEnd() {
+  element.addEventListener('transitionend', function() {
     // replace collapsing class with collapse class
     element.classList.replace('collapsing', 'collapse');
 
@@ -68,9 +71,6 @@ function toggleElement(element, action) {
     if (isExpanding) {
       element.style.height = null;
     }
-
-    // Remove the transitionend event listener
-    element.removeEventListener('transitionend', onTransitionEnd);
 
     // Update the transition state
     isTransitioning = false;

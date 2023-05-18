@@ -335,10 +335,8 @@ footer {
     padding-left: 1.25rem;
   }
 
-  .navbar-collapse {
-    display: flex;
-    flex-basis: auto;
-    flex-grow: 1;
+  .collapse:not(.show) {
+    display: block;
   }
 
   .navbar-brand,

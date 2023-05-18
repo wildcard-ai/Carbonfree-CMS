@@ -86,12 +86,8 @@ header a {
   flex-basis: 100%;
 }
 
-.collapse {
+.collapse:not(.show) {
   display: none;
-}
-
-.collapse.show {
-  display: block;
 }
 
 .collapsing {

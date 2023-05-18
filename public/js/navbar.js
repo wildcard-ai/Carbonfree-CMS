@@ -29,9 +29,9 @@ function expand(element) {
     console.log("expand");
     element.classList.replace('collapsing', 'collapse');
     element.classList.add('show');
+    element.style.height = null;
     element.removeEventListener('transitionend', onTransitionEnd);
     isTransitioning = false;
-    element.style.height = null;
   }
 
   element.addEventListener('transitionend', onTransitionEnd);
@@ -41,10 +41,12 @@ function collapse(element) {
   isTransitioning = true;
 
   function applyHeightAndAnimate() {
-    element.style.height = '130px';
+    const expandedHeight = element.getBoundingClientRect().height + 'px';
+    element.style.height = expandedHeight;
   
     // Check if the style change has been applied
-    if (window.getComputedStyle(element).height === '130px') {
+    if (window.getComputedStyle(element).height === expandedHeight) {
+      console.log(window.getComputedStyle(element).height);
       element.classList.remove('collapse', 'show');
       element.classList.add('collapsing');
       element.style.height = null; // Animate to 0 height for collapse
@@ -53,6 +55,7 @@ function collapse(element) {
     } else {
       // Style change not applied yet, wait for the next frame
       requestAnimationFrame(applyHeightAndAnimate);
+      console.log("requestAnimationFrame");
     }
   }
   

@@ -1,6 +1,5 @@
 const toggleButton = document.querySelector('[data-toggle="collapse"]');
 let isTransitioning = false;
-let expandedHeight = false;
 
 toggleButton.addEventListener('click', function() {
   if (isTransitioning) {
@@ -13,49 +12,58 @@ toggleButton.addEventListener('click', function() {
   const isShown = target.classList.contains('show');
 
   if (!isShown) {
-    toggleElement(target, 'expand');
+    expand(target);
   } else {
-    toggleElement(target, 'collapse');
+    collapse(target);
   }
 });
 
-function toggleElement(element, action) {
+function expand(element) {
   isTransitioning = true;
-  const isExpanding = action === 'expand';
 
-  element.classList.remove('collapse', 'show');
-
-  if (isExpanding) {
-    expandedHeight = element.getBoundingClientRect().height + 'px';
-  } else {
-    element.style.height = expandedHeight;
-  }
-
-  if(navigator.userAgent.toLowerCase().indexOf('firefox') > -1){
-    setTimeout(function() {
-      if(isExpanding) {
-        element.style.height = expandedHeight;
-      } else {
-        element.style.height = null;
-      }
-    }, 10);
-  } else {
-    requestAnimationFrame(function() {
-      if(isExpanding) {
-        element.style.height = expandedHeight;
-      } else {
-        element.style.height = null;
-      }
-    });
-  }
-
+  element.classList.remove('collapse');
   element.classList.add('collapsing');
+  element.style.height = element.scrollHeight + 'px'; // Set the expanded height immediately
 
-  element.addEventListener('transitionend', function onTransitionEnd() {
+  function onTransitionEnd() {
+    console.log("expand");
     element.classList.replace('collapsing', 'collapse');
-    element.classList.toggle('show', isExpanding);
-    element.style.height = null;
+    element.classList.add('show');
     element.removeEventListener('transitionend', onTransitionEnd);
     isTransitioning = false;
-  });
+    element.style.height = null;
+  }
+
+  element.addEventListener('transitionend', onTransitionEnd);
+}
+
+function collapse(element) {
+  isTransitioning = true;
+
+  function applyHeightAndAnimate() {
+    element.style.height = '130px';
+  
+    // Check if the style change has been applied
+    if (window.getComputedStyle(element).height === '130px') {
+      element.classList.remove('collapse', 'show');
+      element.classList.add('collapsing');
+      element.style.height = null; // Animate to 0 height for collapse
+  
+      // Start your animation here
+    } else {
+      // Style change not applied yet, wait for the next frame
+      requestAnimationFrame(applyHeightAndAnimate);
+    }
+  }
+  
+  applyHeightAndAnimate();
+
+  function onTransitionEnd() {
+    console.log("collapse");
+    element.classList.replace('collapsing', 'collapse');
+    element.removeEventListener('transitionend', onTransitionEnd);
+    isTransitioning = false;
+  }
+
+  element.addEventListener('transitionend', onTransitionEnd);
 }

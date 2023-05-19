@@ -142,7 +142,7 @@ h6 {
   flex-wrap: wrap;
   justify-content: space-between;
   padding: 0.5rem 12px;
-  background-color: rgb(33, 37, 41);
+  background-color: #424d8f;
 }
 
 .navbar-brand {
@@ -698,7 +698,7 @@ main > section {
     display: flex;
     flex-direction: column;
     width: 100%;
-    background-color: rgb(33, 37, 41);
+    background-color: #424d8f;
   }
 
   .navbar,

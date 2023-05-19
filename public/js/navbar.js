@@ -21,8 +21,7 @@ toggleButton.addEventListener('click', function() {
 function expand(element) {
   isTransitioning = true;
 
-  element.classList.remove('collapse');
-  element.classList.add('collapsing');
+  element.classList.replace('collapse', 'collapsing');
   element.style.height = element.scrollHeight + 'px'; // Set the expanded height immediately
 
   function onTransitionEnd() {

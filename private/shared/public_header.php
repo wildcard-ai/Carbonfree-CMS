@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><?php echo $page_title; ?></title>
   <link rel="icon" href="<?php echo url_for('images/favicon.ico'); ?>">
+  <meta name="theme-color" content="#365de3" />
   <link rel="stylesheet" href="<?php echo url_for('css/main.css'); ?>">
   <script src="<?php echo url_for('js/navbar.js'); ?>" defer></script>
 </head>

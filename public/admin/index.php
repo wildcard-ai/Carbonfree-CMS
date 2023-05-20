@@ -60,14 +60,18 @@
       ?>
       <div class="project">
         <a class="project-link" href="<?php echo url_for('/admin/project.php?id=' . h(u($project['id']))); ?>">
-          <img class="thumbnail" data-thumbnail-id="<?php echo $project['id']; ?>" src="<?php echo $project_cover; ?>">
-          <div class="project-title"><?php echo h($project['project_name']); ?></div>
+          <div class="thumbnail-container">
+            <img class="thumbnail" data-thumbnail-id="<?php echo $project['id']; ?>" src="<?php echo $project_cover; ?>" loading="lazy">
+          </div>
+          <div class="project-title-container">
+            <div class="project-title"><?php echo h($project['project_name']); ?></div>
+          </div>
         </a>
-        <form class="thumbnail-form" data-form-type="thumbnail">
-          <input type="hidden" name="project_id" data-project-id="thumbnail" value="<?php echo $project['id']; ?>">
-          <input type="file" name="file" data-file-type="thumbnail" id="file-<?php echo $project['id']; ?>" hidden>
-        </form>
         <div class="tmb-btn-container" data-button-type="thumbnail">
+          <form data-form-type="thumbnail">
+            <input type="hidden" name="project_id" data-project-id="thumbnail" value="<?php echo $project['id']; ?>">
+            <input type="file" name="file" data-file-type="thumbnail" id="file-<?php echo $project['id']; ?>" hidden>
+          </form>
           <label class="button button-primary thumbnail-button" for="file-<?php echo $project['id']; ?>">Change</label>
         </div>
       </div>
@@ -85,7 +89,9 @@
     <div class="modal-body">
       <form id="create-project" data-form-id="create-project-form" action="<?php echo url_for('/admin/index.php'); ?>" method="post">
         <!-- Projet Title -->
-        <input data-input-id="create-project-form" class="project-name-input" type="text" name="project_name" value="<?php echo h($new_project['project_name']); ?>" autocomplete="off">
+        <div class="input-group">
+          <input data-input-id="create-project-form" type="text" name="project_name" value="<?php echo h($new_project['project_name']); ?>" autocomplete="off">
+        </div>
         <!-- Visibility -->
         <div>
           <input type="hidden" name="visible" value="0">

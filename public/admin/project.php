@@ -29,101 +29,99 @@ include(SHARED_PATH . '/admin_header.php');
 
 <main>
   <header class="page-header">
-    <h2 class="page-title" data-new-project-title="project-name"><?php echo $project["project_name"]; ?></h2>
+    <h2 class="page-title" data-update="project-name"><?php echo $project["project_name"]; ?></h2>
   </header>
 
-  <section class="images-section">
-    <div class="upload-edit-wrapper">
-      <form class="upload-image-form" data-form-id="upload" method="post">
+  <section>
+    <div class="upload-toolbar">
+      <form data-form-id="upload" method="post">
         <input type="hidden" name="project_id" value="<?php echo $project_id; ?>">
         <input type="file" name="file" data-input-id="upload" id="file-input" hidden>
-        <label class="button button-secondary" for="file-input">Upload</label>
+        <label class="button button-transparent" for="file-input">Upload</label>
       </form>
-      <button class="button button-primary">Edit</button>
+      <button class="button button-transparent">Edit</button>
     </div>
-    <div class="file-list" data-list-id="upload">
+    <div class="image-list" data-list-id="upload">
       <?php while($image = mysqli_fetch_assoc($image_set)) { ?>
         <img class="uploaded-image" src="<?php echo url_for($image['path']); ?>">
       <?php } ?>
     </div>
   </section>
 
-  <section class="details-section">
-    <div>
-      <h2 class="section-heading">Details</h2>
-    </div>
-    <div class="details-wrapper">
-      <div class="form-wrapper">
-        <div><span>Project Title</span></div>
-        <div class="project-name-wrapper" data-title-collapse="project-name" data-new-project-title="project-name">
+  <section>
+    <header>
+      <h2 class="section-title">Details</h2>
+    </header>
+    <div class="card">
+      <div class="col-fg-1">
+        <header class="card-header">Project Title</header>
+        <div class="collapse show" data-collapse-id="project-name" data-update="project-name">
           <?php echo $project["project_name"]; ?>
         </div>
-        <div class="project-name-form-wrapper" data-form-collapse="project-name">
-          <form data-form-id="project-name">
+        <form class="collapse" data-form-id="project-name" data-collapse-id="project-name" data-target-collapse="project-name">
+          <div class="input-group">
             <input type="hidden" name="project-id" value="<?php echo $project_id; ?>">
-            <input class="project-name-input" type="text" data-input-id="project-name" name="project-name" value="<?php echo $project["project_name"]; ?>" required>
-            <div class="button-container">
-              <button class="button button-secondary" data-button-save="project-name" type="submit">Save</button>
-              <button class="button button-light" data-button-cancel="project-name" type="button">Cancel</button>
-            </div>
-          </form>
-        </div>
-      </div>
-      <div class="edit-wrapper" data-edit-collapse="project-name">
-        <button class="button button-primary" data-button-edit="project-name">Edit</button>
-      </div>
-    </div>
-
-    <div class="details-wrapper">
-      <div class="form-wrapper">
-        <div><span>Description</span></div>
-        <div class="project-name-wrapper" data-title-collapse="description" data-new-description="description">
-          <?php echo $project["description"]; ?>
-        </div>
-        <div class="project-name-form-wrapper" data-form-collapse="description">
-          <form data-form-id="description">
-            <input type="hidden" name="project-id" value="<?php echo $project_id; ?>">
-            <textarea class="project-description" data-input-id="description" name="description" rows="4" cols="50"><?php echo $project["description"]; ?></textarea>
-            <div class="button-container">
-              <button class="button button-secondary" data-button-save="description" type="submit">Save</button>
-              <button class="button button-light" data-button-cancel="description" type="button">Cancel</button>
-            </div>
-          </form>
-        </div>
-      </div>
-      <div class="edit-wrapper" data-edit-collapse="description">
-        <button class="button button-primary" data-button-edit="description">Edit</button>
-      </div>
-    </div>
-  </section>
-
-  <section class="visibility-section">
-    <div>
-      <h2 class="section-heading">Visibility</h2>
-    </div>
-
-    <div class="details-wrapper">
-      <div class="wrapper-centered">
-        <span>Visibility</span>
-      </div>
-      <div class="wrapper-centered">
-        <form>
-          <input type="hidden" name="project_id" value="<?php echo $project_id; ?>">
-          <input data-checkbox-type="visibility" name="visibility-checkbox" class="toggle-switch" type="checkbox" <?php if($project["visible"] == "1") { echo " checked"; } ?>>
+            <input type="text" data-input-id="project-name" name="project-name" value="<?php echo $project["project_name"]; ?>" required>
+          </div>
+          <div class="form-actions">
+            <button class="button button-secondary" data-save-button="project-name" type="submit">Save</button>
+            <button class="button button-light" data-cancel-button="project-name" data-target-collapse="project-name" type="button">Cancel</button>
+          </div>
         </form>
       </div>
+      <div class="collapse show" data-collapse-id="project-name">
+        <button class="button button-primary" data-edit-button="project-name" data-target-collapse="project-name">Edit</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="col-fg-1">
+        <header class="card-header">Description</header>
+        <div class="collapse show" data-collapse-id="description" data-update="description">
+          <?php echo empty($project["description"]) ? "No description" : $project["description"]; ?>
+        </div>
+        <form class="collapse" data-form-id="description" data-collapse-id="description" data-target-collapse="description">
+          <div class="input-group">
+            <input type="hidden" name="project-id" value="<?php echo $project_id; ?>">
+            <textarea data-input-id="description" name="description" rows="4" cols="50"><?php echo $project["description"]; ?></textarea>
+          </div>
+          <div class="form-actions">
+            <button class="button button-secondary" data-save-button="description" type="submit">Save</button>
+            <button class="button button-light" data-cancel-button="description" data-target-collapse="description" type="button">Cancel</button>
+          </div>
+        </form>
+      </div>
+      <div class="collapse show" data-collapse-id="description">
+        <button class="button button-primary" data-edit-button="description" data-target-collapse="description">Edit</button>
+      </div>
     </div>
   </section>
 
-  <section class="delete-section">
-    <div>
-      <h2 class="section-heading">Delete this Project</h2>
-    </div>
+  <section>
+    <header>
+      <h2 class="section-title">Visibility</h2>
+    </header>
 
-    <div class="details-wrapper">
-      <div class="wrapper-centered">
-        <span>Delete this project</span>
-      </div>
+    <div class="card">
+      <header class="wrapper-centered card-header">
+        Visibility
+      </header>
+      <form class="wrapper-centered">
+        <input type="hidden" name="project_id" value="<?php echo $project_id; ?>">
+        <input data-checkbox-type="visibility" name="visibility-checkbox" class="toggle-switch" type="checkbox" <?php if($project["visible"] == "1") { echo " checked"; } ?>>
+      </form>
+    </div>
+  </section>
+
+  <section>
+    <header>
+      <h2 class="section-title">Delete this Project</h2>
+    </header>
+
+    <div class="card">
+      <header class="wrapper-centered card-header">
+        Delete this project
+      </header>
       <div class="wrapper-centered">
         <button class="button button-danger" data-modal-target="modal">Delete</button>
       </div>

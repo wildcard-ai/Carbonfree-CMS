@@ -7,7 +7,7 @@ toggleButton.addEventListener('click', function() {
   }
 
   const targetId = this.getAttribute('data-target');
-  const target = document.querySelector(targetId);
+  const target = document.querySelector(`[data-navbar-collapse-id="${targetId}"]`);
 
   const isShown = target.classList.contains('show');
 

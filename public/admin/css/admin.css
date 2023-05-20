@@ -287,7 +287,7 @@ h6 {
   flex-direction: column;
   width: 100%;
   pointer-events: auto;
-  background-color: #eaf5fa;
+  background-color: #fff;
   background-clip: padding-box;
   outline: 0;
 }
@@ -398,6 +398,21 @@ h6 {
   color: #000;
 }
 
+.button-transparent {
+  background-color: transparent;
+  appearance: button!important;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.button-transparent:hover {
+  color: #fff;
+}
+
+.button:focus {
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.55);
+}
+
 /* Floating button */
 
 .create-project-float {
@@ -443,7 +458,7 @@ h6 {
 input,
 textarea {
   border-radius: 0.25rem;
-  border: 1px solid #32a9ee;
+  border: 1px solid #ced4da;
   font-size: 1rem;
   padding: 0.625rem 0.9375rem;
   width: 100%;
@@ -458,7 +473,7 @@ textarea:focus {
 /* Input validation */
 
 .danger {
-  border-color: #eb3939;
+  border-color: #dc3545;
 }
 
 .danger:focus {
@@ -522,11 +537,12 @@ textarea:focus {
   width: 100%;
   padding: 0.5rem;
   /* background-color: #ece4d1; */
-  background-color: #dcf2ff;
+  background-color: #f4f4f4;
+  border-radius: 4px;
 }
 
 .project-link:hover {
-  background-color: #c1e8ff;
+  background-color: #ececec;
 }
 
 .thumbnail {
@@ -552,37 +568,34 @@ main > section {
   margin-bottom: 1rem;
 }
 
-.upload-edit-wrapper {
-  background-color: #dcf2ff;
-  /* border-radius: 4px 4px 0 0; */
-  /* border: 1px solid #000; */
-  /* border-bottom: none; */
+.upload-toolbar {
+  background-color: #424d8f;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
   display: flex;
   justify-content: space-between;
   padding: 0.5rem 1rem;
+  margin-bottom: 1px;
 }
 
-.file-list {
-  /* border-radius: 0 0 4px 4px; */
-  /* border: 1px solid #000; */
+.image-list {
   display: grid;
   gap: 0.5rem;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 123px;
   padding: 0.5rem;
-  background-color: #fff;
+  background-color: #f4f4f4;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
 }
 
 .uploaded-image {
-  /* border-radius: 4px; */
-  /* border: 1px solid #000; */
   height: 123px;
   object-fit: cover;
   width: 100%;
-  box-shadow: 0 4px 4px rgba(0,0,0,.1);
 }
 
-.section-heading {
+.section-title {
   font-size: 18px;
   font-weight: 600;
   margin-bottom: 8px;
@@ -591,7 +604,7 @@ main > section {
   white-space: nowrap;
 }
 
-.details-wrapper {
+.card {
   background-color: #f4f4f4;
   border-radius: 4px;
   display: flex;
@@ -600,11 +613,15 @@ main > section {
   padding: 0.5rem 1rem;
 }
 
-.details-wrapper:not(:last-child) {
+.card:not(:last-child) {
   margin-bottom: 1px;
 }
 
-.details-wrapper span {
+.col-fg-1 {
+  flex-grow: 1;
+}
+
+.card-header {
   font-weight: 600;
 }
 
@@ -613,32 +630,20 @@ main > section {
   display: flex;
 }
 
-.button-container {
+.card .input-group {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.form-actions {
   display: flex;
   gap: 0.5rem;
-  padding: 0.25rem 0;
-}
-
-.pw-wrapper {
-  margin-bottom: 1rem;
-}
-
-.project-name-form-wrapper {
-  display: none;
-}
-
-.project-name-input,
-.project-description {
   margin-bottom: 0.5rem;
-  margin-top: 0.5rem;
 }
 
-.project-description {
+textarea {
   resize: vertical;
-}
-
-.form-wrapper {
-  flex-grow: 1;
+  display: block;
 }
 
 .delete-project-wrapper {
@@ -656,7 +661,7 @@ main > section {
   color: #888;
 }
 
-.input-wrapper {
+.input-group {
   margin-bottom: 1rem;
 }
 
@@ -715,7 +720,7 @@ main > section {
     margin: 10% auto;
   }
 
-  .file-list {
+  .image-list {
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
 

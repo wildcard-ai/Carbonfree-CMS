@@ -33,38 +33,65 @@ uploadForm.addEventListener('change', (event) => {
   fileInput.value = '';
 });
 
-/* Details */
-// Project Name
+/* Project Details */
 
-const editProjectNameButton = document.querySelector('[data-button-edit="project-name"]');
-const projectNameWrappers = document.querySelectorAll('[data-title-collapse="project-name"]');
-const editProjectNameWrappers = document.querySelectorAll('[data-edit-collapse="project-name"]');
-const formProjectNameWrappers = document.querySelectorAll('[data-form-collapse="project-name"]');
+const projectNameEditButton = document.querySelector('[data-edit-button="project-name"]');
+const projectNameSaveButton = document.querySelector('[data-save-button="project-name"]');
+const projectNameCancelButton = document.querySelector('[data-cancel-button="project-name"]');
+const projectNameForm = document.querySelector('[data-form-id="project-name"]');
 const projectNameInput = document.querySelector('[data-input-id="project-name"]');
-const saveProjectNameButton = document.querySelector('[data-button-save="project-name"]');
-const cancelProjectNameButton = document.querySelector('[data-button-cancel="project-name"]');
+const projectNameNew = document.querySelectorAll('[data-update="project-name"]');
 
-let originalProjectName = '';
+let originalText = '';
 
-function showProjectNameFormWrappers() {
-  projectNameWrappers[0].style.display = 'none';
-  formProjectNameWrappers[0].style.display = 'block';
-  projectNameInput.focus();
-  projectNameInput.select();
+projectNameEditButton.addEventListener('click', toggleDetails);
+projectNameCancelButton.addEventListener('click', toggleDetails);
+projectNameForm.addEventListener('submit', function(event) {
+  saveProject(event, projectNameForm, projectNameNew);
+});
+
+const descriptionEditButton = document.querySelector('[data-edit-button="description"]');
+const descriptionSaveButton = document.querySelector('[data-save-button="description"]');
+const descriptionCancelButton = document.querySelector('[data-cancel-button="description"]');
+const descriptionForm = document.querySelector('[data-form-id="description"]');
+const descriptionNew = document.querySelectorAll('[data-update="description"]');
+
+descriptionEditButton.addEventListener('click', toggleDetails);
+descriptionCancelButton.addEventListener('click', toggleDetails);
+descriptionForm.addEventListener('submit', function(event) {
+  saveProject(event, descriptionForm, descriptionNew);
+});
+
+function toggleDetails() {
+  const collapseTargetIds = this.getAttribute('data-target-collapse');
+  const collapseTargets = document.querySelectorAll(`[data-collapse-id="${collapseTargetIds}"]`);
+
+  const targets = Array.from(collapseTargets);
+  detailsToggle(targets);
 }
 
-function hideProjectNameFormWrappers() {
-  projectNameWrappers[0].style.display = 'block';
-  formProjectNameWrappers[0].style.display = 'none';
+function detailsToggle(elements) {
+  elements.forEach(function(element) {
+    element.classList.toggle('show');
+  });
 }
 
-function saveProjectName() {
-  const form = document.querySelector('[data-form-id="project-name"]');
+function saveProject(event, formElement, updateElements) {
+  event.preventDefault();
+  const form = event.target;
   const projectId = form.querySelector('[name="project-id"]').value;
-  const projectName = form.querySelector('[name="project-name"]').value;
   const formData = new FormData();
   formData.append('project_id', projectId);
-  formData.append('project_name', projectName);
+
+  if (formElement === projectNameForm) {
+    const projectName = form.querySelector('[name="project-name"]').value;
+    formData.append('project_name', projectName);
+  }
+  
+  if (formElement === descriptionForm) {
+    const description = form.querySelector('[name="description"]').value;
+    formData.append('description', description);
+  }
 
   // Create fetch request
   fetch("project_details.php", {
@@ -74,107 +101,18 @@ function saveProjectName() {
   .then(response => response.json())
   .then(data => {
     console.log(data);
-    const newProjectNameElements = document.querySelectorAll('[data-new-project-title="project-name"]');
-    const newProjectNameArray = Array.from(newProjectNameElements);
-    newProjectNameArray.forEach(element => {
+    const newTextArray = Array.from(updateElements);
+    newTextArray.forEach(element => {
       element.textContent = data.newText;
     });
-    originalProjectName = projectName;
-    hideProjectNameFormWrappers();
-    editProjectNameWrappers[0].style.display = 'block';
+    const collapseTargetIds = form.getAttribute('data-target-collapse');
+    const collapseTargets = document.querySelectorAll(`[data-collapse-id="${collapseTargetIds}"]`);
+  
+    const targets = Array.from(collapseTargets);
+    detailsToggle(targets);
   })
   .catch(error => console.error(error));
 }
-
-editProjectNameButton.addEventListener('click', (event) => {
-  event.preventDefault();
-  showProjectNameFormWrappers();
-  editProjectNameWrappers[0].style.display = 'none';
-  originalProjectName = projectNameInput.value;
-});
-
-saveProjectNameButton.addEventListener('click', (event) => {
-  event.preventDefault();
-  saveProjectName();
-});
-
-cancelProjectNameButton.addEventListener('click', (event) => {
-  event.preventDefault();
-  projectNameInput.value = originalProjectName;
-  hideProjectNameFormWrappers();
-  editProjectNameWrappers[0].style.display = 'block';
-});
-
-// Description
-
-const editDescriptionButton = document.querySelector('[data-button-edit="description"]');
-const descriptionWrappers = document.querySelectorAll('[data-title-collapse="description"]');
-const editDescriptionWrappers = document.querySelectorAll('[data-edit-collapse="description"]');
-const formDescriptionWrappers = document.querySelectorAll('[data-form-collapse="description"]');
-const descriptionInput = document.querySelector('[data-input-id="description"]');
-const saveDescriptionButton = document.querySelector('[data-button-save="description"]');
-const cancelDescriptionButton = document.querySelector('[data-button-cancel="description"]');
-
-let originalDescription = '';
-
-function showDescriptionFormWrappers() {
-  descriptionWrappers[0].style.display = 'none';
-  formDescriptionWrappers[0].style.display = 'block';
-  descriptionInput.focus();
-  descriptionInput.select();
-}
-
-function hideDescriptionFormWrappers() {
-  descriptionWrappers[0].style.display = 'block';
-  formDescriptionWrappers[0].style.display = 'none';
-}
-
-function saveDescription() {
-  const form = document.querySelector('[data-form-id="description"]');
-  const projectId = form.querySelector('[name="project-id"]').value;
-  const description = form.querySelector('[name="description"]').value;
-  const formData = new FormData();
-  formData.append('project_id', projectId);
-  formData.append('description', description);
-
-  // Create fetch request
-  fetch("project_details.php", {
-    method: "POST",
-    body: formData
-  })
-  .then(response => response.json())
-  .then(data => {
-    console.log(data);
-    const newDescriptionElements = document.querySelectorAll('[data-new-description="description"]');
-    const newDescriptionArray = Array.from(newDescriptionElements);
-    newDescriptionArray.forEach(element => {
-      element.textContent = data.newText;
-    });
-    originalDescription = description;
-    hideDescriptionFormWrappers();
-    editDescriptionWrappers[0].style.display = 'block';
-  })
-  .catch(error => console.error(error));
-}
-
-editDescriptionButton.addEventListener('click', (event) => {
-  event.preventDefault();
-  showDescriptionFormWrappers();
-  editDescriptionWrappers[0].style.display = 'none';
-  originalDescription = descriptionInput.value;
-});
-
-saveDescriptionButton.addEventListener('click', (event) => {
-  event.preventDefault();
-  saveDescription();
-});
-
-cancelDescriptionButton.addEventListener('click', (event) => {
-  event.preventDefault();
-  descriptionInput.value = originalDescription;
-  hideDescriptionFormWrappers();
-  editDescriptionWrappers[0].style.display = 'block';
-});
 
 /* Project Visibility */
 

@@ -44,22 +44,22 @@ if(is_post_request()) {
       <p>
         Passwords should be at least 8 characters and include at least one uppercase letter, lowercase letter, number, and symbol.
       </p>
-      <div class="pw-wrapper">
+      <div class="input-group">
         <label for="username">Username:</label>
         <input id="username" type="text" name="username" value="" autocomplete="username" required>
       </div>
 
-      <div class="pw-wrapper">
+      <div class="input-group">
         <label for="email">Email:</label>
         <input id="email" type="text" name="email" value="" autocomplete="email">
       </div>
 
-      <div class="pw-wrapper">
+      <div class="input-group">
         <label for="new-password">New Password:</label>
         <input id="new-password" type="password" name="password" value="" autocomplete="new-password">
       </div>
 
-      <div class="pw-wrapper">
+      <div class="input-group">
         <label for="confirm-new-password">Confirm New Password:</label>
         <input id="confirm-new-password" type="password" name="confirm_password" value="" autocomplete="new-password">
       </div>

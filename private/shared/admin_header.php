@@ -24,8 +24,8 @@ if(!isset($page_title)) { $page_title = 'Admin Panel'; }
 <nav>
   <div class="navbar">
     <a class="navbar-brand" href="<?php echo url_for('admin/'); ?>" title="Admin Panel">Admin Panel</a>
-    <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent"><i class="navbar-toggler-icon"></i></button>
-    <div class="navbar-collapse collapse" id="navbarSupportedContent">
+    <button class="navbar-toggler" data-toggle="collapse" data-target="navbar"><i class="navbar-toggler-icon"></i></button>
+    <div class="navbar-collapse collapse" data-navbar-collapse-id="navbar">
       <div class="navbar-nav">
         <a class="nav-link<?php echo (is_page( 'index' )) ? ' active':''; ?>" href="<?php echo url_for('admin'); ?>">Projects</a>
         <a class="nav-link<?php echo (is_page( 'password' )) ? ' active':''; ?>" href="<?php echo url_for('admin/password.php'); ?>">Password</a>

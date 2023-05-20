@@ -32,7 +32,11 @@
     
     if (isset($project['description'])) {
       $successMessages['message'] = "Project description updated successfully.";
-      $successMessages['data'] = $project['description'];
+      if (empty($project['description'])) {
+        $successMessages['data'] = "No description";
+      } else {
+        $successMessages['data'] = $project['description'];
+      }
     }
     
     echo json_encode(["success" => true, "message" => $successMessages['message'], "newText" => $successMessages['data']]);

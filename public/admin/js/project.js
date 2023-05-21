@@ -40,40 +40,30 @@ const projectNameCancelButton = document.querySelector('[data-cancel-button="pro
 const projectNameForm = document.querySelector('[data-form-id="project-name"]');
 const projectNameNew = document.querySelectorAll('[data-update="project-name"]');
 
-//const projectNameSaveButton = document.querySelector('[data-save-button="project-name"]');
-//const projectNameInput = document.querySelector('[data-input-id="project-name"]');
-
-let originalText = '';
-
-projectNameEditButton.addEventListener('click', toggleDetails);
-projectNameCancelButton.addEventListener('click', toggleDetails);
+projectNameEditButton.addEventListener('click', () => toggleDetails(projectNameEditButton));
+projectNameCancelButton.addEventListener('click', () => toggleDetails(projectNameCancelButton));
 projectNameForm.addEventListener('submit', function(event) {
   saveProject(event, projectNameForm, projectNameNew);
 });
 
 const descriptionEditButton = document.querySelector('[data-edit-button="description"]');
-const descriptionSaveButton = document.querySelector('[data-save-button="description"]');
 const descriptionCancelButton = document.querySelector('[data-cancel-button="description"]');
 const descriptionForm = document.querySelector('[data-form-id="description"]');
 const descriptionNew = document.querySelectorAll('[data-update="description"]');
 
-descriptionEditButton.addEventListener('click', toggleDetails);
-descriptionCancelButton.addEventListener('click', toggleDetails);
+descriptionEditButton.addEventListener('click', () => toggleDetails(descriptionEditButton));
+descriptionCancelButton.addEventListener('click', () => toggleDetails(descriptionCancelButton));
 descriptionForm.addEventListener('submit', function(event) {
   saveProject(event, descriptionForm, descriptionNew);
 });
 
-function toggleDetails() {
-  const collapseTargetIds = this.getAttribute('data-collapse-target');
+function toggleDetails(element) {
+  const collapseTargetIds = element.getAttribute('data-collapse-target');
   const collapseTargets = document.querySelectorAll(`[data-collapse-id="${collapseTargetIds}"]`);
 
   const targets = Array.from(collapseTargets);
-  detailsToggle(targets);
-}
-
-function detailsToggle(elements) {
-  elements.forEach(function(element) {
-    element.classList.toggle('show');
+  targets.forEach(function(target) {
+    target.classList.toggle('show');
   });
 }
 
@@ -106,11 +96,7 @@ function saveProject(event, formElement, updateElements) {
     newTextArray.forEach(element => {
       element.innerHTML = data.newText.replace(/\n/g, '<br>');
     });
-    const collapseTargetIds = form.getAttribute('data-collapse-target');
-    const collapseTargets = document.querySelectorAll(`[data-collapse-id="${collapseTargetIds}"]`);
-  
-    const targets = Array.from(collapseTargets);
-    detailsToggle(targets);
+    toggleDetails(form);
   })
   .catch(error => console.error(error));
 }

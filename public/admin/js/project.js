@@ -36,11 +36,12 @@ uploadForm.addEventListener('change', (event) => {
 /* Project Details */
 
 const projectNameEditButton = document.querySelector('[data-edit-button="project-name"]');
-const projectNameSaveButton = document.querySelector('[data-save-button="project-name"]');
 const projectNameCancelButton = document.querySelector('[data-cancel-button="project-name"]');
 const projectNameForm = document.querySelector('[data-form-id="project-name"]');
-const projectNameInput = document.querySelector('[data-input-id="project-name"]');
 const projectNameNew = document.querySelectorAll('[data-update="project-name"]');
+
+//const projectNameSaveButton = document.querySelector('[data-save-button="project-name"]');
+//const projectNameInput = document.querySelector('[data-input-id="project-name"]');
 
 let originalText = '';
 
@@ -63,7 +64,7 @@ descriptionForm.addEventListener('submit', function(event) {
 });
 
 function toggleDetails() {
-  const collapseTargetIds = this.getAttribute('data-target-collapse');
+  const collapseTargetIds = this.getAttribute('data-collapse-target');
   const collapseTargets = document.querySelectorAll(`[data-collapse-id="${collapseTargetIds}"]`);
 
   const targets = Array.from(collapseTargets);
@@ -103,9 +104,9 @@ function saveProject(event, formElement, updateElements) {
     console.log(data);
     const newTextArray = Array.from(updateElements);
     newTextArray.forEach(element => {
-      element.textContent = data.newText;
+      element.innerHTML = data.newText.replace(/\n/g, '<br>');
     });
-    const collapseTargetIds = form.getAttribute('data-target-collapse');
+    const collapseTargetIds = form.getAttribute('data-collapse-target');
     const collapseTargets = document.querySelectorAll(`[data-collapse-id="${collapseTargetIds}"]`);
   
     const targets = Array.from(collapseTargets);

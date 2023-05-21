@@ -58,19 +58,19 @@ include(SHARED_PATH . '/admin_header.php');
         <div class="collapse show" data-collapse-id="project-name" data-update="project-name">
           <?php echo $project["project_name"]; ?>
         </div>
-        <form class="collapse" data-form-id="project-name" data-collapse-id="project-name" data-target-collapse="project-name">
+        <form class="collapse" data-form-id="project-name" data-collapse-id="project-name" data-collapse-target="project-name">
           <div class="input-group">
             <input type="hidden" name="project-id" value="<?php echo $project_id; ?>">
             <input type="text" data-input-id="project-name" name="project-name" value="<?php echo $project["project_name"]; ?>" required>
           </div>
           <div class="form-actions">
-            <button class="button button-secondary" data-save-button="project-name" type="submit">Save</button>
-            <button class="button button-light" data-cancel-button="project-name" data-target-collapse="project-name" type="button">Cancel</button>
+            <button class="button button-secondary" type="submit">Save</button>
+            <button class="button button-light" data-cancel-button="project-name" data-collapse-target="project-name" type="button">Cancel</button>
           </div>
         </form>
       </div>
       <div class="collapse show" data-collapse-id="project-name">
-        <button class="button button-primary" data-edit-button="project-name" data-target-collapse="project-name">Edit</button>
+        <button class="button button-primary" data-edit-button="project-name" data-collapse-target="project-name">Edit</button>
       </div>
     </div>
 
@@ -78,21 +78,21 @@ include(SHARED_PATH . '/admin_header.php');
       <div class="col-fg-1">
         <header class="card-header">Description</header>
         <div class="collapse show" data-collapse-id="description" data-update="description">
-          <?php echo empty($project["description"]) ? "No description" : $project["description"]; ?>
+          <?php echo empty($project["description"]) ? "No description" : nl2br($project["description"]); ?>
         </div>
-        <form class="collapse" data-form-id="description" data-collapse-id="description" data-target-collapse="description">
+        <form class="collapse" data-form-id="description" data-collapse-id="description" data-collapse-target="description">
           <div class="input-group">
             <input type="hidden" name="project-id" value="<?php echo $project_id; ?>">
             <textarea data-input-id="description" name="description" rows="4" cols="50"><?php echo $project["description"]; ?></textarea>
           </div>
           <div class="form-actions">
             <button class="button button-secondary" data-save-button="description" type="submit">Save</button>
-            <button class="button button-light" data-cancel-button="description" data-target-collapse="description" type="button">Cancel</button>
+            <button class="button button-light" data-cancel-button="description" data-collapse-target="description" type="button">Cancel</button>
           </div>
         </form>
       </div>
       <div class="collapse show" data-collapse-id="description">
-        <button class="button button-primary" data-edit-button="description" data-target-collapse="description">Edit</button>
+        <button class="button button-primary" data-edit-button="description" data-collapse-target="description">Edit</button>
       </div>
     </div>
   </section>

@@ -14,9 +14,8 @@ if(!isset($page_title)) { $page_title = 'Admin Panel'; }
   <script src="<?php echo url_for('js/navbar.js'); ?>" defer></script>
   <?php
     echo load_script('index', 'modal');
-    echo load_script('index', 'newproject');
+    echo load_script('index', 'script');
     echo load_script('project', 'modal');
-    echo load_script('index', 'thumbnail');
     echo load_script('project', 'project');
   ?>
 </head>

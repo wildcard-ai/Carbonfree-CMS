@@ -409,10 +409,6 @@ h6 {
   color: #fff;
 }
 
-.button:focus {
-  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.55);
-}
-
 /* Floating button */
 
 .create-project-float {
@@ -460,7 +456,7 @@ textarea {
   border-radius: 0.25rem;
   border: 1px solid #ced4da;
   font-size: 1rem;
-  padding: 0.625rem 0.9375rem;
+  padding: 10px;
   width: 100%;
 }
 
@@ -662,7 +658,7 @@ textarea {
 }
 
 .input-group {
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 /* Errors */

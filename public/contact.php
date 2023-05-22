@@ -15,21 +15,21 @@ require_once('../private/initialize.php');
 
         <div class="form-contact">
           <label for="name">Name:</label>
-          <input type="text" id="name" name="name" required>
+          <input class="input" type="text" id="name" name="name" required>
         </div>
 
         <div class="form-contact">
           <label for="email">Email:</label>
-          <input type="email" id="email" name="email" required>
+          <input class="input" type="email" id="email" name="email" required>
         </div>
 
         <div class="form-contact message">
           <label for="message">Message:</label>
-          <textarea rows="5" cols="33" id="message" name="message" required></textarea>
+          <textarea class="textarea" rows="5" cols="33" id="message" name="message" required></textarea>
         </div>
       </div>
       <div class="form-submit">
-        <input type="submit" value="Sumbit">
+        <input class="submit" type="submit" value="Sumbit">
       </div>
     </form>
 

@@ -8,11 +8,18 @@ const fileList = document.querySelector('[data-list-id="upload"]');
 
 uploadForm.addEventListener('change', (event) => {
   event.preventDefault();
+
   const files = fileInput.files;
-  const projectId = document.querySelector('[name="project_id"]').value;
+  const projectId = uploadForm.getAttribute('data-project-id');
   const formData = new FormData();
+
   formData.append('project_id', projectId);
-  formData.append('file', files[0]);
+
+  for (let i = 0; i < files.length; i++) {
+    let file = files[i];
+
+    formData.append('files[]', file);
+  }
 
   fetch('project_upload.php', {
     method: 'POST',
@@ -22,14 +29,23 @@ uploadForm.addEventListener('change', (event) => {
   .then((data) => {
     if (data.success) {
       console.log(data);
-      const newDiv = document.createElement('div');
-      newDiv.classList.add('image-container');
-      newDiv.innerHTML = `
-        <img class="uploaded-image" src="${data.path}">
-        <input class="image-checkbox" type="checkbox" data-checkbox="image" data-image-id="${data.id}">
-      `;
-
-      fileList.insertBefore(newDiv, fileList.firstChild);
+      const ids = data.ids;
+      const pathUrls = data.pathUrls;
+    
+      for (let i = 0; i < ids.length; i++) {
+        const id = ids[i];
+        const path = Object.keys(pathUrls)[i];
+        const url = pathUrls[path];
+    
+        const newDiv = document.createElement('div');
+        newDiv.classList.add('image-container');
+        newDiv.innerHTML = `
+          <img class="uploaded-image" src="${url}">
+          <input class="image-checkbox" type="checkbox" data-checkbox="image" data-image-id="${id}">
+        `;
+    
+        fileList.insertBefore(newDiv, fileList.firstChild);
+      }
     } else {
       console.log(data.error);
     }

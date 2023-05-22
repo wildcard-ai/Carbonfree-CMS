@@ -34,9 +34,8 @@ include(SHARED_PATH . '/admin_header.php');
 
   <section>
     <div class="upload-toolbar">
-      <form data-form-id="upload" method="post">
-        <input type="hidden" name="project_id" value="<?php echo $project_id; ?>">
-        <input type="file" name="file" data-input-id="upload" id="file-input" hidden>
+      <form method="post" enctype="multipart/form-data" data-form-id="upload" data-project-id="<?php echo $project_id; ?>">
+        <input type="file" name="files[]" data-input-id="upload" id="file-input" hidden multiple>
         <label tabindex="0" class="button button-transparent" for="file-input">Upload</label>
       </form>
       <button class="button button-transparent" data-delete-button="image">Delete</button>

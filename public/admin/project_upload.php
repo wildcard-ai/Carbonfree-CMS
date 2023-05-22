@@ -1,47 +1,64 @@
 <?php
-  require_once('../../private/initialize.php');
+require_once('../../private/initialize.php');
 
-  $uploadPath = "../uploads/";
-  $allowedExtensions = ["jpg", "jpeg", "png", "gif", "webp"];
+$errors = [];
+$insertedIds = [];
+$pathUrls = [];
+$extensions = ["jpg", "jpeg", "png", "gif", "webp"];
+$uploadLimit = 2097152;
+$path = "../uploads/";
 
-  if (!isset($_FILES["file"])) {
-    die(json_encode(["success" => false, "error" => "No file was uploaded."]));
+create_directory_if_not_exists($path);
+
+if (!isset($_FILES["files"])) {
+  die(json_encode(["success" => false, "error" => "No file was uploaded."]));
+}
+
+$project_id = $_POST["project_id"];
+$all_files = count($_FILES['files']['tmp_name']);
+$fileNames = [];
+
+for ($i = 0; $i < $all_files; $i++) {
+  $file_name = $_FILES['files']['name'][$i];
+  $file_tmp = $_FILES['files']['tmp_name'][$i];
+  $file_type = $_FILES['files']['type'][$i];
+  $file_size = $_FILES['files']['size'][$i];
+  $file_ext = get_file_extension($file_name);
+  $fileNames[] = $file_name;
+
+  $filename = generate_unique_filename($file_ext);
+  $file = generate_upload_path($filename, $path);
+  $upload_name = generate_upload_url($filename);
+
+  if (!is_valid_extension($file_ext, $extensions)) {
+    $errors[] = 'Extension not allowed: ' . $file_name . ' ' . $file_type;
   }
 
-  $project_id = (int) $_POST["project_id"];
-  $file = $_FILES["file"];
-  $extension = pathinfo($file["name"], PATHINFO_EXTENSION);
-
-  if (!in_array($extension, $allowedExtensions)) {
-    die(json_encode(["success" => false, "error" => "Invalid file extension. Only JPG, JPEG, PNG and GIF files are allowed."]));
+  if (!is_valid_file_size($file_size, $uploadLimit)) {
+    $errors[] = 'File size exceeds limit: ' . $file_name . ' ' . $file_type;
   }
 
-  // create uploads folder if it doesn't exist
-  if (!is_dir($uploadPath)) {
-    mkdir($uploadPath);
+  if (empty($errors)) {
+    move_uploaded_file_to_destination($file_tmp, $file);
+
+    $result = insert_image_by_project_id($db, $project_id, $upload_name);
+
+    if ($result === true) {
+      $new_id = mysqli_insert_id($db);
+      $insertedIds[] = $new_id;
+      $pathUrls[$upload_name] = url_for($upload_name);
+    } else {
+      $errors[] = $result;
+    }
   }
+}
 
-  $filename = uniqid() . "." . $extension;
-  $target = $uploadPath . $filename;
-  $path = "uploads/" . $filename;
 
-  if (!move_uploaded_file($file["tmp_name"], $target)) {
-    die(json_encode(["success" => false, "error" => "File upload failed."]));
-  }
+if (empty($errors)) {
+  echo json_encode(["success" => true, "file_names" => $fileNames, "ids" => $insertedIds, "pathUrls" => $pathUrls]);
+} else {
+  echo json_encode(["success" => false, "error" => $errors]);
+}
 
-  $sql = "INSERT into images ";
-  $sql .= "(project_id, path) ";
-  $sql .= "VALUES (";
-  $sql .= "'" . db_escape($db, $project_id) . "',";
-  $sql .= "'" . db_escape($db, $path) . "'";
-  $sql .= ")";
-
-  if (mysqli_query($db, $sql)) {
-    $new_id = mysqli_insert_id($db);
-    echo json_encode(["success" => true, "path" => url_for($path), "id" => $new_id]);
-  } else {
-    echo json_encode(["success" => false, "error" => "Error inserting record: " . mysqli_error($db)]);
-  }
-
-  db_disconnect($db);
+db_disconnect($db);
 ?>

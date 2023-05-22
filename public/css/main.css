@@ -256,27 +256,27 @@ footer {
   padding-top: 1rem;
 }
 
-.contact textarea {
+.textarea {
   resize: vertical;
 }
 
-.contact .form-contact-parent input,
-.contact .form-contact-parent textarea {
+.input,
+.textarea {
   background-color: #fff;
   border-radius: 0.25rem;
   border: 0.063rem solid #000;
   font-family: inherit;
   font-size: inherit;
-  padding: 0.625rem 0.9375rem;
+  padding: 0.625rem;
   width: 100%;
 }
 
-.contact input:focus-within,
-.contact textarea:focus-within {
-  outline: 0.125rem solid #ff90e8;
+.input:focus,
+.textarea:focus {
+  outline: 0.125rem solid #dfff00;
 }
 
-.contact input[type=submit] {
+.submit {
   background: linear-gradient(180deg, rgba(119,175,32,1) 0%, rgba(44,79,23,1) 100%);
   border: none;
   color: white;
@@ -288,7 +288,7 @@ footer {
   text-transform: uppercase;
 }
 
-.contact input[type=submit]:hover {
+.submit:hover {
   background: linear-gradient(0deg, rgba(119,175,32,1) 0%, rgba(44,79,23,1) 100%);
   cursor: pointer;
 }

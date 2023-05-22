@@ -603,6 +603,8 @@ main > section {
   position: absolute;
   display: block;
   margin: 8px;
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
 .section-title {

@@ -240,6 +240,23 @@
     return $image; // returns an assoc. array
   }
 
+  function insert_image_by_project_id($db, $project_id, $upload_name) {
+    $sql = "INSERT into images ";
+    $sql .= "(project_id, path) ";
+    $sql .= "VALUES (";
+    $sql .= "'" . db_escape($db, $project_id) . "',";
+    $sql .= "'" . db_escape($db, $upload_name) . "'";
+    $sql .= ")";
+    $result = mysqli_query($db, $sql);
+  
+    if ($result) {
+      return true;
+    } else {
+      $error = mysqli_error($db);
+      return $error;
+    }
+  }
+
   function delete_images_by_id($db, $image_ids) {
     $ids = implode(',', $image_ids);
     $sql = "DELETE FROM images WHERE id IN ($ids)";

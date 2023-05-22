@@ -2,7 +2,7 @@
   require_once('../../private/initialize.php');
 
   $uploadPath = "../uploads/";
-  $allowedExtensions = ["jpg", "jpeg", "png", "gif"];
+  $allowedExtensions = ["jpg", "jpeg", "png", "gif", "webp"];
 
   if (!isset($_FILES["file"])) {
     die(json_encode(["success" => false, "error" => "No file was uploaded."]));
@@ -37,7 +37,8 @@
   $sql .= ")";
 
   if (mysqli_query($db, $sql)) {
-    echo json_encode(["success" => true, "path" => url_for($path)]);
+    $new_id = mysqli_insert_id($db);
+    echo json_encode(["success" => true, "path" => url_for($path), "id" => $new_id]);
   } else {
     echo json_encode(["success" => false, "error" => "Error inserting record: " . mysqli_error($db)]);
   }

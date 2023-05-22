@@ -37,13 +37,17 @@ include(SHARED_PATH . '/admin_header.php');
       <form data-form-id="upload" method="post">
         <input type="hidden" name="project_id" value="<?php echo $project_id; ?>">
         <input type="file" name="file" data-input-id="upload" id="file-input" hidden>
-        <label class="button button-transparent" for="file-input">Upload</label>
+        <label tabindex="0" class="button button-transparent" for="file-input">Upload</label>
       </form>
+      <button class="button button-transparent" data-delete-button="image">Delete</button>
       <button class="button button-transparent">Edit</button>
     </div>
     <div class="image-list" data-list-id="upload">
       <?php while($image = mysqli_fetch_assoc($image_set)) { ?>
-        <img class="uploaded-image" src="<?php echo url_for($image['path']); ?>">
+        <div class="image-container">
+          <img class="uploaded-image" src="<?php echo url_for($image['path']); ?>">
+          <input class="image-checkbox" type="checkbox" data-checkbox="image" data-image-id="<?php echo $image['id']; ?>">
+        </div>
       <?php } ?>
     </div>
   </section>
@@ -133,7 +137,7 @@ include(SHARED_PATH . '/admin_header.php');
 <dialog class="modal" data-dialog="modal">
   <div class="modal-content">
     <div class="modal-header">
-      <h5 class="modal-title">Delete this Project?</h5>
+      <h5 class="modal-title">Delete project</h5>
       <button class="close" data-dismiss="modal"><span>×</span></button>
     </div>
     <div class="modal-body">

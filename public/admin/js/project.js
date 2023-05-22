@@ -1,4 +1,6 @@
-/* Upload files */ 
+/*
+  Upload files
+*/ 
 
 const uploadForm = document.querySelector('[data-form-id="upload"]');
 const fileInput = document.querySelector('[data-input-id="upload"]');
@@ -20,10 +22,14 @@ uploadForm.addEventListener('change', (event) => {
   .then((data) => {
     if (data.success) {
       console.log(data);
-      const img = document.createElement('img');
-      img.classList.add('uploaded-image');
-      img.src = data.path;
-      fileList.insertBefore(img, fileList.firstChild);
+      const newDiv = document.createElement('div');
+      newDiv.classList.add('image-container');
+      newDiv.innerHTML = `
+        <img class="uploaded-image" src="${data.path}">
+        <input class="image-checkbox" type="checkbox" data-checkbox="image" data-image-id="${data.id}">
+      `;
+
+      fileList.insertBefore(newDiv, fileList.firstChild);
     } else {
       console.log(data.error);
     }
@@ -33,7 +39,63 @@ uploadForm.addEventListener('change', (event) => {
   fileInput.value = '';
 });
 
-/* Project Details */
+/*
+  Delete Checkbox
+*/
+
+const deleteImageButton = document.querySelector('[data-delete-button="image"]');
+let imageIds = [];
+
+document.addEventListener('click', function(event) {
+  const target = event.target;
+  
+  if (target.matches('[data-checkbox="image"]')) {
+    if (target.checked) {
+      const imageId = target.getAttribute('data-image-id');
+      imageIds.push(imageId);
+      console.log(imageId);
+    } else {
+      const imageId = target.getAttribute('data-image-id');
+      const index = imageIds.indexOf(imageId);
+      if (index > -1) {
+        imageIds.splice(index, 1);
+      }
+    }
+  }
+});
+
+deleteImageButton.addEventListener('click', function() {
+  deleteImages(imageIds);
+});
+
+function deleteImages(imageIds) {
+  // Make a POST request to your PHP script with the imageIds data
+  fetch('delete_images.php', {
+    method: 'POST',
+    body: JSON.stringify(imageIds),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+    // Remove deleted elements from the DOM
+    imageIds.forEach(imageId => {
+      const imageElement = document.querySelector(`[data-image-id="${imageId}"]`);
+      if (imageElement) {
+        imageElement.parentNode.remove();
+      }
+    });
+  })
+  .catch(error => {
+    console.log('Error:', error);
+  });
+}
+
+/*
+  Project Details
+*/
 
 const projectNameEditButton = document.querySelector('[data-edit-button="project-name"]');
 const projectNameCancelButton = document.querySelector('[data-cancel-button="project-name"]');

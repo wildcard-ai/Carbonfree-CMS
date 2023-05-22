@@ -173,10 +173,12 @@ footer {
 
 /* Project page */
 
-.projects article {
+.images,
+.details {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1rem;
+  margin-bottom: 2rem;
 }
 
 .projects img {
@@ -190,6 +192,10 @@ footer {
   margin-bottom: 1.75rem;
   margin-top: 0.5rem;
   text-align: center;
+}
+
+.details-label {
+  color: rgb(134, 134, 134);
 }
 
 /* About Tab */
@@ -374,6 +380,12 @@ footer {
   .project-title {
     padding-top: 0.75rem;
     padding-bottom: 0;
+  }
+
+  /* Projects page */
+
+  .details {
+    flex-direction: row;
   }
 
   /* Contact Tab */

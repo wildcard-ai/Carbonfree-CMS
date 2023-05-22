@@ -240,4 +240,18 @@
     return $image; // returns an assoc. array
   }
 
+  function delete_images_by_id($db, $image_ids) {
+    $ids = implode(',', $image_ids);
+    $sql = "DELETE FROM images WHERE id IN ($ids)";
+    $result = mysqli_query($db, $sql);
+
+    // For DELETE statements, $result is true/false
+    if($result) {
+      return true;
+    } else {
+      $error = mysqli_error($db);
+      return ["success" => false, "error" => $error];
+    }
+  }
+
 ?>

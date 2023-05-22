@@ -351,7 +351,8 @@ h6 {
 }
 
 .button:focus {
-  box-shadow: 0 0 0 0.2rem rgba(0,123,255,.5);
+  outline: 0;
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.55);
 }
 
 .button-primary {
@@ -451,7 +452,8 @@ h6 {
 
 /* Input fields */
 
-input,
+input[type=text],
+input[type=password],
 textarea {
   border-radius: 0.25rem;
   border: 1px solid #ced4da;
@@ -460,7 +462,8 @@ textarea {
   width: 100%;
 }
 
-input:focus,
+input[type=text]:focus,
+input[type=password]:focus,
 textarea:focus {
   outline: 0;
   box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
@@ -585,10 +588,21 @@ main > section {
   border-bottom-right-radius: 4px;
 }
 
+.image-container {
+  display: flex;
+  position: relative;
+}
+
 .uploaded-image {
   height: 123px;
   object-fit: cover;
   width: 100%;
+}
+
+.image-checkbox {
+  position: absolute;
+  display: block;
+  margin: 8px;
 }
 
 .section-title {

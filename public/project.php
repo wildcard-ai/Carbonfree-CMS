@@ -14,13 +14,21 @@ $project = find_project_by_id($id);
 
 <main class="projects">
   <h1><?php echo $project["project_name"]; ?></h1>
-  <article>
+  <section class="images">
     <?php while($image = mysqli_fetch_assoc($image_set)) { ?>
       <img src="<?php echo url_for($image["path"]); ?>">
     <?php } ?>
     
     <?php mysqli_free_result($image_set); ?>
-  </article>
+  </section>
+  <section class="details">
+    <div class="details-label">
+      Description
+    </div>
+    <div>
+      <?php echo nl2br($project["description"]); ?>
+    </div>
+  </section>
 </main>
 
 <?php include(SHARED_PATH . '/public_footer.php'); ?>

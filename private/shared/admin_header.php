@@ -28,7 +28,7 @@ if(!isset($page_title)) { $page_title = 'Admin Panel'; }
       <div class="navbar-nav">
         <a class="nav-link<?php echo (is_page( 'index' )) ? ' active':''; ?>" href="<?php echo url_for('admin'); ?>">Projects</a>
         <a class="nav-link<?php echo (is_page( 'password' )) ? ' active':''; ?>" href="<?php echo url_for('admin/password.php'); ?>">Password</a>
-        <a class="nav-link logout" href="<?php echo url_for('admin/login.php?action=logout'); ?>">Log out</a>
+        <a class="nav-link" href="<?php echo url_for('admin/login.php?action=logout'); ?>">Log out</a>
       </div>
     </div>
   </div>

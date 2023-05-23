@@ -34,19 +34,21 @@ include(SHARED_PATH . '/admin_header.php');
 
   <section>
     <div class="upload-toolbar">
-      <form method="post" enctype="multipart/form-data" data-form-id="upload" data-project-id="<?php echo $project_id; ?>">
+      <form class="collapse show" method="post" enctype="multipart/form-data" data-form-id="upload" data-project-id="<?php echo $project_id; ?>">
         <input type="file" name="files[]" data-input-id="upload" id="file-input" hidden multiple>
-        <label tabindex="0" class="button button-transparent" for="file-input">Upload</label>
+        <label tabindex="0" class="button button-secondary" for="file-input">Upload</label>
       </form>
-      <button class="button button-transparent" data-delete-button="image">Delete</button>
-      <button class="button button-transparent">Edit</button>
+      <button class="button button-primary collapse show" data-edit-button="image" data-edit-button-toggled="false">Edit</button>
+      <span class="selected-count collapse" data-selected-count="image"></span>
+      <button class="button button-danger collapse" data-delete-button="image">Delete</button>
+      <button class="button button-primary collapse" data-select-all-button="image">Select All</button>
     </div>
     <div class="image-list" data-list-id="upload">
       <?php while($image = mysqli_fetch_assoc($image_set)) { ?>
-        <div class="image-container">
+        <label class="image-container">
           <img class="uploaded-image" src="<?php echo url_for($image['path']); ?>">
-          <input class="image-checkbox" type="checkbox" data-checkbox="image" data-image-id="<?php echo $image['id']; ?>">
-        </div>
+          <input class="image-checkbox collapse" type="checkbox" data-checkbox="image" data-image-id="<?php echo $image['id']; ?>" disabled>
+        </label>
       <?php } ?>
     </div>
   </section>
@@ -67,7 +69,7 @@ include(SHARED_PATH . '/admin_header.php');
             <input type="text" data-input-id="project-name" name="project-name" value="<?php echo $project["project_name"]; ?>" required>
           </div>
           <div class="form-actions">
-            <button class="button button-secondary" type="submit">Save</button>
+            <button class="button button-primary" type="submit">Save</button>
             <button class="button button-light" data-cancel-button="project-name" data-collapse-target="project-name" type="button">Cancel</button>
           </div>
         </form>
@@ -86,10 +88,10 @@ include(SHARED_PATH . '/admin_header.php');
         <form class="collapse" data-form-id="description" data-collapse-id="description" data-collapse-target="description">
           <div class="input-group">
             <input type="hidden" name="project-id" value="<?php echo $project_id; ?>">
-            <textarea data-input-id="description" name="description" rows="4" cols="50"><?php echo $project["description"]; ?></textarea>
+            <textarea data-input-id="description" name="description" rows="8" cols="50"><?php echo $project["description"]; ?></textarea>
           </div>
           <div class="form-actions">
-            <button class="button button-secondary" data-save-button="description" type="submit">Save</button>
+            <button class="button button-primary" data-save-button="description" type="submit">Save</button>
             <button class="button button-light" data-cancel-button="description" data-collapse-target="description" type="button">Cancel</button>
           </div>
         </form>

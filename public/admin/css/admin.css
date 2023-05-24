@@ -191,6 +191,13 @@ nav {
   transition: height 0.35s ease;
 }
 
+.toolbar-collapsing {
+  position: relative;
+  height: 0;
+  overflow: hidden;
+  transition: height 0.1s ease;
+}
+
 .navbar-nav {
   display: flex;
   flex-direction: column;
@@ -592,7 +599,18 @@ main > section {
   margin-bottom: 1rem;
 }
 
-.upload-toolbar {
+.toolbar-container {
+  position: relative;
+}
+
+.delete-toolbar {
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.upload-toolbar,
+.delete-toolbar {
   background-color: #25292d;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
@@ -764,12 +782,8 @@ textarea {
   padding-left: 1em;
 }
 
-.collapse {
+.collapse:not(.show) {
   display: none;
-}
-
-.collapse.show {
-  display: block;
 }
 
 @media screen and (min-width: 48rem) {

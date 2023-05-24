@@ -33,15 +33,19 @@ include(SHARED_PATH . '/admin_header.php');
   </header>
 
   <section>
-    <div class="upload-toolbar">
-      <form class="collapse show" method="post" enctype="multipart/form-data" data-form-id="upload" data-project-id="<?php echo $project_id; ?>">
-        <input type="file" name="files[]" data-input-id="upload" id="file-input" hidden multiple>
-        <label tabindex="0" class="button button-secondary" for="file-input">Upload</label>
-      </form>
-      <button class="button button-primary collapse show" data-edit-button="image" data-edit-button-toggled="false">Edit</button>
-      <span class="selected-count collapse" data-selected-count="image"></span>
-      <button class="button button-danger collapse" data-delete-button="image">Delete</button>
-      <button class="button button-primary collapse" data-select-all-button="image">Select All</button>
+    <div class="toolbar-container">
+      <div class="upload-toolbar" data-upload-buttons="toolbar">
+        <form method="post" enctype="multipart/form-data" data-form-id="upload" data-project-id="<?php echo $project_id; ?>">
+          <input type="file" name="files[]" data-input-id="upload" id="file-input" hidden multiple>
+          <label tabindex="0" class="button button-secondary" for="file-input">Upload</label>
+        </form>
+        <button class="button button-primary" data-edit-button="image" data-edit-button-toggled="false">Edit</button>
+      </div>
+      <div class="delete-toolbar collapse" data-delete-buttons="toolbar" data-toolbar-collapse-id="toolbar">
+        <span class="selected-count" data-selected-count="image"></span>
+        <button class="button button-danger" data-delete-button="image">Delete</button>
+        <button class="button button-primary" data-select-all-button="image">Select All</button>
+      </div>
     </div>
     <div class="image-list" data-list-id="upload">
       <?php while($image = mysqli_fetch_assoc($image_set)) { ?>

@@ -55,7 +55,6 @@ function toolbarToggle() {
 }
 
 function selectionToggle() {
-  //imageIds.clear(); // Use the clear method to empty the Set
   const checkboxes = imageList.querySelectorAll('[data-checkbox="image"]');
   const allChecked = areAllChecked();
 

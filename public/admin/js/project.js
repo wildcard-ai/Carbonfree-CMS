@@ -16,11 +16,12 @@ let imageIds = new Set(); // Use a Set instead of an array
 
 uploadForm.addEventListener('change', handleFileUpload);
 editImageButton.addEventListener('click', editButton);
-imageList.addEventListener('click', handleCheckboxClick);
+imageList.addEventListener('click', getImageIds);
 selectAllButton.addEventListener('click', selectionToggle);
 deleteImageButton.addEventListener('click', function() {
   deleteImages(imageIds);
 });
+
 // Functions
 
 function editButton() {
@@ -56,21 +57,21 @@ function toolbarToggle() {
 
 function selectionToggle() {
   const checkboxes = imageList.querySelectorAll('[data-checkbox="image"]');
-  const allChecked = areAllChecked();
+  const allChecked = isAllChecked();
 
   checkboxes.forEach((checkbox) => {
     checkbox.checked = !allChecked;
-    handleCheckboxClick({ target: checkbox });
+    getImageIds({ target: checkbox });
   });
   console.log(Array.from(imageIds)); // Convert the Set to an array if needed
 }
 
-function areAllChecked() {
+function isAllChecked() {
   const checkboxes = imageList.querySelectorAll('[data-checkbox="image"]');
   return Array.from(checkboxes).every((checkbox) => checkbox.checked);
 }
 
-function handleCheckboxClick(event) {
+function getImageIds(event) {
   const target = event.target;
 
   if (target.matches('[data-checkbox="image"]')) {
@@ -83,7 +84,7 @@ function handleCheckboxClick(event) {
     }
 
     toolbarToggle();
-    if (areAllChecked()) {
+    if (isAllChecked()) {
       selectAllButton.textContent = 'Clear Selection';
     } else {
       selectAllButton.textContent = 'Select All';

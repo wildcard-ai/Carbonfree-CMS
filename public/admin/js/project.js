@@ -15,7 +15,7 @@ let imageIds = new Set(); // Use a Set instead of an array
 // Event listeners
 
 uploadForm.addEventListener('change', handleFileUpload);
-editImageButton.addEventListener('click', editButton);
+editImageButton.addEventListener('click', toggleEditMode);
 imageList.addEventListener('click', getImageIds);
 selectAllButton.addEventListener('click', selectionToggle);
 deleteImageButton.addEventListener('click', function() {
@@ -24,7 +24,7 @@ deleteImageButton.addEventListener('click', function() {
 
 // Functions
 
-function editButton() {
+function toggleEditMode() {
   const checkboxes = imageList.querySelectorAll('[data-checkbox="image"]');
 
   checkboxes.forEach((checkbox) => {
@@ -43,7 +43,7 @@ function editButton() {
   }
 }
 
-function toolbarToggle() {
+function updateUI() {
   const hasSelectedImages = imageIds.size > 0; // Use the size property for Sets
 
   selectedCount.classList.toggle('show', hasSelectedImages);
@@ -83,7 +83,7 @@ function getImageIds(event) {
       imageIds.delete(imageId); // Use the delete method to remove elements from the Set
     }
 
-    toolbarToggle();
+    updateUI();
     if (isAllChecked()) {
       selectAllButton.textContent = 'Clear Selection';
     } else {
@@ -112,7 +112,7 @@ function deleteImages(imageIds) {
     });
 
     imageIds.clear(); // Use the clear method to empty the Set
-    toolbarToggle();
+    updateUI();
   })
   .catch(error => {
     console.log('Error:', error);

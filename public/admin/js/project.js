@@ -10,16 +10,21 @@ const editImageButton = document.querySelector('[data-edit-button="image"]');
 const selectedCount = document.querySelector('[data-selected-count="image"]');
 const deleteImageButton = document.querySelector('[data-delete-button="image"]');
 const selectAllButton = document.querySelector('[data-select-all-button="image"]');
+let checkboxes = document.querySelectorAll('[data-checkbox="image"]');
 let imageIds = new Set(); // Use a Set instead of an array
 
 // Event listeners
 
 uploadForm.addEventListener('change', handleFileUpload);
 editImageButton.addEventListener('click', toggleEditMode);
-imageList.addEventListener('click', getImageIds);
 selectAllButton.addEventListener('click', selectionToggle);
 deleteImageButton.addEventListener('click', function() {
   deleteImages(imageIds);
+});
+checkboxes.forEach((checkbox) => {
+  checkbox.addEventListener('click', function (event) { // Add event parameter
+    getImageIds(event); // Pass the event object to getImageIds
+  });
 });
 
 // Functions
@@ -53,6 +58,12 @@ function updateUI() {
   uploadForm.classList.toggle('show', !hasSelectedImages);
 
   selectedCount.textContent = `${imageIds.size} selected`; // Use the size property for Sets
+
+  if (isAllChecked()) {
+    selectAllButton.textContent = 'Clear Selection';
+  } else {
+    selectAllButton.textContent = 'Select All';
+  }
 }
 
 function selectionToggle() {
@@ -61,8 +72,11 @@ function selectionToggle() {
 
   checkboxes.forEach((checkbox) => {
     checkbox.checked = !allChecked;
-    getImageIds({ target: checkbox });
+    const event = { target: checkbox }; // Create an event object with the checkbox as the target
+    getImageIds(event); // Pass the event object to getImageIds
   });
+
+  updateUI();
   console.log(Array.from(imageIds)); // Convert the Set to an array if needed
 }
 
@@ -72,24 +86,18 @@ function isAllChecked() {
 }
 
 function getImageIds(event) {
-  const target = event.target;
+  const checkbox = event.target;
+  console.log(checkbox);
+  const imageId = checkbox.getAttribute('data-image-id');
+  console.log(imageId);
 
-  if (target.matches('[data-checkbox="image"]')) {
-    const imageId = target.getAttribute('data-image-id');
-
-    if (target.checked) {
-      imageIds.add(imageId); // Use the add method to add elements to the Set
-    } else {
-      imageIds.delete(imageId); // Use the delete method to remove elements from the Set
-    }
-
-    updateUI();
-    if (isAllChecked()) {
-      selectAllButton.textContent = 'Clear Selection';
-    } else {
-      selectAllButton.textContent = 'Select All';
-    }
+  if (checkbox.checked) {
+    imageIds.add(imageId);
+  } else {
+    imageIds.delete(imageId);
   }
+
+  updateUI();
 }
 
 function deleteImages(imageIds) {
@@ -171,6 +179,11 @@ function createImageContainer(id, url) {
   checkbox.dataset.checkbox = 'image';
   checkbox.dataset.imageId = id;
 
+  // Attach event listener to the checkbox
+  checkbox.addEventListener('click', function(event) {
+    getImageIds(event);
+  });
+
   if (editImageButton.getAttribute('data-edit-button-toggled') === 'true') {
     checkbox.classList.add('show');
     checkbox.disabled = false;
@@ -184,6 +197,8 @@ function createImageContainer(id, url) {
 
   newDiv.appendChild(img);
   newDiv.appendChild(checkbox);
+
+  checkboxes = document.querySelectorAll('[data-checkbox="image"]');
 
   return newDiv;
 }

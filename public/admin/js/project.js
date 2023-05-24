@@ -10,7 +10,7 @@ const editImageButton = document.querySelector('[data-edit-button="image"]');
 const selectedCount = document.querySelector('[data-selected-count="image"]');
 const deleteImageButton = document.querySelector('[data-delete-button="image"]');
 const selectAllButton = document.querySelector('[data-select-all-button="image"]');
-let imageIds = [];
+let imageIds = new Set(); // Use a Set instead of an array
 
 // Event listeners
 
@@ -20,11 +20,7 @@ imageList.addEventListener('click', handleCheckboxClick);
 selectAllButton.addEventListener('click', selectionToggle);
 deleteImageButton.addEventListener('click', function() {
   deleteImages(imageIds);
-  
-  // Reset the imageIds array
-  imageIds = [];
 });
-
 // Functions
 
 function editButton() {
@@ -47,7 +43,7 @@ function editButton() {
 }
 
 function toolbarToggle() {
-  const hasSelectedImages = imageIds.length > 0;
+  const hasSelectedImages = imageIds.size > 0; // Use the size property for Sets
 
   selectedCount.classList.toggle('show', hasSelectedImages);
   deleteImageButton.classList.toggle('show', hasSelectedImages);
@@ -55,11 +51,11 @@ function toolbarToggle() {
   editImageButton.classList.toggle('show', !hasSelectedImages);
   uploadForm.classList.toggle('show', !hasSelectedImages);
 
-  selectedCount.textContent = `${imageIds.length} selected`;
+  selectedCount.textContent = `${imageIds.size} selected`; // Use the size property for Sets
 }
 
 function selectionToggle() {
-  imageIds = [];
+  //imageIds.clear(); // Use the clear method to empty the Set
   const checkboxes = imageList.querySelectorAll('[data-checkbox="image"]');
   const allChecked = areAllChecked();
 
@@ -67,7 +63,7 @@ function selectionToggle() {
     checkbox.checked = !allChecked;
     handleCheckboxClick({ target: checkbox });
   });
-  console.log(imageIds);
+  console.log(Array.from(imageIds)); // Convert the Set to an array if needed
 }
 
 function areAllChecked() {
@@ -82,12 +78,9 @@ function handleCheckboxClick(event) {
     const imageId = target.getAttribute('data-image-id');
 
     if (target.checked) {
-      imageIds.push(imageId);
+      imageIds.add(imageId); // Use the add method to add elements to the Set
     } else {
-      const index = imageIds.indexOf(imageId);
-      if (index > -1) {
-        imageIds.splice(index, 1);
-      }
+      imageIds.delete(imageId); // Use the delete method to remove elements from the Set
     }
 
     toolbarToggle();
@@ -102,7 +95,7 @@ function handleCheckboxClick(event) {
 function deleteImages(imageIds) {
   fetch('delete_images.php', {
     method: 'POST',
-    body: JSON.stringify(imageIds),
+    body: JSON.stringify(Array.from(imageIds)), // Convert the Set to an array before sending
     headers: {
       'Content-Type': 'application/json'
     }
@@ -116,9 +109,10 @@ function deleteImages(imageIds) {
       if (imageElement) {
         imageElement.parentNode.remove();
       }
-
-      toolbarToggle();
     });
+
+    imageIds.clear(); // Use the clear method to empty the Set
+    toolbarToggle();
   })
   .catch(error => {
     console.log('Error:', error);

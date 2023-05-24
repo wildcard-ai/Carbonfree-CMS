@@ -488,11 +488,11 @@ textarea:focus {
 /* Input validation */
 
 .danger {
-  border-color: #dc3545;
+  border-color: #dc3545!important;
 }
 
 .danger:focus {
-  box-shadow: 0 0 0 0.2rem rgba(255,0,85,.25);
+  box-shadow: 0 0 0 0.2rem rgba(255,0,85,.25)!important;
 }
 
 /* Toggle switch */
@@ -602,7 +602,7 @@ main > section {
 
 .image-list {
   display: grid;
-  gap: 8px;
+  gap: 4px;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 120px;
   padding: 0.5rem;
@@ -617,18 +617,7 @@ main > section {
   display: flex;
   position: relative;
   height: 120px;
-  background-color: transparent;
-  border-radius: 4px;
-  border: 2px solid transparent;
   overflow: hidden;
-}
-
-.image-container:has(.show):hover {
-  border-color: #fff;
-}
-
-.image-container:has(.show:checked) {
-  border-color: #0d6efd;
 }
 
 .image-container:has(.show) {

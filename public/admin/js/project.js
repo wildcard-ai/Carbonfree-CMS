@@ -3,19 +3,20 @@
 */
 
 // Constants
-const uploadDataList = document.querySelector('[data-list-id="upload"]');
-const editImageButton = document.querySelector('[data-edit-button="image"]');
-const deleteImageButton = document.querySelector('[data-delete-button="image"]');
-const selectAllButton = document.querySelector('[data-select-all-button="image"]');
-const selectedCount = document.querySelector('[data-selected-count="image"]');
 const uploadForm = document.querySelector('[data-form-id="upload"]');
 const fileInput = document.querySelector('[data-input-id="upload"]');
-const fileList = document.querySelector('[data-list-id="upload"]');
+const imageList = document.querySelector('[data-list-id="upload"]');
+const editImageButton = document.querySelector('[data-edit-button="image"]');
+const selectedCount = document.querySelector('[data-selected-count="image"]');
+const deleteImageButton = document.querySelector('[data-delete-button="image"]');
+const selectAllButton = document.querySelector('[data-select-all-button="image"]');
 let imageIds = [];
 
 // Event listeners
 
+uploadForm.addEventListener('change', handleFileUpload);
 editImageButton.addEventListener('click', editButton);
+imageList.addEventListener('click', handleCheckboxClick);
 selectAllButton.addEventListener('click', selectionToggle);
 deleteImageButton.addEventListener('click', function() {
   deleteImages(imageIds);
@@ -24,14 +25,10 @@ deleteImageButton.addEventListener('click', function() {
   imageIds = [];
 });
 
-document.addEventListener('click', handleCheckboxClick);
-
-uploadForm.addEventListener('change', handleFileUpload);
-
 // Functions
 
 function editButton() {
-  const checkboxes = uploadDataList.querySelectorAll('input[type="checkbox"]');
+  const checkboxes = imageList.querySelectorAll('[data-checkbox="image"]');
 
   checkboxes.forEach((checkbox) => {
     checkbox.classList.toggle('show');
@@ -63,7 +60,7 @@ function toolbarToggle() {
 
 function selectionToggle() {
   imageIds = [];
-  const checkboxes = uploadDataList.querySelectorAll('input[type="checkbox"]');
+  const checkboxes = imageList.querySelectorAll('[data-checkbox="image"]');
   const allChecked = areAllChecked();
 
   checkboxes.forEach((checkbox) => {
@@ -74,7 +71,7 @@ function selectionToggle() {
 }
 
 function areAllChecked() {
-  const checkboxes = uploadDataList.querySelectorAll('input[type="checkbox"]');
+  const checkboxes = imageList.querySelectorAll('[data-checkbox="image"]');
   return Array.from(checkboxes).every((checkbox) => checkbox.checked);
 }
 
@@ -159,7 +156,7 @@ function handleFileUpload(event) {
         const url = pathUrls[path];
         const newDiv = createImageContainer(id, url);
     
-        fileList.insertBefore(newDiv, fileList.firstChild);
+        imageList.insertBefore(newDiv, imageList.firstChild);
       }
     } else {
       console.log(data.error);

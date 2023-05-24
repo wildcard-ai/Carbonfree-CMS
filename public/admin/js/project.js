@@ -2,139 +2,21 @@
   Upload Section
 */
 
-// Edit button
-
+// Constants
+const uploadDataList = document.querySelector('[data-list-id="upload"]');
 const editImageButton = document.querySelector('[data-edit-button="image"]');
-
-editImageButton.addEventListener('click', function() {
-  showCheckboxes();
-});
-
-function showCheckboxes() {
-  const uploadDataList = document.querySelector('[data-list-id="upload"]');
-  const checkboxes = uploadDataList.querySelectorAll('input[type="checkbox"]');
-  
-  checkboxes.forEach((checkbox) => {
-    checkbox.classList.toggle('show');
-    if (checkbox.classList.contains('show')) {
-      checkbox.disabled = false;
-      editImageButton.setAttribute('data-edit-button-toggled', 'true');
-      editImageButton.textContent = 'Done';
-      editImageButton.classList.replace('button-primary', 'button-success');
-    } else {
-      checkbox.disabled = true;
-      editImageButton.setAttribute('data-edit-button-toggled', 'false');
-      editImageButton.textContent = 'Edit';
-      editImageButton.classList.replace('button-success', 'button-primary');
-    }
-  });
-}
-
-// Delete and Select button
-
-const uploadForm = document.querySelector('[data-form-id="upload"]');
-const selectedCount = document.querySelector('[data-selected-count="image"]');
 const deleteImageButton = document.querySelector('[data-delete-button="image"]');
 const selectAllButton = document.querySelector('[data-select-all-button="image"]');
-const clearSelectionButton = document.querySelector('[data-clear-selection-button="image"]');
+const selectedCount = document.querySelector('[data-selected-count="image"]');
+const uploadForm = document.querySelector('[data-form-id="upload"]');
+const fileInput = document.querySelector('[data-input-id="upload"]');
+const fileList = document.querySelector('[data-list-id="upload"]');
 let imageIds = [];
 
-function updateDeleteButtonVisibility() {
-  if (imageIds.length > 0) {
-    selectedCount.classList.add('show');
-    deleteImageButton.classList.add('show');
-    selectAllButton.classList.add('show');
+// Event listeners
 
-    editImageButton.classList.remove('show');
-    uploadForm.classList.remove('show');
-    console.log(imageIds.length);
-  } else if(imageIds.length === 0) {
-    selectedCount.classList.remove('show');
-    deleteImageButton.classList.remove('show');
-    selectAllButton.classList.remove('show');
-    editImageButton.classList.add('show');
-    uploadForm.classList.add('show');
-    console.log(imageIds.length);
-  }
-}
-
-// Select All images
-
-selectAllButton.addEventListener('click', function(){
-  selectAllImages();
-});
-
-function areAllChecked() {
-  var checkboxes = document.querySelectorAll('[data-checkbox="image"]');
-  for (var i = 0; i < checkboxes.length; i++) {
-    if (!checkboxes[i].checked) {
-      return false;
-    }
-  }
-  return true;
-}
-
-function selectAllImages() {
-  imageIds = [];
-  const uploadDataList = document.querySelector('[data-list-id="upload"]');
-  const checkboxes = uploadDataList.querySelectorAll('input[type="checkbox"]');
-
-  let allChecked = true;
-  checkboxes.forEach((checkbox) => {
-    if (!checkbox.checked) {
-      allChecked = false;
-    }
-  });
-
-  checkboxes.forEach((checkbox) => {
-    if (imageIds.length !== checkboxes.length || allChecked) {
-      checkbox.checked = !allChecked;
-      if (!allChecked) {
-        selectAllButton.textContent = 'Clear Selection';
-        const imageId = checkbox.getAttribute('data-image-id');
-        imageIds.push(imageId);
-        selectedCount.textContent = imageIds.length + ' selected';
-        updateDeleteButtonVisibility();
-      } else {
-        selectAllButton.textContent = 'Select All';
-        selectedCount.textContent = imageIds.length + ' selected';
-        updateDeleteButtonVisibility();
-      }
-    }
-  });
-  console.log(imageIds);
-}
-
-//  Delete Images
-
-document.addEventListener('click', function(event) {
-  const target = event.target;
-  if (target.matches('[data-checkbox="image"]')) {
-    if (target.checked) {
-      const imageId = target.getAttribute('data-image-id');
-      imageIds.push(imageId);
-      updateDeleteButtonVisibility();
-      console.log(imageIds);
-      selectedCount.textContent = imageIds.length + ' selected';
-      if(areAllChecked()){
-        selectAllButton.textContent = 'Clear Selection';
-      }
-    } else {
-      const imageId = target.getAttribute('data-image-id');
-      const index = imageIds.indexOf(imageId);
-      if (index > -1) {
-        imageIds.splice(index, 1);
-      }
-      console.log(imageIds);
-      selectedCount.textContent = imageIds.length + ' selected';
-      updateDeleteButtonVisibility();
-      if(!areAllChecked()){
-        selectAllButton.textContent = 'Select All';
-      }
-    }
-  }
-});
-
+editImageButton.addEventListener('click', editButton);
+selectAllButton.addEventListener('click', selectionToggle);
 deleteImageButton.addEventListener('click', function() {
   deleteImages(imageIds);
   
@@ -142,8 +24,85 @@ deleteImageButton.addEventListener('click', function() {
   imageIds = [];
 });
 
+document.addEventListener('click', handleCheckboxClick);
+
+uploadForm.addEventListener('change', handleFileUpload);
+
+// Functions
+
+function editButton() {
+  const checkboxes = uploadDataList.querySelectorAll('input[type="checkbox"]');
+
+  checkboxes.forEach((checkbox) => {
+    checkbox.classList.toggle('show');
+    checkbox.disabled = !checkbox.classList.contains('show');
+  });
+
+  if (editImageButton.getAttribute('data-edit-button-toggled') === 'true') {
+    editImageButton.textContent = 'Edit';
+    editImageButton.classList.replace('button-success', 'button-primary');
+    editImageButton.setAttribute('data-edit-button-toggled', 'false');
+  } else {
+    editImageButton.textContent = 'Done';
+    editImageButton.classList.replace('button-primary', 'button-success');
+    editImageButton.setAttribute('data-edit-button-toggled', 'true');
+  }
+}
+
+function toolbarToggle() {
+  const hasSelectedImages = imageIds.length > 0;
+
+  selectedCount.classList.toggle('show', hasSelectedImages);
+  deleteImageButton.classList.toggle('show', hasSelectedImages);
+  selectAllButton.classList.toggle('show', hasSelectedImages);
+  editImageButton.classList.toggle('show', !hasSelectedImages);
+  uploadForm.classList.toggle('show', !hasSelectedImages);
+
+  selectedCount.textContent = `${imageIds.length} selected`;
+}
+
+function selectionToggle() {
+  imageIds = [];
+  const checkboxes = uploadDataList.querySelectorAll('input[type="checkbox"]');
+  const allChecked = areAllChecked();
+
+  checkboxes.forEach((checkbox) => {
+    checkbox.checked = !allChecked;
+    handleCheckboxClick({ target: checkbox });
+  });
+  console.log(imageIds);
+}
+
+function areAllChecked() {
+  const checkboxes = uploadDataList.querySelectorAll('input[type="checkbox"]');
+  return Array.from(checkboxes).every((checkbox) => checkbox.checked);
+}
+
+function handleCheckboxClick(event) {
+  const target = event.target;
+
+  if (target.matches('[data-checkbox="image"]')) {
+    const imageId = target.getAttribute('data-image-id');
+
+    if (target.checked) {
+      imageIds.push(imageId);
+    } else {
+      const index = imageIds.indexOf(imageId);
+      if (index > -1) {
+        imageIds.splice(index, 1);
+      }
+    }
+
+    toolbarToggle();
+    if (areAllChecked()) {
+      selectAllButton.textContent = 'Clear Selection';
+    } else {
+      selectAllButton.textContent = 'Select All';
+    }
+  }
+}
+
 function deleteImages(imageIds) {
-  // Make a POST request to your PHP script with the imageIds data
   fetch('delete_images.php', {
     method: 'POST',
     body: JSON.stringify(imageIds),
@@ -154,14 +113,14 @@ function deleteImages(imageIds) {
   .then(response => response.json())
   .then(data => {
     console.log(data);
-    // Remove deleted elements from the DOM
+
     imageIds.forEach(imageId => {
       const imageElement = document.querySelector(`[data-image-id="${imageId}"]`);
       if (imageElement) {
         imageElement.parentNode.remove();
       }
 
-      updateDeleteButtonVisibility();
+      toolbarToggle();
     });
   })
   .catch(error => {
@@ -169,12 +128,7 @@ function deleteImages(imageIds) {
   });
 }
 
-//  Upload images
-
-const fileInput = document.querySelector('[data-input-id="upload"]');
-const fileList = document.querySelector('[data-list-id="upload"]');
-
-uploadForm.addEventListener('change', (event) => {
+function handleFileUpload(event) {
   event.preventDefault();
 
   const files = fileInput.files;
@@ -185,13 +139,12 @@ uploadForm.addEventListener('change', (event) => {
 
   for (let i = 0; i < files.length; i++) {
     let file = files[i];
-
     formData.append('files[]', file);
   }
 
   fetch('project_upload.php', {
     method: 'POST',
-    body: formData,
+    body: formData
   })
   .then((response) => response.json())
   .then((data) => {
@@ -204,20 +157,7 @@ uploadForm.addEventListener('change', (event) => {
         const id = ids[i];
         const path = Object.keys(pathUrls)[i];
         const url = pathUrls[path];
-        const newDiv = document.createElement('label');
-        newDiv.classList.add('image-container');
-
-        if (editImageButton.getAttribute('data-edit-button-toggled') === 'true') {
-          newDiv.innerHTML = `
-            <img class="uploaded-image" src="${url}">
-            <input class="image-checkbox collapse show" type="checkbox" data-checkbox="image" data-image-id="${id}">
-          `;
-        } else {
-          newDiv.innerHTML = `
-            <img class="uploaded-image" src="${url}">
-            <input class="image-checkbox collapse" type="checkbox" data-checkbox="image" data-image-id="${id}" disabled>
-          `;
-        }
+        const newDiv = createImageContainer(id, url);
     
         fileList.insertBefore(newDiv, fileList.firstChild);
       }
@@ -228,7 +168,34 @@ uploadForm.addEventListener('change', (event) => {
   .catch((error) => console.log(error));
 
   fileInput.value = '';
-});
+}
+
+function createImageContainer(id, url) {
+  const newDiv = document.createElement('label');
+  newDiv.classList.add('image-container');
+
+  const checkbox = document.createElement('input');
+  checkbox.classList.add('image-checkbox', 'collapse');
+  checkbox.type = 'checkbox';
+  checkbox.dataset.checkbox = 'image';
+  checkbox.dataset.imageId = id;
+
+  if (editImageButton.getAttribute('data-edit-button-toggled') === 'true') {
+    checkbox.classList.add('show');
+    checkbox.disabled = false;
+  } else {
+    checkbox.disabled = true;
+  }
+
+  const img = document.createElement('img');
+  img.classList.add('uploaded-image');
+  img.src = url;
+
+  newDiv.appendChild(img);
+  newDiv.appendChild(checkbox);
+
+  return newDiv;
+}
 
 /*
   Project Details

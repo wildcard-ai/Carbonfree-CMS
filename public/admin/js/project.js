@@ -10,7 +10,7 @@ const editImageButton = document.querySelector('[data-edit-button="image"]');
 const selectedCount = document.querySelector('[data-selected-count="image"]');
 const deleteImageButton = document.querySelector('[data-delete-button="image"]');
 const selectAllButton = document.querySelector('[data-select-all-button="image"]');
-let checkboxes = document.querySelectorAll('[data-checkbox="image"]');
+const captionContainer = document.querySelector('[data-switch-container="caption"]');
 let imageIds = new Set(); // Use a Set instead of an array
 
 // Event listeners
@@ -21,22 +21,26 @@ selectAllButton.addEventListener('click', selectionToggle);
 deleteImageButton.addEventListener('click', function() {
   deleteImages(imageIds);
 });
-checkboxes.forEach((checkbox) => {
-  checkbox.addEventListener('click', function (event) { // Add event parameter
-    getImageIds(event); // Pass the event object to getImageIds
+// Attach the event listener to a parent element
+imageList.addEventListener('click', function (event) {
+  // Check if the clicked element is a checkbox
+  if (event.target.matches('[data-checkbox="image"]')) {
+    getImageIds(event);
     updateUI();
-  });
+  }
 });
+
 
 // Functions
 
 function toggleEditMode() {
   const checkboxes = imageList.querySelectorAll('[data-checkbox="image"]');
-
   checkboxes.forEach((checkbox) => {
     checkbox.classList.toggle('show');
     checkbox.disabled = !checkbox.classList.contains('show');
   });
+
+  captionContainer.classList.toggle('show');
 
   if (editImageButton.getAttribute('data-edit-button-toggled') === 'true') {
     editImageButton.textContent = 'Edit';
@@ -146,6 +150,7 @@ function handleFileUpload(event) {
   })
   .then((response) => response.json())
   .then((data) => {
+    
     if (data.success) {
       console.log(data);
       const ids = data.ids;
@@ -156,7 +161,7 @@ function handleFileUpload(event) {
         const path = Object.keys(pathUrls)[i];
         const url = pathUrls[path];
         const newDiv = createImageContainer(id, url);
-    
+
         imageList.insertBefore(newDiv, imageList.firstChild);
       }
     } else {
@@ -178,11 +183,6 @@ function createImageContainer(id, url) {
   checkbox.dataset.checkbox = 'image';
   checkbox.dataset.imageId = id;
 
-  // Attach event listener to the checkbox
-  checkbox.addEventListener('click', function(event) {
-    getImageIds(event);
-  });
-
   if (editImageButton.getAttribute('data-edit-button-toggled') === 'true') {
     checkbox.classList.add('show');
     checkbox.disabled = false;
@@ -196,8 +196,6 @@ function createImageContainer(id, url) {
 
   newDiv.appendChild(img);
   newDiv.appendChild(checkbox);
-
-  checkboxes = document.querySelectorAll('[data-checkbox="image"]');
 
   return newDiv;
 }

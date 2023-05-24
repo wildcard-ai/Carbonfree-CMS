@@ -51,9 +51,13 @@ include(SHARED_PATH . '/admin_header.php');
         </label>
       <?php } ?>
     </div>
+    <div class="caption-container collapse" data-switch-container="caption">
+      <input id="caption-toggle-switch" class="toggle-switch" type="checkbox" data-switch-type="caption">
+      <label class="toggle-switch-label" for="caption-toggle-switch">Edit Captions</label>
+    </div>
   </section>
 
-  <section>
+  <section class="card-group">
     <header>
       <h2 class="section-title">Details</h2>
     </header>

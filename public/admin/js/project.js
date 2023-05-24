@@ -1,5 +1,5 @@
 /*
-  Upload Section
+  Upload Images
 */
 
 // Constants
@@ -19,7 +19,7 @@ uploadForm.addEventListener('change', handleFileUpload);
 editImageButton.addEventListener('click', toggleEditMode);
 selectAllButton.addEventListener('click', selectionToggle);
 deleteImageButton.addEventListener('click', function() {
-  deleteImages(imageIds);
+  deleteSelectedImages(imageIds);
 });
 // Attach the event listener to a parent element
 imageList.addEventListener('click', function (event) {
@@ -35,14 +35,9 @@ imageList.addEventListener('click', function (event) {
 
 function toggleEditMode() {
   const checkboxes = imageList.querySelectorAll('[data-checkbox="image"]');
-  checkboxes.forEach((checkbox) => {
-    checkbox.classList.toggle('show');
-    checkbox.disabled = !checkbox.classList.contains('show');
-  });
+  const isEditModeToggled = editImageButton.getAttribute('data-edit-button-toggled') === 'true';
 
-  captionContainer.classList.toggle('show');
-
-  if (editImageButton.getAttribute('data-edit-button-toggled') === 'true') {
+  if (isEditModeToggled) {
     editImageButton.textContent = 'Edit';
     editImageButton.classList.replace('button-success', 'button-primary');
     editImageButton.setAttribute('data-edit-button-toggled', 'false');
@@ -51,6 +46,13 @@ function toggleEditMode() {
     editImageButton.classList.replace('button-primary', 'button-success');
     editImageButton.setAttribute('data-edit-button-toggled', 'true');
   }
+
+  checkboxes.forEach((checkbox) => {
+    checkbox.classList.toggle('show');
+    checkbox.disabled = isEditModeToggled;
+  });
+
+  captionContainer.classList.toggle('show');
 }
 
 function updateUI() {
@@ -64,11 +66,7 @@ function updateUI() {
 
   selectedCount.textContent = `${imageIds.size} selected`; // Use the size property for Sets
 
-  if (isAllChecked()) {
-    selectAllButton.textContent = 'Clear Selection';
-  } else {
-    selectAllButton.textContent = 'Select All';
-  }
+  selectAllButton.textContent = isAllChecked() ? 'Clear Selection' : 'Select All';
 }
 
 function selectionToggle() {
@@ -82,7 +80,7 @@ function selectionToggle() {
   });
 
   updateUI();
-  console.log(Array.from(imageIds)); // Convert the Set to an array if needed
+  // console.log(Array.from(imageIds)); // Convert the Set to an array if needed
 }
 
 function isAllChecked() {
@@ -92,9 +90,9 @@ function isAllChecked() {
 
 function getImageIds(event) {
   const checkbox = event.target;
-  console.log(checkbox);
+  // console.log(checkbox);
   const imageId = checkbox.getAttribute('data-image-id');
-  console.log(imageId);
+  // console.log(imageId);
 
   if (checkbox.checked) {
     imageIds.add(imageId);
@@ -103,7 +101,7 @@ function getImageIds(event) {
   }
 }
 
-function deleteImages(imageIds) {
+function deleteSelectedImages(imageIds) {
   fetch('delete_images.php', {
     method: 'POST',
     body: JSON.stringify(Array.from(imageIds)), // Convert the Set to an array before sending
@@ -150,7 +148,6 @@ function handleFileUpload(event) {
   })
   .then((response) => response.json())
   .then((data) => {
-    
     if (data.success) {
       console.log(data);
       const ids = data.ids;

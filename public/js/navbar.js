@@ -39,26 +39,17 @@ function expand(element) {
 function collapse(element) {
   isTransitioning = true;
 
-  function applyHeightAndAnimate() {
-    const expandedHeight = element.getBoundingClientRect().height + 'px';
-    element.style.height = expandedHeight;
-  
-    // Check if the style change has been applied
-    if (window.getComputedStyle(element).height === expandedHeight) {
-      console.log(window.getComputedStyle(element).height);
-      element.classList.remove('collapse', 'show');
-      element.classList.add('collapsing');
-      element.style.height = null; // Animate to 0 height for collapse
-  
-      // Start your animation here
-    } else {
-      // Style change not applied yet, wait for the next frame
-      requestAnimationFrame(applyHeightAndAnimate);
-      console.log("requestAnimationFrame");
-    }
+  const expandedHeight = element.clientHeight + 'px';
+  console.log(expandedHeight);
+  element.style.height = expandedHeight;
+
+  // Check if the style change has been applied
+  if (window.getComputedStyle(element).height === expandedHeight) {
+    console.log(window.getComputedStyle(element).height);
+    element.classList.remove('collapse', 'show');
+    element.classList.add('collapsing');
+    element.style.height = null; // collapse
   }
-  
-  applyHeightAndAnimate();
 
   function onTransitionEnd() {
     console.log("collapse");

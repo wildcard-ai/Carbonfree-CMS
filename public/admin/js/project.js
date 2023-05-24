@@ -24,6 +24,7 @@ deleteImageButton.addEventListener('click', function() {
 checkboxes.forEach((checkbox) => {
   checkbox.addEventListener('click', function (event) { // Add event parameter
     getImageIds(event); // Pass the event object to getImageIds
+    updateUI();
   });
 });
 
@@ -96,8 +97,6 @@ function getImageIds(event) {
   } else {
     imageIds.delete(imageId);
   }
-
-  updateUI();
 }
 
 function deleteImages(imageIds) {

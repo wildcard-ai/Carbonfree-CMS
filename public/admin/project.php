@@ -44,7 +44,7 @@ include(SHARED_PATH . '/admin_header.php');
       <div class="delete-toolbar collapse" data-delete-buttons="toolbar" data-toolbar-collapse-id="toolbar">
         <span class="selected-count" data-selected-count="image"></span>
         <button class="button button-danger" data-delete-button="image">Delete</button>
-        <button class="button button-primary" data-select-all-button="image">Select All</button>
+        <button class="button button-primary select-all" data-select-all-button="image">Select All</button>
       </div>
     </div>
     <div class="image-list" data-list-id="upload">

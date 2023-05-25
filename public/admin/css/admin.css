@@ -195,7 +195,7 @@ nav {
   position: relative;
   height: 0;
   overflow: hidden;
-  transition: height 0.1s ease;
+  transition: height 100ms ease-out;
 }
 
 .navbar-nav {
@@ -350,6 +350,7 @@ nav {
   border: 1px solid transparent;
   display: flex;
   align-items: center;
+  white-space:nowrap;
 }
 
 .button:active {
@@ -603,12 +604,6 @@ main > section {
   position: relative;
 }
 
-.delete-toolbar {
-  position: absolute;
-  top: 0;
-  width: 100%;
-}
-
 .upload-toolbar,
 .delete-toolbar {
   background-color: #25292d;
@@ -619,6 +614,23 @@ main > section {
   padding: 0.5rem 1rem;
   align-items: center;
   border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.delete-toolbar {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-items: center;
+}
+
+.selected-count {
+  margin-right: auto;
+}
+
+.select-all {
+  margin-left: auto;
 }
 
 .image-list {
@@ -844,6 +856,10 @@ textarea {
     flex-basis: auto;
     flex-grow: 1;
     justify-content: flex-end;
+  }
+
+  .navbar .collapse:not(.show) {
+    display: inherit;
   }
 
   .navbar-nav {

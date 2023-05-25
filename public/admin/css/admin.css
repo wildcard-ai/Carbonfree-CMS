@@ -617,6 +617,8 @@ main > section {
 }
 
 .delete-toolbar {
+  background: #712cf9;
+  color: #fff;
   position: absolute;
   top: 0;
   width: 100%;

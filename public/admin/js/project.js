@@ -24,7 +24,7 @@ deleteImageButton.addEventListener('click', () => deleteSelectedImages(imageIds)
 imageList.addEventListener('click', function (event) {
   // Check if the clicked element is a checkbox
   if (event.target.matches('[data-checkbox="image"]')) {
-    getImageIds(event);
+    updateImageIds(event);
     updateUI();
   }
 });
@@ -72,9 +72,7 @@ function updateUI() {
   selectAllButton.textContent = isAllChecked() ? 'Clear Selection' : 'Select All';
 }
 
-/* Toolbar Collapse */
 function expandToolbar(element) {
-  console.log(isAlreadyExpanded);
   if(isAlreadyExpanded === true) {
     return;
   }
@@ -82,7 +80,6 @@ function expandToolbar(element) {
   element.style.height = element.scrollHeight + 'px'; // Set the expanded height immediately
 
   function onTransitionEnd() {
-    console.log("expand");
     element.classList.replace('toolbar-collapsing', 'collapse');
     element.classList.add('show');
     element.style.height = null;
@@ -94,24 +91,20 @@ function expandToolbar(element) {
 }
 
 function collapseToolbar(element) {
-  console.log(isAlreadyExpanded);
   if(isAlreadyExpanded === false) {
     return;
   }
   const expandedHeight = element.clientHeight + 'px';
-  console.log(expandedHeight);
   element.style.height = expandedHeight;
 
   // Check if the style change has been applied
   if (window.getComputedStyle(element).height === expandedHeight) {
-    console.log(window.getComputedStyle(element).height);
     element.classList.remove('collapse', 'show');
     element.classList.add('toolbar-collapsing');
     element.style.height = null; // collapse
   }
 
   function onTransitionEnd() {
-    console.log("collapse");
     element.classList.replace('toolbar-collapsing', 'collapse');
     element.removeEventListener('transitionend', onTransitionEnd);
   }
@@ -126,7 +119,7 @@ function selectionToggle() {
 
   checkboxes.forEach((checkbox) => {
     checkbox.checked = !allChecked;
-    getImageIds({ target: checkbox }); // Create an event object with the checkbox as the target and pass it to getImageIds
+    updateImageIds({ target: checkbox }); // Create an event object with the checkbox as the target and pass it to updateImageIds
   });
 
   updateUI();
@@ -138,7 +131,7 @@ function isAllChecked() {
   return Array.from(checkboxes).every((checkbox) => checkbox.checked);
 }
 
-function getImageIds(event) {
+function updateImageIds(event) {
   const { target: checkbox } = event; // Destructure the event object to get the checkbox
   const imageId = checkbox.getAttribute('data-image-id');
 

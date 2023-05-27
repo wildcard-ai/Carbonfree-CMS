@@ -18,6 +18,9 @@ $project_id = $_POST["project_id"];
 $all_files = count($_FILES['files']['tmp_name']);
 $fileNames = [];
 
+// Flag variable to track invalid files
+$isValid = true; // Flag variable to track if all files are valid
+
 for ($i = 0; $i < $all_files; $i++) {
   $file_name = $_FILES['files']['name'][$i];
   $file_tmp = $_FILES['files']['tmp_name'][$i];
@@ -31,14 +34,25 @@ for ($i = 0; $i < $all_files; $i++) {
   $upload_name = generate_upload_url($filename);
 
   if (!is_valid_extension($file_ext, $extensions)) {
+    $isValid = false; // Set the flag if any file is invalid
     $errors[] = 'Extension not allowed: ' . $file_name . ' ' . $file_type;
   }
 
   if (!is_valid_file_size($file_size, $uploadLimit)) {
+    $isValid = false; // Set the flag if any file is invalid
     $errors[] = 'File size exceeds limit: ' . $file_name . ' ' . $file_type;
   }
+}
 
-  if (empty($errors)) {
+if ($isValid) {
+  for ($i = 0; $i < $all_files; $i++) {
+    $file_tmp = $_FILES['files']['tmp_name'][$i];
+    $file_ext = get_file_extension($_FILES['files']['name'][$i]);
+
+    $filename = generate_unique_filename($file_ext);
+    $file = generate_upload_path($filename, $path);
+    $upload_name = generate_upload_url($filename);
+
     move_uploaded_file_to_destination($file_tmp, $file);
 
     $result = insert_image_by_project_id($db, $project_id, $upload_name);
@@ -52,7 +66,6 @@ for ($i = 0; $i < $all_files; $i++) {
     }
   }
 }
-
 
 if (empty($errors)) {
   echo json_encode(["success" => true, "file_names" => $fileNames, "ids" => $insertedIds, "pathUrls" => $pathUrls]);

@@ -46,22 +46,22 @@ if(is_post_request()) {
       </p>
       <div class="input-group">
         <label class="form-label" for="username">Username</label>
-        <input id="username" type="text" name="username" value="" autocomplete="username" required>
+        <input class="form-control" id="username" type="text" name="username" value="" autocomplete="username" required>
       </div>
 
       <div class="input-group">
         <label class="form-label" for="email">Email</label>
-        <input id="email" type="text" name="email" value="" autocomplete="email">
+        <input class="form-control" id="email" type="text" name="email" value="" autocomplete="email">
       </div>
 
       <div class="input-group">
         <label class="form-label" for="new-password">New Password</label>
-        <input id="new-password" type="password" name="password" value="" autocomplete="new-password">
+        <input class="form-control" id="new-password" type="password" name="password" value="" autocomplete="new-password">
       </div>
 
       <div class="input-group">
         <label class="form-label" for="confirm-new-password">Confirm New Password</label>
-        <input id="confirm-new-password" type="password" name="confirm_password" value="" autocomplete="new-password">
+        <input class="form-control" id="confirm-new-password" type="password" name="confirm_password" value="" autocomplete="new-password">
       </div>
 
       <div>

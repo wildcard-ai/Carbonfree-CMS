@@ -90,7 +90,7 @@
       <form id="create-project" data-form-id="create-project-form" action="<?php echo url_for('/admin/index.php'); ?>" method="post">
         <!-- Projet Title -->
         <div class="input-group">
-          <input data-input-id="create-project-form" type="text" name="project_name" value="<?php echo h($new_project['project_name']); ?>" autocomplete="off">
+          <input class="form-control" data-input-id="create-project-form" type="text" name="project_name" value="<?php echo h($new_project['project_name']); ?>" autocomplete="off">
         </div>
         <!-- Visibility -->
         <div>

@@ -10,16 +10,18 @@ const editImageButton = document.querySelector('[data-edit-button="image"]');
 const selectedCount = document.querySelector('[data-selected-count="image"]');
 const deleteImageButton = document.querySelector('[data-delete-button="image"]');
 const selectAllButton = document.querySelector('[data-select-all-button="image"]');
-const captionContainer = document.querySelector('[data-switch-container="caption"]');
 const deleteToolbar = document.querySelector('[data-delete-buttons="toolbar"]');
+const addCaptionButton = document.querySelector('[data-done-button="caption"]');
+const cancelCaptionButton = document.querySelector('[data-cancel-button="caption"]');
 let imageIds = new Set(); // Use a Set instead of an array
+let isAlreadyExpanded = false;
 
 // Event listeners
 
 uploadForm.addEventListener('change', handleFileUpload);
-editImageButton.addEventListener('click', toggleEditMode);
 selectAllButton.addEventListener('click', selectionToggle);
 deleteImageButton.addEventListener('click', () => deleteSelectedImages(imageIds));
+
 // Attach the event listener to a parent element
 imageList.addEventListener('click', function (event) {
   // Check if the clicked element is a checkbox
@@ -29,37 +31,71 @@ imageList.addEventListener('click', function (event) {
   }
 });
 
+imageList.addEventListener('click', function (event) {
+  // Check if the clicked element is a checkbox
+  if (event.target.matches('[data-add-button="caption"]')) {
+    addCaption(event.target);
+  }
+});
+
+imageList.addEventListener('click', function (event) {
+  // Check if the clicked element is a checkbox
+  if (event.target.matches('[data-input="caption"]')) {
+    showCaptionButtons(event.target);
+  }
+});
+
+imageList.addEventListener('click', function (event) {
+  // Check if the clicked element is a checkbox
+  if (event.target.matches('[data-cancel-button="caption"]')) {
+    hideCaptionButtons(event.target);
+  }
+});
 
 // Functions
 
-function toggleEditMode() {
-  const checkboxes = imageList.querySelectorAll('[data-checkbox="image"]');
-  const isEditModeToggled = editImageButton.getAttribute('data-edit-button-toggled') === 'true';
-
-  if (isEditModeToggled) {
-    editImageButton.textContent = 'Edit';
-    editImageButton.classList.replace('button-success', 'button-primary');
-    editImageButton.setAttribute('data-edit-button-toggled', 'false');
-  } else {
-    editImageButton.textContent = 'Done';
-    editImageButton.classList.replace('button-primary', 'button-success');
-    editImageButton.setAttribute('data-edit-button-toggled', 'true');
-  }
-
-  checkboxes.forEach((checkbox) => {
-    checkbox.classList.toggle('show');
-    checkbox.disabled = isEditModeToggled;
-  });
-
-  captionContainer.classList.toggle('show');
+function showCaptionButtons(input) {
+  input.nextElementSibling.classList.add('show');
 }
 
-let isAlreadyExpanded = false;
+function hideCaptionButtons(cancelButton) {
+  //const inputValue = cancelButton.parentNode.previousElementSibling.value;
+  cancelButton.parentNode.classList.remove('show');
+}
+
+function addCaption(addButton) {
+  const input = addButton.parentNode.previousElementSibling;
+  const id = input.getAttribute('data-image-id');
+  console.log(id);
+  
+  const caption = input.value;
+  console.log(caption);
+
+  // Create an object with the data to send
+  const data = {
+    id: id,
+    caption: caption
+  };
+
+  // Make a Fetch request to the PHP file
+  fetch('add_caption.php', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+    addButton.parentNode.classList.remove('show');
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
+}
+
 function updateUI() {
-  // deleteToolbar.classList.toggle('show', hasSelectedImages);
-
-  // const isShown = deleteToolbar.classList.contains('show');
-
 
   if(imageIds.size === 0) {
     collapseToolbar(deleteToolbar);
@@ -157,7 +193,7 @@ function deleteSelectedImages(imageIds) {
     imageIds.forEach(imageId => {
       const imageElement = document.querySelector(`[data-image-id="${imageId}"]`);
       if (imageElement) {
-        imageElement.parentNode.remove();
+        imageElement.parentNode.parentNode.remove();
       }
     });
 
@@ -212,31 +248,65 @@ function handleFileUpload(event) {
 }
 
 function createImageContainer(id, url) {
-  const newDiv = document.createElement('label');
-  newDiv.classList.add('image-container');
+  const newDiv = document.createElement('div');
+  newDiv.classList.add('image-caption-container');
 
-  const checkbox = document.createElement('input');
-  checkbox.classList.add('image-checkbox', 'collapse');
-  checkbox.type = 'checkbox';
-  checkbox.dataset.checkbox = 'image';
-  checkbox.dataset.imageId = id;
-
-  if (editImageButton.getAttribute('data-edit-button-toggled') === 'true') {
-    checkbox.classList.add('show');
-    checkbox.disabled = false;
-  } else {
-    checkbox.disabled = true;
-  }
+  const label = document.createElement('label');
+  label.classList.add('image-container');
 
   const img = document.createElement('img');
   img.classList.add('uploaded-image');
   img.src = url;
 
-  newDiv.appendChild(img);
-  newDiv.appendChild(checkbox);
+  const checkbox = document.createElement('input');
+  checkbox.classList.add('image-checkbox');
+  checkbox.type = 'checkbox';
+  checkbox.dataset.checkbox = 'image';
+  checkbox.dataset.imageId = id;
+
+  const captionContainer = document.createElement('div');
+  captionContainer.classList.add('caption-container');
+  captionContainer.dataset.captionCollapseId = 'caption';
+
+  const captionInput = document.createElement('input');
+  captionInput.type = 'text';
+  captionInput.classList.add('caption-input');
+  captionInput.dataset.input = 'caption';
+  captionInput.dataset.imageId = id;
+  captionInput.placeholder = 'Add caption...';
+
+  const captionButtons = document.createElement('div');
+  captionButtons.classList.add('caption-buttons');
+  captionButtons.classList.add('collapse');
+
+  const saveButton = document.createElement('button');
+  saveButton.classList.add('button');
+  saveButton.classList.add('button-secondary');
+  saveButton.classList.add('caption-button');
+  saveButton.dataset.addButton = 'caption';
+  saveButton.textContent = 'Save';
+
+  const cancelButton = document.createElement('button');
+  cancelButton.classList.add('button');
+  cancelButton.classList.add('button-light');
+  cancelButton.classList.add('caption-button');
+  cancelButton.dataset.cancelButton = 'caption';
+  cancelButton.textContent = 'Cancel';
+
+  captionButtons.appendChild(saveButton);
+  captionButtons.appendChild(cancelButton);
+
+  captionContainer.appendChild(captionInput);
+  captionContainer.appendChild(captionButtons);
+  label.appendChild(img);
+  label.appendChild(checkbox);
+  newDiv.appendChild(label);
+  newDiv.appendChild(captionContainer);
 
   return newDiv;
 }
+
+
 
 /*
   Project Details

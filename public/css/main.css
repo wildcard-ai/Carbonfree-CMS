@@ -181,9 +181,18 @@ footer {
   margin-bottom: 2rem;
 }
 
-.projects img {
-  height: auto;
-  width: 100%;
+.images {
+  display: flex;
+  gap: 0;
+}
+
+.images img {
+  max-height: 80vh;
+  object-fit: contain;
+}
+
+.images p {
+  text-align: center;
 }
 
 .projects h1 {
@@ -392,7 +401,6 @@ footer {
 
   .contact label {
     display: table-cell;
-    padding-top: 0.5rem;
   }
 
   .contact .table-wrapper {
@@ -403,6 +411,7 @@ footer {
 
   .contact .address {
     order: 1;
+    padding-top: 0;
   }
 
   .contact .table-wrapper form {

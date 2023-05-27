@@ -271,4 +271,20 @@
     }
   }
 
+  function update_images_by_id($db, $image) {
+    $sql = "UPDATE images SET ";
+    $sql .= "caption='" . db_escape($db, $image['caption']) . "' ";
+    $sql .= "WHERE id='" . db_escape($db, $image['id']) . "' ";
+    $sql .= "LIMIT 1";
+
+    $result = mysqli_query($db, $sql);
+
+    if($result) {
+        return true;
+    } else {
+        $error = mysqli_error($db);
+        return ["success" => false, "error" => $error];
+    }
+  }
+
 ?>

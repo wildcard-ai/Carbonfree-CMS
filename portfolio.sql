@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 15, 2023 at 05:03 AM
+-- Generation Time: May 27, 2023 at 03:32 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -50,7 +50,8 @@ INSERT INTO `admins` (`id`, `username`, `email`, `hashed_password`) VALUES
 CREATE TABLE `images` (
   `id` int(11) NOT NULL,
   `project_id` int(11) DEFAULT NULL,
-  `path` varchar(255) DEFAULT NULL
+  `path` varchar(255) DEFAULT NULL,
+  `caption` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -62,7 +63,7 @@ CREATE TABLE `images` (
 CREATE TABLE `projects` (
   `id` int(11) NOT NULL,
   `project_name` varchar(255) DEFAULT NULL,
-  `description` varchar(255) DEFAULT NULL,
+  `description` varchar(5000) DEFAULT NULL,
   `cover_path` varchar(255) DEFAULT NULL,
   `visible` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -105,13 +106,13 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT for table `images`
 --
 ALTER TABLE `images`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=161;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=684;
 
 --
 -- AUTO_INCREMENT for table `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1073;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1079;
 
 --
 -- Constraints for dumped tables

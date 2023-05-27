@@ -17,6 +17,7 @@ $project = find_project_by_id($id);
   <section class="images">
     <?php while($image = mysqli_fetch_assoc($image_set)) { ?>
       <img src="<?php echo url_for($image["path"]); ?>">
+      <p><?php echo $image["caption"]; ?></p>
     <?php } ?>
     
     <?php mysqli_free_result($image_set); ?>

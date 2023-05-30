@@ -292,6 +292,7 @@ nav {
 
 .display-options label {
   letter-spacing: 0.5px;
+  color: #5e5d5e;
 }
 
 .control-vertical {
@@ -366,9 +367,9 @@ nav {
 
 .column-number {
   font-weight: 600;
-  margin: 0 1rem;
+  margin: 0 20px;
   font-size: 1rem;
-  color: #202020;
+  color: #4c484a;
 }
 
 .form-select {
@@ -377,6 +378,7 @@ nav {
   padding: 2px 2.25rem 2px 5px;
   display: block;
   font-size: 11px;
+  background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(243,243,243,1) 50%,rgba(237,237,237,1) 51%,rgba(255,255,255,1) 100%);
 }
 
 .form-select:focus {

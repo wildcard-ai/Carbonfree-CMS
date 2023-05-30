@@ -118,7 +118,6 @@ function expandToolbar(element) {
   function onTransitionEnd() {
     element.classList.replace('toolbar-collapsing', 'collapse');
     element.classList.add('show');
-    element.style.height = null;
     element.removeEventListener('transitionend', onTransitionEnd);
   }
 
@@ -127,18 +126,10 @@ function expandToolbar(element) {
 }
 
 function collapseToolbar(element) {
-  if(isAlreadyExpanded === false) {
-    return;
-  }
-  const expandedHeight = element.clientHeight + 'px';
-  element.style.height = expandedHeight;
 
-  // Check if the style change has been applied
-  if (window.getComputedStyle(element).height === expandedHeight) {
-    element.classList.remove('collapse', 'show');
-    element.classList.add('toolbar-collapsing');
-    element.style.height = null; // collapse
-  }
+  element.classList.remove('collapse', 'show');
+  element.classList.add('toolbar-collapsing');
+  element.style.height = null; // collapse
 
   function onTransitionEnd() {
     element.classList.replace('toolbar-collapsing', 'collapse');

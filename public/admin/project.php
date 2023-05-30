@@ -28,16 +28,17 @@ include(SHARED_PATH . '/admin_header.php');
 ?>
 
 <main>
-  <header class="page-header">
-    <h2 class="page-title" data-update="project-name"><?php echo $project["project_name"]; ?></h2>
-  </header>
+
 
   <section>
     <div class="toolbar-container">
       <div class="upload-toolbar" data-upload-buttons="toolbar">
+        <header class="">
+          <h1 class="page-title" data-update="project-name"><?php echo $project["project_name"]; ?></h1>
+        </header>
         <form method="post" enctype="multipart/form-data" data-form-id="upload" data-project-id="<?php echo $project_id; ?>">
           <input type="file" name="files[]" data-input-id="upload" id="file-input" hidden multiple>
-          <label tabindex="0" class="button button-light" for="file-input">Upload</label>
+          <label tabindex="0" class="button button-secondary" for="file-input">+ Add pieces</label>
         </form>
       </div>
       <div class="delete-toolbar collapse" data-delete-buttons="toolbar">
@@ -65,51 +66,53 @@ include(SHARED_PATH . '/admin_header.php');
     </div>
   </section>
 
-  <section class="card-group">
+  <section class="details">
     <header>
       <h2 class="section-title">Details</h2>
     </header>
-    <div class="card">
-      <div class="col-fg-1">
-        <header class="card-header">Project Title</header>
-        <div class="collapse show" data-collapse-id="project-name" data-update="project-name">
-          <?php echo $project["project_name"]; ?>
+    <div class="card-group">
+      <div class="card">
+        <div class="col-fg-1">
+          <header class="card-header">Project Title</header>
+          <div class="collapse show" data-collapse-id="project-name" data-update="project-name">
+            <?php echo $project["project_name"]; ?>
+          </div>
+          <form class="collapse" data-form-id="project-name" data-collapse-id="project-name" data-collapse-target="project-name">
+            <div class="input-group">
+              <input type="hidden" name="project-id" value="<?php echo $project_id; ?>">
+              <input class="form-control" type="text" data-input-id="project-name" name="project-name" value="<?php echo $project["project_name"]; ?>" required>
+            </div>
+            <div class="form-actions">
+              <button class="button button-secondary" type="submit">Save</button>
+              <button class="button button-light" data-cancel-button="project-name" data-collapse-target="project-name" type="button">Cancel</button>
+            </div>
+          </form>
         </div>
-        <form class="collapse" data-form-id="project-name" data-collapse-id="project-name" data-collapse-target="project-name">
-          <div class="input-group">
-            <input type="hidden" name="project-id" value="<?php echo $project_id; ?>">
-            <input class="form-control" type="text" data-input-id="project-name" name="project-name" value="<?php echo $project["project_name"]; ?>" required>
-          </div>
-          <div class="form-actions">
-            <button class="button button-secondary" type="submit">Save</button>
-            <button class="button button-light" data-cancel-button="project-name" data-collapse-target="project-name" type="button">Cancel</button>
-          </div>
-        </form>
+        <div class="collapse show" data-collapse-id="project-name">
+          <button class="button button-primary" data-edit-button="project-name" data-collapse-target="project-name">Edit</button>
+        </div>
       </div>
-      <div class="collapse show" data-collapse-id="project-name">
-        <button class="button button-primary" data-edit-button="project-name" data-collapse-target="project-name">Edit</button>
-      </div>
-    </div>
 
-    <div class="card">
-      <div class="col-fg-1">
-        <header class="card-header">Description</header>
-        <div class="collapse show" data-collapse-id="description" data-update="description">
-          <?php echo empty($project["description"]) ? "No description" : nl2br($project["description"]); ?>
+      <div class="card">
+        <div class="col-fg-1">
+          <header class="card-header">Description</header>
+          <div class="collapse show" data-collapse-id="description" data-update="description">
+            <?php echo empty($project["description"]) ? "No description" : nl2br($project["description"]); ?>
+          </div>
+          <form class="collapse" data-form-id="description" data-collapse-id="description" data-collapse-target="description">
+            <div class="input-group">
+              <input type="hidden" name="project-id" value="<?php echo $project_id; ?>">
+              <textarea class="form-control" data-input-id="description" name="description" rows="5"><?php echo $project["description"]; ?></textarea>
+            </div>
+            <div class="form-actions">
+              <button class="button button-secondary" data-save-button="description" type="submit">Save</button>
+              <button class="button button-light" data-cancel-button="description" data-collapse-target="description" type="button">Cancel</button>
+            </div>
+          </form>
         </div>
-        <form class="collapse" data-form-id="description" data-collapse-id="description" data-collapse-target="description">
-          <div class="input-group">
-            <input type="hidden" name="project-id" value="<?php echo $project_id; ?>">
-            <textarea class="form-control" data-input-id="description" name="description" rows="8" cols="50"><?php echo $project["description"]; ?></textarea>
-          </div>
-          <div class="form-actions">
-            <button class="button button-secondary" data-save-button="description" type="submit">Save</button>
-            <button class="button button-light" data-cancel-button="description" data-collapse-target="description" type="button">Cancel</button>
-          </div>
-        </form>
-      </div>
-      <div class="collapse show" data-collapse-id="description">
-        <button class="button button-primary" data-edit-button="description" data-collapse-target="description">Edit</button>
+        <div class="collapse show" data-collapse-id="description">
+          <button class="button button-primary" data-edit-button="description" data-collapse-target="description"><?php echo empty($project["description"]) ? "Add" : "Edit"; ?></button>
+        </div>
       </div>
     </div>
   </section>
@@ -119,28 +122,32 @@ include(SHARED_PATH . '/admin_header.php');
       <h2 class="section-title">Visibility</h2>
     </header>
 
-    <div class="card">
-      <header class="wrapper-centered card-header">
-        Visibility
-      </header>
-      <form class="wrapper-centered">
-        <input type="hidden" name="project_id" value="<?php echo $project_id; ?>">
-        <input data-checkbox-type="visibility" name="visibility-checkbox" class="toggle-switch" type="checkbox" <?php if($project["visible"] == "1") { echo " checked"; } ?>>
-      </form>
+    <div class="card-group">
+      <div class="single-card">
+        <header class="wrapper-centered card-header">
+          Visibility
+        </header>
+        <form class="wrapper-centered">
+          <input type="hidden" name="project_id" value="<?php echo $project_id; ?>">
+          <input data-checkbox-type="visibility" name="visibility-checkbox" class="toggle-switch" type="checkbox" <?php if($project["visible"] == "1") { echo " checked"; } ?>>
+        </form>
+      </div>
     </div>
   </section>
 
   <section>
     <header>
-      <h2 class="section-title">Delete this Project</h2>
+      <h2 class="section-title">Delete</h2>
     </header>
 
-    <div class="card">
-      <header class="wrapper-centered card-header">
-        Delete this project
-      </header>
-      <div class="wrapper-centered">
-        <button class="button button-danger" data-modal-target="modal">Delete</button>
+    <div class="card-group">
+      <div class="single-card">
+        <header class="wrapper-centered card-header">
+          Delete this project
+        </header>
+        <div class="wrapper-centered">
+          <button class="button button-danger" data-modal-target="modal">Delete</button>
+        </div>
       </div>
     </div>
   </section>

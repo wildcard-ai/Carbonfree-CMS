@@ -100,11 +100,12 @@
             </div>
           </a>
           <div class="tmb-btn-container" data-button-type="thumbnail">
+            <div class="thumb-uploading" data-status="thumbnail">Uploading...</div>
             <form data-form-type="thumbnail">
               <input type="hidden" name="project_id" data-project-id="thumbnail" value="<?php echo $project['id']; ?>">
               <input type="file" name="file" data-file-type="thumbnail" id="file-<?php echo $project['id']; ?>" hidden>
             </form>
-            <label class="button button-primary thumbnail-button" for="file-<?php echo $project['id']; ?>">Change</label>
+            <label class="button button-primary thumbnail-button" for="file-<?php echo $project['id']; ?>"><i class="image-icon"></i> change</label>
           </div>
         </div>
       <?php } ?>
@@ -138,7 +139,7 @@
         <!-- Projet Title -->
         <div class="input-group">
           <label for="project-title">Title</label>
-          <input id="project-title" class="form-control" data-input-id="create-project-form" type="text" name="project_name" value="<?php echo h($new_project['project_name']); ?>" autocomplete="off">
+          <input id="project-title" class="form-control title" data-input-id="create-project-form" type="text" name="project_name" value="<?php echo h($new_project['project_name']); ?>" autocomplete="off">
         </div>
       </form>
     </div>

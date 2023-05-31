@@ -46,6 +46,7 @@ uploadForms.forEach(async (uploadForm) => {
   const projectId = uploadForm.querySelector('[data-project-id="thumbnail"]');
   const fileInput = uploadForm.querySelector('[data-file-type="thumbnail"]');
   const thumbnail = document.querySelector(`[data-thumbnail-id="${projectId.value}"]`);
+  const status = thumbnail.parentNode.parentNode.parentNode.querySelector('[data-status="thumbnail"]');
 
   uploadForm.addEventListener('change', async (event) => {
     event.preventDefault();
@@ -55,6 +56,8 @@ uploadForms.forEach(async (uploadForm) => {
     formData.append('project_id', id);
     formData.append('file', files[0]);
 
+    status.style.visibility = 'visible';  // Display "Uploading..." text
+
     fetch('thumbnail_upload.php', {
       method: 'POST',
       body: formData
@@ -62,12 +65,19 @@ uploadForms.forEach(async (uploadForm) => {
     .then(response => response.json())
     .then(data => {
         console.log(data);
+
+        // Remove old image before uploading the new one
         const img = thumbnail;
+        img.src = ''; // Set the src attribute to an empty string to remove the old image
+
         img.src = data.cover_path; // change the src attribute to the new image URL
         // Do something with the data
     })
     .catch(error => {
         console.error(error);
+    })
+    .finally(() => {
+        status.style.visibility = 'hidden'; // Hide "Uploading..." text
     });
 
     fileInput.value = '';

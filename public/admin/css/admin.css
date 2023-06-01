@@ -776,14 +776,12 @@ nav {
 .tmb-btn-container {
   display: none;
   height: 100%;
-  padding-bottom: 15px;
   position: absolute;
   width: 100%;
-  justify-content: center;
-  align-items: end;
-  justify-items: center;
-  grid-auto-rows: min-content;
-  grid-template-rows: 5fr 4fr;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
 }
 
 .tmb-btn-container form {
@@ -791,7 +789,7 @@ nav {
 }
 
 .thumb-uploading {
-  align-self: end;
+  margin-top: 49px;
   height: 2.625rem;
   border-radius: 6px;
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
@@ -843,7 +841,7 @@ nav {
 }
 
 .show-buttons {
-  display: grid;
+  display: flex;
 }
 
 main {
@@ -853,15 +851,14 @@ main {
 
 .projects-list {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
+  gap: 30px;
   position: relative;
 }
 
 .dashed-container {
   position: absolute;
   display: grid;
-  gap: 2rem;
+  gap: 30px;
   z-index: -1;
   overflow: hidden;
   width: 100%;
@@ -874,12 +871,12 @@ main {
   border-radius: 6px;
   padding: calc(0.75rem - 2px);
   border: 2px dashed rgba(0, 0, 0, 0.1);
+  height: 197px;
 }
 
 .fake-image {
   width: 780px;
   height: 140px;
-  margin-bottom: 37px;
 }
 
 .project-link {
@@ -933,7 +930,8 @@ main {
 }
 
 .project-title-container {
-  padding: 0.5rem 0;
+  padding-top: 0.5rem;
+  padding-bottom: 4px;
 }
 
 .project-title {
@@ -942,6 +940,52 @@ main {
   margin: 0;
   text-align: center;
   font-size: 14px;
+}
+
+.two-col {
+  grid-template-columns: 1fr 1fr;
+}
+
+.three-col {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.text-hidden {
+  display: none;
+}
+
+.projects-list.two-col .project-link,
+.projects-list.three-col .project-link,
+.projects-list.two-col .tmb-btn-container,
+.projects-list.three-col .tmb-btn-container {
+  padding: 6px;
+}
+
+.projects-list.two-col .thumbnail-button,
+.projects-list.three-col .thumbnail-button {
+  margin-bottom: 6px;
+}
+
+.projects-list.two-col .thumbnail {
+  width: 375px;
+}
+
+.projects-list.three-col,
+.projects-list.three-col .dashed-container {
+  gap: 24px;
+}
+
+.projects-list.three-col .thumbnail {
+  width: 240px;
+}
+
+.projects-list.two-col .dashed,
+.projects-list.three-col .dashed {
+  height: 186px;
+}
+
+.projects-list:has(.text-hidden) .thumbnail-button {
+  margin-bottom: 6px;
 }
 
 /* Project */

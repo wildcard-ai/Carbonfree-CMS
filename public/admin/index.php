@@ -31,7 +31,7 @@
 
 <main>
 
-  <div class="display-options">
+  <div class="display-options collapse" data-box="display">
     <button class="close-display" data-dismiss="display"><span>×</span></button>
     <div class="display-options-container">
       <div class="display-heading">
@@ -70,7 +70,7 @@
 
   <header class="page-header">
     <button class="button button-secondary create-project-button" data-modal-target="modal">Add a project</button>
-    <button class="ml-auto button button-muted" data-display-target="options"><i class="paintbrush-icon"></i> Display Options</button>
+    <button class="ml-auto button button-muted collapse show" data-button="display"><i class="paintbrush-icon"></i> Display Options</button>
   </header>
 
   <?php echo display_errors($errors); ?>

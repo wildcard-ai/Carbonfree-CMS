@@ -17,6 +17,7 @@ if(!isset($page_title)) { $page_title = 'Admin Panel'; }
     echo load_script('index', 'script');
     echo load_script('project', 'modal');
     echo load_script('project', 'project');
+    echo load_script('index', 'display');
   ?>
 </head>
 <body>

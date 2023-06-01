@@ -42,11 +42,11 @@
           <label class="vertical-align" for="text-position">Columns</label>
 
           <div>
-            <button class="plus-circle">
+            <button class="plus-circle" data-button="minus">
               <i class="minus-solid-icon"></i>
             </button>
               <span class="column-number">2</span>
-            <button class="plus-circle">
+            <button class="plus-circle" data-button="plus">
               <i class="plus-solid-icon"></i>
             </button>
           </div>
@@ -54,7 +54,7 @@
         <div class="view-group">
           <label class="vertical-align" for="text-position">Text position</label>
 
-          <select class="form-select" id="text-position">
+          <select class="form-select" id="text-position" data-select="text">
             <option value="below" selected>Below</option>
             <option value="inside">Inside</option>
             <option value="hidden">Hidden</option>
@@ -76,7 +76,7 @@
   <?php echo display_errors($errors); ?>
   <?php echo display_session_message(); ?>
 
-  <section class="projects-list">
+  <section class="projects-list two-col" data-column="projects-list">
 
       <?php while($project = mysqli_fetch_assoc($project_set)) { ?>
         <?php
@@ -95,8 +95,8 @@
             <div class="thumbnail-container">
               <img class="thumbnail" data-thumbnail-id="<?php echo $project['id']; ?>" src="<?php echo $project_cover; ?>" loading="lazy">
             </div>
-            <div class="project-title-container">
-              <div class="project-title"><?php echo h($project['project_name']); ?></div>
+            <div class="project-title-container text-below" data-text="position">
+              <div><?php echo h($project['project_name']); ?></div>
             </div>
           </a>
           <div class="tmb-btn-container" data-button-type="thumbnail">
@@ -110,7 +110,7 @@
         </div>
       <?php } ?>
 
-      <div class="dashed-container">
+      <!-- <div class="dashed-container two-col">
         <?php
         for ($i = 1; $i <= 5; $i++) {
             echo '
@@ -121,7 +121,7 @@
             ';
         }
         ?>
-      </div>
+      </div> -->
       
 
   </section>

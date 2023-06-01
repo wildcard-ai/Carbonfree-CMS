@@ -76,8 +76,9 @@
   <?php echo display_errors($errors); ?>
   <?php echo display_session_message(); ?>
 
-  <section class="projects-list two-col" data-column="projects-list">
+  <section class="projects-section">
 
+    <div class="projects-list two-col" data-column="projects-list">
       <?php while($project = mysqli_fetch_assoc($project_set)) { ?>
         <?php
           $cover = find_project_by_id($project['id']);
@@ -109,20 +110,7 @@
           </div>
         </div>
       <?php } ?>
-
-      <!-- <div class="dashed-container two-col">
-        <?php
-        for ($i = 1; $i <= 5; $i++) {
-            echo '
-                <div class="dashed">
-                  <div class="fake-image">
-                  </div>
-                </div>
-            ';
-        }
-        ?>
-      </div> -->
-      
+    </div>
 
   </section>
 

@@ -237,6 +237,7 @@
 
     $sql = "SELECT * FROM images ";
     $sql .= "WHERE project_id='" . db_escape($db, $project_id) . "' ";
+    $sql .= "AND is_draft=false "; // Add condition to select non-draft images
     $sql .= "ORDER BY id ASC ";
     $sql .= "LIMIT 1";
     $result = mysqli_query($db, $sql);

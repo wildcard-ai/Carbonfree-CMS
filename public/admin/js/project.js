@@ -47,6 +47,7 @@ openImageModalBtn.addEventListener('click', function() {
 });
 
 closeImageModalBtn.addEventListener('click', function() {
+  deleteDrafts();
   imageModal.close();
 });
 
@@ -131,6 +132,23 @@ function finishImages() {
   deleteSelectedImagesFromDatabase(imageIds);
   addCaption();
   imageModal.close();
+}
+
+function deleteDrafts() {
+  fetch('delete_drafts.php', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ isDraft: 1 })
+  })
+  .then(response => response.text())
+  .then(data => {
+    console.log(data);
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
 }
 
 function unmarkImageAsDraft(imageId) {

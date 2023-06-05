@@ -214,16 +214,22 @@
     }
   }
 
-  function find_images_by_project_id($project_id) {
+  function find_images_by_project_id($project_id, $options=[]) {
     global $db;
+
+    $is_draft = isset($options['is_draft']) ? $options['is_draft'] : null;
   
     $sql = "SELECT * FROM images ";
     $sql .= "WHERE project_id='" . db_escape($db, $project_id) . "' ";
+    if($is_draft === null) {
+      $sql .= "AND is_draft = false ";
+    } else {
+      $sql .= "AND (is_draft = true OR is_draft = false) ";
+    }
     $sql .= "ORDER BY id DESC";
     $result = mysqli_query($db, $sql);
     confirm_result_set($result);
     return $result;
-    echo $result;
   }
 
   function find_first_image_by_project_id($project_id) {
@@ -240,13 +246,15 @@
     return $image; // returns an assoc. array
   }
 
-  function insert_image_by_project_id($db, $project_id, $upload_name) {
-    $sql = "INSERT into images ";
-    $sql .= "(project_id, path) ";
+  function insert_image_by_project_id($db, $project_id, $upload_name, $draft_status) {
+    $sql = "INSERT INTO images ";
+    $sql .= "(project_id, path, is_draft) ";
     $sql .= "VALUES (";
     $sql .= "'" . db_escape($db, $project_id) . "',";
-    $sql .= "'" . db_escape($db, $upload_name) . "'";
+    $sql .= "'" . db_escape($db, $upload_name) . "',";
+    $sql .= "'" . db_escape($db, $draft_status) . "'";
     $sql .= ")";
+    
     $result = mysqli_query($db, $sql);
   
     if ($result) {
@@ -255,7 +263,7 @@
       $error = mysqli_error($db);
       return $error;
     }
-  }
+  }   
 
   function delete_images_by_id($db, $image_ids) {
     $ids = implode(',', $image_ids);

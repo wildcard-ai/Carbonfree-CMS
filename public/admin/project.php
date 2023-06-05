@@ -27,44 +27,26 @@ include(SHARED_PATH . '/admin_header.php');
 
 ?>
 
-<main>
+<div class="viewer-card-container">
 
-
-  <section>
-    <div class="toolbar-container">
-      <div class="upload-toolbar" data-upload-buttons="toolbar">
-        <header class="">
-          <h1 class="page-title" data-update="project-name"><?php echo $project["project_name"]; ?></h1>
-        </header>
-        <form method="post" enctype="multipart/form-data" data-form-id="upload" data-project-id="<?php echo $project_id; ?>">
-          <input type="file" name="files[]" data-input-id="upload" id="file-input" hidden multiple>
-          <label tabindex="0" class="button button-secondary" for="file-input">+ Add pieces</label>
-        </form>
-      </div>
-      <div class="delete-toolbar collapse" data-delete-buttons="toolbar">
-        <span class="selected-count" data-selected-count="image"></span>
-        <button class="button button-danger" data-delete-button="image">Delete</button>
-        <button class="button button-primary select-all" data-select-all-button="image">Select All</button>
+    <div class="viewer-heading">
+      <div class="center-viewer">
+        <div class="page-title"><?php echo $project["project_name"]; ?></div>
+        <button class="button button-secondary" data-modal-target="image">Manage images</button>
       </div>
     </div>
-    <div class="image-list" data-list-id="upload">
-      <?php while($image = mysqli_fetch_assoc($image_set)) { ?>
-        <div class="image-caption-container">
-          <label class="image-container">
-            <img class="uploaded-image" src="<?php echo url_for($image['path']); ?>">
-            <input class="image-checkbox" type="checkbox" data-checkbox="image" data-image-id="<?php echo $image['id']; ?>">
-          </label>
-          <div class="caption-container" data-caption-collapse-id="caption">
-            <input type="text" class="caption-input" data-input="caption" data-image-id="<?php echo $image['id']; ?>" value="<?php echo $image['caption']; ?>" placeholder="Add caption...">
-            <div class="caption-buttons collapse">
-              <button class="button button-secondary caption-button" data-add-button="caption">Save</button>
-              <button class="button button-light caption-button" data-cancel-button="caption">Cancel</button>
-            </div>
-          </div>
-        </div>
+    <div class="viewer-body" data-viewer="images">
+      
+      <?php while($thumb = mysqli_fetch_assoc($image_set)) { ?>
+
+        <img class="viewer-image" src="<?php echo url_for($thumb["path"]); ?>" data-image-id="<?php echo $thumb['id']; ?>">
+
       <?php } ?>
     </div>
-  </section>
+
+</div>
+
+<main>
 
   <section class="details">
     <header>
@@ -154,6 +136,35 @@ include(SHARED_PATH . '/admin_header.php');
 
 </main>
 
+<form  method="post" enctype="multipart/form-data" data-form-id="upload" data-project-id="<?php echo $project_id; ?>">
+  <input type="file" name="files[]" data-input-id="upload" id="file-input" hidden multiple>
+</form>
+
+<dialog class="modal manage-images" data-dialog="image">
+  <div class="modal-content">
+
+    <div class="toolbar-header">
+      <div class="upload-toolbar" data-upload-buttons="toolbar">
+        <h5 class="modal-title">Manage Images</h5>
+        <label tabindex="0" class="button button-secondary ml-auto" for="file-input">Add photos</label>
+        <button class="button button-light" data-dismiss="image">Cancel</button>
+        <button class="button button-primary" data-done-button="images">Done</button>
+      </div>
+      <div class="delete-toolbar collapse" data-delete-buttons="toolbar">
+        <span class="selected-count" data-selected-count="image"></span>
+        <button class="button button-danger" data-delete-button="image">Delete</button>
+        <button class="button button-primary select-all" data-select-all-button="image">Select All</button>
+      </div>
+    </div>
+
+    <div class="image-list" data-list-id="upload">
+
+    </div>
+
+  </div>
+</dialog>
+
+
 <dialog class="modal" data-dialog="modal">
   <div class="modal-content">
     <div class="modal-header">
@@ -170,6 +181,6 @@ include(SHARED_PATH . '/admin_header.php');
       </form>
     </div>
   </div>
-</div>
+</dialog>
 
 <?php include(SHARED_PATH . '/admin_footer.php'); ?>

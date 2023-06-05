@@ -55,7 +55,7 @@ if ($isValid) {
 
     move_uploaded_file_to_destination($file_tmp, $file);
 
-    $result = insert_image_by_project_id($db, $project_id, $upload_name);
+    $result = insert_image_by_project_id($db, $project_id, $upload_name, 1);
 
     if ($result === true) {
       $new_id = mysqli_insert_id($db);

@@ -3,79 +3,191 @@
 */
 
 // Constants
+const imageModal = document.querySelector('[data-dialog="image"]');
+const openImageModalBtn = document.querySelector('[data-modal-target="image"]');
+const closeImageModalBtn = document.querySelector('[data-dismiss="image"]');
 const uploadForm = document.querySelector('[data-form-id="upload"]');
 const fileInput = document.querySelector('[data-input-id="upload"]');
 const imageList = document.querySelector('[data-list-id="upload"]');
-const editImageButton = document.querySelector('[data-edit-button="image"]');
 const selectedCount = document.querySelector('[data-selected-count="image"]');
 const deleteImageButton = document.querySelector('[data-delete-button="image"]');
 const selectAllButton = document.querySelector('[data-select-all-button="image"]');
 const deleteToolbar = document.querySelector('[data-delete-buttons="toolbar"]');
-const addCaptionButton = document.querySelector('[data-done-button="caption"]');
-const cancelCaptionButton = document.querySelector('[data-cancel-button="caption"]');
+const doneButton = document.querySelector('[data-done-button="images"]');
+const viewerImageList = document.querySelector('[data-viewer="images"]');
 let imageIds = new Set(); // Use a Set instead of an array
+let deletedImageIds = new Set(); // Set to store deleted image IDs
 let isAlreadyExpanded = false;
+let deletedImages = [];
 
 // Event listeners
 
+openImageModalBtn.addEventListener('click', function() {
+  imageList.innerHTML = ''; // Clear the existing content in imageList
+  const viewerImages = document.querySelectorAll('[data-viewer="images"] .viewer-image');
+  const images = [];
+  
+  // Extract image IDs and URLs from viewerImages
+  viewerImages.forEach((image) => {
+    const id = parseInt(image.getAttribute('data-image-id'));
+    const url = image.getAttribute('src');
+    images.push({ id, url });
+  });
+  
+  // Sort images by descending ID
+  images.sort((a, b) => b.id - a.id);
+  
+  // Create and insert image containers in descending order
+  images.forEach(({ id, url }) => {
+    const newDiv = createImageContainer(id, url);
+    imageList.appendChild(newDiv);
+  });  
+
+  imageModal.showModal();
+});
+
+closeImageModalBtn.addEventListener('click', function() {
+  imageModal.close();
+});
+
 uploadForm.addEventListener('change', handleFileUpload);
-selectAllButton.addEventListener('click', selectionToggle);
-deleteImageButton.addEventListener('click', () => deleteSelectedImages(imageIds));
+doneButton.addEventListener('click', finishImages);
+selectAllButton.addEventListener('click', toggleSelectButton);
+deleteImageButton.addEventListener('click', () => deleteSelectedImagesFromDOM(imageIds));
 
 // Attach the event listener to a parent element
 imageList.addEventListener('click', function (event) {
   // Check if the clicked element is a checkbox
   if (event.target.matches('[data-checkbox="image"]')) {
     updateImageIds(event);
-    updateUI();
-  }
-});
-
-imageList.addEventListener('click', function (event) {
-  // Check if the clicked element is a checkbox
-  if (event.target.matches('[data-add-button="caption"]')) {
-    addCaption(event.target);
-  }
-});
-
-imageList.addEventListener('click', function (event) {
-  // Check if the clicked element is a checkbox
-  if (event.target.matches('[data-input="caption"]')) {
-    showCaptionButtons(event.target);
-  }
-});
-
-imageList.addEventListener('click', function (event) {
-  // Check if the clicked element is a checkbox
-  if (event.target.matches('[data-cancel-button="caption"]')) {
-    hideCaptionButtons(event.target);
+    toggleDeleteToolbar();
+    countSelected();
+    renameSelectAllButton();
   }
 });
 
 // Functions
 
-function showCaptionButtons(input) {
-  input.nextElementSibling.classList.add('show');
+function createViewerImage(id, url) {
+  const div = document.createElement('div');
+  div.classList.add('image-container');
+
+  const img = document.createElement('img');
+  img.classList.add('viewer-image');
+  img.setAttribute('src', url);
+  img.setAttribute('data-image-id', id);
+
+  div.appendChild(img);
+  return div;
 }
 
-function hideCaptionButtons(cancelButton) {
-  //const inputValue = cancelButton.parentNode.previousElementSibling.value;
-  cancelButton.parentNode.classList.remove('show');
+function deleteSelectedImagesFromDOM() {
+  console.log('test');
+  imageIds.forEach((imageId) => {
+    const imageContainer = document.querySelector('.modal.manage-images [data-image-id="' + imageId + '"]');
+    if (imageContainer) {
+      const clonedContainer = imageContainer.cloneNode(true);
+      const parentContainer = imageContainer.parentNode.parentNode;
+      parentContainer.remove();
+
+      deletedImages.push(clonedContainer);
+      deletedImageIds.add(imageId);
+    }
+  });
+  toggleDeleteToolbar();
+  countSelected();
 }
 
-function addCaption(addButton) {
-  const input = addButton.parentNode.previousElementSibling;
-  const id = input.getAttribute('data-image-id');
-  console.log(id);
+function finishImages() {
+
+  viewerImageList.innerHTML = ''; // Clear the existing content in viewerImageList
+  const modalImages = document.querySelectorAll('[data-list-id="upload"] .uploaded-image');
+  const images = [];
   
-  const caption = input.value;
-  console.log(caption);
+  // Extract image IDs and URLs from modalImages
+  modalImages.forEach((image) => {
+    const id = parseInt(image.getAttribute('data-image-id'));
+    const url = image.getAttribute('src');
+    images.push({ id, url });
+  });
+  
+  // Sort images by descending ID
+  images.sort((a, b) => b.id - a.id);
+  
+  // Create and insert image containers in descending order
+  images.forEach(({ id, url }) => {
+    const newDiv = createViewerImage(id, url);
+    viewerImageList.appendChild(newDiv);
+  });  
 
-  // Create an object with the data to send
-  const data = {
-    id: id,
-    caption: caption
-  };
+  const imageContainers = document.querySelectorAll('.image-caption-container');
+
+  // Iterate over the image containers and check if they are already added to the viewer
+  imageContainers.forEach(function (imageContainer) {
+    const imageId = imageContainer.querySelector('.image-checkbox').getAttribute('data-image-id');
+
+    unmarkImageAsDraft(imageId);
+  });
+  deleteSelectedImagesFromDatabase(imageIds);
+  addCaption();
+  imageModal.close();
+}
+
+function unmarkImageAsDraft(imageId) {
+  console.log(imageId);
+  if (imageId) {
+    // Send an AJAX request to update the image's draft status
+    const formData = new FormData();
+    formData.append('image_id', imageId);
+
+    fetch('unmark_image_as_draft.php', {
+      method: 'POST',
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          console.log('Image draft status updated');
+        } else {
+          console.log('Failed to update image draft status');
+        }
+      })
+      .catch((error) => console.log(error));
+  }
+}
+
+function deleteSelectedImagesFromDatabase(imageIds) {
+  fetch('delete_images.php', {
+    method: 'POST',
+    body: JSON.stringify(Array.from(imageIds)), // Convert the Set to an array before sending
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+
+    imageIds.clear(); // Use the clear method to empty the Set
+  })
+  .catch(error => {
+    console.log('Error:', error);
+  });
+}
+
+function addCaption() {
+  const inputs = document.querySelectorAll('[data-input="caption"]');
+  const data = [];
+
+  inputs.forEach(input => {
+    const id = input.getAttribute('data-image-id');
+    const caption = input.value;
+
+    data.push({
+      id: id,
+      caption: caption
+    });
+  });
 
   // Make a Fetch request to the PHP file
   fetch('add_caption.php', {
@@ -88,23 +200,29 @@ function addCaption(addButton) {
   .then(response => response.json())
   .then(data => {
     console.log(data);
-    addButton.parentNode.classList.remove('show');
+    // Handle the response from the server if needed
   })
   .catch(error => {
     console.error('Error:', error);
   });
 }
 
-function updateUI() {
+function toggleDeleteToolbar() {
+  const checkedCheckboxes = document.querySelectorAll('.image-checkbox:checked');
 
-  if(imageIds.size === 0) {
+  if(checkedCheckboxes.length === 0) {
     collapseToolbar(deleteToolbar);
   } else {
     expandToolbar(deleteToolbar);
   }
+}
 
-  selectedCount.textContent = `${imageIds.size} selected`; // Use the size property for Sets
+function countSelected() {
+  const checkedCheckboxes = document.querySelectorAll('.image-checkbox:checked');
+  selectedCount.textContent = `${checkedCheckboxes.length} selected`; // Use the size property for Sets
+}
 
+function renameSelectAllButton() {
   selectAllButton.textContent = isAllChecked() ? 'Clear Selection' : 'Select All';
 }
 
@@ -140,7 +258,7 @@ function collapseToolbar(element) {
   isAlreadyExpanded = false;
 }
 
-function selectionToggle() {
+function toggleSelectButton() {
   const checkboxes = imageList.querySelectorAll('[data-checkbox="image"]');
   const allChecked = isAllChecked();
 
@@ -149,8 +267,9 @@ function selectionToggle() {
     updateImageIds({ target: checkbox }); // Create an event object with the checkbox as the target and pass it to updateImageIds
   });
 
-  updateUI();
-  // console.log(Array.from(imageIds)); // Convert the Set to an array if needed
+  renameSelectAllButton();
+  toggleDeleteToolbar();
+  countSelected();
 }
 
 function isAllChecked() {
@@ -167,33 +286,6 @@ function updateImageIds(event) {
   } else {
     imageIds.delete(imageId);
   }
-}
-
-function deleteSelectedImages(imageIds) {
-  fetch('delete_images.php', {
-    method: 'POST',
-    body: JSON.stringify(Array.from(imageIds)), // Convert the Set to an array before sending
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  })
-  .then(response => response.json())
-  .then(data => {
-    console.log(data);
-
-    imageIds.forEach(imageId => {
-      const imageElement = document.querySelector(`[data-image-id="${imageId}"]`);
-      if (imageElement) {
-        imageElement.parentNode.parentNode.remove();
-      }
-    });
-
-    imageIds.clear(); // Use the clear method to empty the Set
-    updateUI();
-  })
-  .catch(error => {
-    console.log('Error:', error);
-  });
 }
 
 function handleFileUpload(event) {
@@ -248,6 +340,7 @@ function createImageContainer(id, url) {
   const img = document.createElement('img');
   img.classList.add('uploaded-image');
   img.src = url;
+  img.dataset.imageId = id;
 
   const checkbox = document.createElement('input');
   checkbox.classList.add('image-checkbox');
@@ -266,29 +359,7 @@ function createImageContainer(id, url) {
   captionInput.dataset.imageId = id;
   captionInput.placeholder = 'Add caption...';
 
-  const captionButtons = document.createElement('div');
-  captionButtons.classList.add('caption-buttons');
-  captionButtons.classList.add('collapse');
-
-  const saveButton = document.createElement('button');
-  saveButton.classList.add('button');
-  saveButton.classList.add('button-secondary');
-  saveButton.classList.add('caption-button');
-  saveButton.dataset.addButton = 'caption';
-  saveButton.textContent = 'Save';
-
-  const cancelButton = document.createElement('button');
-  cancelButton.classList.add('button');
-  cancelButton.classList.add('button-light');
-  cancelButton.classList.add('caption-button');
-  cancelButton.dataset.cancelButton = 'caption';
-  cancelButton.textContent = 'Cancel';
-
-  captionButtons.appendChild(saveButton);
-  captionButtons.appendChild(cancelButton);
-
   captionContainer.appendChild(captionInput);
-  captionContainer.appendChild(captionButtons);
   label.appendChild(img);
   label.appendChild(checkbox);
   newDiv.appendChild(label);
@@ -296,8 +367,6 @@ function createImageContainer(id, url) {
 
   return newDiv;
 }
-
-
 
 /*
   Project Details

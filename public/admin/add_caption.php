@@ -6,22 +6,27 @@ if (!$db) {
   die(json_encode(["success" => false, "error" => "Connection failed."]));
 }
 
-// Retrieve the imageList data from the request body
+// Retrieve the image data from the request body
 $json = file_get_contents('php://input');
-$image = json_decode($json, true);
+$data = json_decode($json, true);
+// var_dump($data);
 
-if (empty($image)) {
-  die(json_encode(["success" => false, "error" => "Empty."]));
+if (empty($data)) {
+  die(json_encode(["success" => false, "error" => "Empty data."]));
 }
 
-$result = update_images_by_id($db, $image);
+// Iterate over the received data and update the database
+foreach ($data as $item) {
+  $result = update_images_by_id($db, $item);
 
-// Execute SQL query to update record in database
-if ($result === true) {
-  echo json_encode(["success" => true, "message" => "Caption added successfully."]);
-} else {
-  echo json_encode($result);
+  // Check if the update was successful
+  if ($result !== true) {
+    die(json_encode($result));
+  }
 }
+
+// Database update successful
+echo json_encode(["success" => true, "message" => "Database updated successfully."]);
 
 // Close database connection
 db_disconnect($db);

@@ -4,7 +4,8 @@ require_once('../../private/initialize.php');
 // Establish your database connection here if needed
 
 // Retrieve the value of isDraft from the request payload
-$isDraft = $_POST['isDraft'];
+$isDraft = isset($_POST['isDraft']) ? $_POST['isDraft'] : null;
+
 
 // Perform the deletion query
 // Replace 'your_table_name' with the actual name of your table

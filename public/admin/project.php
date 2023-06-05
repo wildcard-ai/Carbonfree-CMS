@@ -39,7 +39,7 @@ include(SHARED_PATH . '/admin_header.php');
       
       <?php while($thumb = mysqli_fetch_assoc($image_set)) { ?>
 
-        <img class="viewer-image" src="<?php echo url_for($thumb["path"]); ?>" data-image-id="<?php echo $thumb['id']; ?>">
+        <img class="viewer-image" alt="<?php echo isset($thumb["caption"]) ? $thumb["caption"] : ""; ?>" src="<?php echo url_for($thumb["path"]); ?>" data-image-id="<?php echo $thumb['id']; ?>">
 
       <?php } ?>
     </div>

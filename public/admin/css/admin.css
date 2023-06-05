@@ -1067,15 +1067,19 @@ textarea {
 /* Projects List */
 
 .project {
-  display: grid;
-}
-
-.project > * {
-  grid-area: 1 / 1;
+  display: flex;
+  position: relative;
 }
 
 .tmb-btn-container {
   display: none;
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px;
 }
 
 .tmb-btn-container form {

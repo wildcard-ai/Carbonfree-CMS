@@ -23,7 +23,7 @@
   }
 
   $project_set = find_all_projects();
-
+  $display_options = getDisplayOptions();
 ?>
 
 <?php $page_title = "Projects"; ?>
@@ -42,11 +42,11 @@
           <label class="vertical-align" for="text-position">Columns</label>
 
           <div>
-            <button class="plus-circle" data-button="minus">
+            <button class="plus-circle" data-button="minus" <?php if($display_options['column_number'] == 1) { echo "disabled"; } ?>>
               <i class="minus-solid-icon"></i>
             </button>
-              <span class="column-number">2</span>
-            <button class="plus-circle" data-button="plus">
+              <span class="column-number"><?php echo $display_options['column_number']; ?></span>
+            <button class="plus-circle" data-button="plus" <?php if($display_options['column_number'] == 3) { echo "disabled"; } ?>>
               <i class="plus-solid-icon"></i>
             </button>
           </div>
@@ -78,7 +78,7 @@
 
   <section class="projects-section">
 
-    <div class="projects-list two-col" data-column="projects-list">
+    <div class="projects-list<?php if($display_options['column_number'] == 2) { echo " two-col"; } elseif($display_options['column_number'] == 3) { echo " three-col"; } else { echo ""; } ?>" data-column="projects-list">
       <?php while($project = mysqli_fetch_assoc($project_set)) { ?>
         <?php
           $cover = find_project_by_id($project['id']);

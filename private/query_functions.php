@@ -296,4 +296,40 @@
     }
   }
 
+  function hasDraftImages() {
+    global $db;
+
+    $sql = "SELECT COUNT(*) FROM images WHERE is_draft = 1";
+
+    $result = mysqli_query($db, $sql);
+
+    if (mysqli_fetch_row($result)[0] > 0) {
+      return true;
+    } else {
+      $error = mysqli_error($db);
+      return $error;
+    }
+  }
+
+  function deleteDraftImages() {
+    global $db;
+    $sql = "DELETE FROM images WHERE is_draft = 1";
+
+    $result = mysqli_query($db, $sql);
+
+    if ($result) {
+      return true;
+    } else {
+      $error = mysqli_error($db);
+      return $error;
+    }
+  }
+
+  function getDisplayOptions() {
+    global $db;
+    $sql = "SELECT * FROM display_options WHERE id = 1";
+    $result = mysqli_query($db, $sql);
+    return mysqli_fetch_assoc($result);
+  }
+
 ?>

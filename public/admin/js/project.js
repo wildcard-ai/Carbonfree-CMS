@@ -223,30 +223,19 @@ function createViewerImage(id, url, caption) {
 }
 
 function deleteDrafts() {
-  fetch('check_drafts.php')
-    .then(response => response.json())
-    .then(data => {
-      if (data.hasDrafts) {
-        fetch('delete_drafts.php', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        })
-        .then(response => response.json())
-        .then(data => {
-          console.log(data.message);
-        })
-        .catch(error => {
-          console.error('Error:', error);
-        });
-      } else {
-        console.log('No drafts found');
-      }
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
+  fetch('delete_drafts.php', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
 }
 
 function unmarkImageAsDraft(imageId) {

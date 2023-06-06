@@ -41,6 +41,7 @@ function reduceGridColumns() {
   }
 
   updateButtonState(currentColumns);
+  updateColumns(currentColumns);
 }
 
 function increaseGridColumns() {
@@ -53,6 +54,7 @@ function increaseGridColumns() {
   }
 
   updateButtonState(currentColumns);
+  updateColumns(currentColumns);
 }
 
 function updateButtonState(columnCount) {
@@ -64,6 +66,26 @@ function updateButtonState(columnCount) {
 function toWords(number) {
   const words = ['one', 'two', 'three'];
   return words[number - 1];
+}
+
+function updateColumns(columnCount) {
+  const url = 'update_column.php'; // Replace with your server-side update endpoint URL
+  const data = { columnNumber: columnCount };
+
+  fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+  })
+  .catch(error => {
+    console.error(error);
+  });
 }
 
 /* 
@@ -86,7 +108,28 @@ function changeTextPosition() {
   // Add the appropriate class based on the selected option
   textBox.forEach(element => {
     element.classList.add(`text-${selectedOption}`);
-    console.log(element);
+  });
+
+  updateTextPosition(selectedOption);
+}
+
+function updateTextPosition(textPosition) {
+  const url = 'update_text_position.php'; // Replace with your server-side update endpoint URL
+  const data = { textPosition: textPosition };
+
+  fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+  })
+  .catch(error => {
+    console.error(error);
   });
 }
 

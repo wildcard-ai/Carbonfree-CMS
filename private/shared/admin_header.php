@@ -7,7 +7,6 @@ if(!isset($page_title)) { $page_title = 'Admin Panel'; }
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><?php echo h($page_title) . ' - ' . $site_name; ?></title>
   <link rel="icon" href="<?php echo url_for('images/favicon.ico'); ?>">
   <link rel="stylesheet" href="<?php echo url_for('admin/css/admin.css'); ?>">

@@ -55,9 +55,9 @@
           <label class="vertical-align" for="text-position">Text position</label>
 
           <select class="form-select" id="text-position" data-select="text">
-            <option value="below" selected>Below</option>
-            <option value="inside">Inside</option>
-            <option value="hidden">Hidden</option>
+            <option value="below" <?php if($display_options['text_position'] == 'below') { echo "selected"; } ?>>Below</option>
+            <option value="inside" <?php if($display_options['text_position'] == 'inside') { echo "selected"; } ?>>Inside</option>
+            <option value="hidden" <?php if($display_options['text_position'] == 'hidden') { echo "selected"; } ?>>Hidden</option>
           </select>
         </div>
       </div>
@@ -96,7 +96,7 @@
             <div class="thumbnail-container">
               <img class="thumbnail" data-thumbnail-id="<?php echo $project['id']; ?>" src="<?php echo $project_cover; ?>" loading="lazy">
             </div>
-            <div class="project-title-container text-below" data-text="position">
+            <div class="project-title-container <?php echo 'text-' . $display_options['text_position']; ?>" data-text="position">
               <div><?php echo h($project['project_name']); ?></div>
             </div>
           </a>

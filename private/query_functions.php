@@ -327,7 +327,7 @@
 
   function getDisplayOptions() {
     global $db;
-    $sql = "SELECT * FROM display_options WHERE id = 1";
+    $sql = "SELECT * FROM display_options";
     $result = mysqli_query($db, $sql);
     return mysqli_fetch_assoc($result);
   }

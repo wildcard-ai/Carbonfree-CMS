@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 06, 2023 at 02:39 PM
+-- Generation Time: Jun 11, 2023 at 02:33 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -48,17 +48,16 @@ INSERT INTO `admins` (`id`, `username`, `email`, `hashed_password`) VALUES
 --
 
 CREATE TABLE `display_options` (
-  `id` int(11) NOT NULL,
   `text_position` enum('below','inside','hidden') NOT NULL DEFAULT 'below',
-  `column_number` int(11) NOT NULL DEFAULT 2
+  `column_number` enum('1','2','3') NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `display_options`
 --
 
-INSERT INTO `display_options` (`id`, `text_position`, `column_number`) VALUES
-(1, 'below', 3);
+INSERT INTO `display_options` (`text_position`, `column_number`) VALUES
+('inside', '3');
 
 -- --------------------------------------------------------
 
@@ -103,7 +102,7 @@ ALTER TABLE `admins`
 -- Indexes for table `display_options`
 --
 ALTER TABLE `display_options`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`text_position`,`column_number`);
 
 --
 -- Indexes for table `images`
@@ -129,12 +128,6 @@ ALTER TABLE `admins`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `display_options`
---
-ALTER TABLE `display_options`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
 -- AUTO_INCREMENT for table `images`
 --
 ALTER TABLE `images`
@@ -144,7 +137,7 @@ ALTER TABLE `images`
 -- AUTO_INCREMENT for table `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1118;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1122;
 
 --
 -- Constraints for dumped tables

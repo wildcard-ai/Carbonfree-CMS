@@ -379,32 +379,81 @@ const projectNameEditButton = document.querySelector('[data-edit-button="project
 const projectNameCancelButton = document.querySelector('[data-cancel-button="project-name"]');
 const projectNameForm = document.querySelector('[data-form-id="project-name"]');
 const projectNameNew = document.querySelectorAll('[data-update="project-name"]');
-
-projectNameEditButton.addEventListener('click', () => toggleDetails(projectNameEditButton));
-projectNameCancelButton.addEventListener('click', () => toggleDetails(projectNameCancelButton));
-projectNameForm.addEventListener('submit', function(event) {
-  saveProject(event, projectNameForm, projectNameNew);
-});
-
+const projectNameInput = document.querySelector('[data-input-id="project-name"]');
 const descriptionEditButton = document.querySelector('[data-edit-button="description"]');
 const descriptionCancelButton = document.querySelector('[data-cancel-button="description"]');
 const descriptionForm = document.querySelector('[data-form-id="description"]');
 const descriptionNew = document.querySelectorAll('[data-update="description"]');
+const descriptionTextArea = document.querySelector('[data-input-id="description"]');
+const deleteButton = document.querySelector('[data-button="delete"]');
+const deleteCancelButton = document.querySelector('[data-cancel-button="delete"]');
 
-descriptionEditButton.addEventListener('click', () => toggleDetails(descriptionEditButton));
-descriptionCancelButton.addEventListener('click', () => toggleDetails(descriptionCancelButton));
-descriptionForm.addEventListener('submit', function(event) {
+projectNameEditButton.addEventListener('click', () => {
+  toggleCollapse(projectNameEditButton);
+  toggleFocus(projectNameInput);
+  toggleDisabled(true, projectNameEditButton);
+});
+
+projectNameCancelButton.addEventListener('click', () => {
+  toggleCollapse(projectNameCancelButton);
+  toggleDisabled(false, projectNameEditButton);
+});
+
+projectNameForm.addEventListener('submit', (event) => {
+  saveProject(event, projectNameForm, projectNameNew);
+});
+
+descriptionEditButton.addEventListener('click', () => {
+  toggleCollapse(descriptionEditButton);
+  toggleFocus(descriptionTextArea);
+  toggleDisabled(true, descriptionEditButton);
+});
+
+descriptionCancelButton.addEventListener('click', () => {
+  toggleCollapse(descriptionCancelButton);
+  toggleDisabled(false, descriptionEditButton);
+});
+
+descriptionForm.addEventListener('submit', (event) => {
   saveProject(event, descriptionForm, descriptionNew);
 });
 
-function toggleDetails(element) {
-  const collapseTargetIds = element.getAttribute('data-collapse-target');
+deleteButton.addEventListener('click', () => {
+  toggleCollapse(deleteButton);
+  toggleDelete(deleteButton);
+  toggleDisabled(true, deleteButton);
+});
+
+deleteCancelButton.addEventListener('click', () => {
+  toggleCollapse(deleteCancelButton);
+  toggleDelete(deleteCancelButton);
+  toggleDisabled(false, deleteButton);
+});
+
+function toggleCollapse(button) {
+  const collapseTargetIds = button.getAttribute('data-collapse-target');
   const collapseTargets = document.querySelectorAll(`[data-collapse-id="${collapseTargetIds}"]`);
 
   const targets = Array.from(collapseTargets);
   targets.forEach(function(target) {
     target.classList.toggle('show');
   });
+}
+
+function toggleFocus(formElement) {
+  formElement.select();
+}
+
+function toggleDisabled(isEditButtonClicked, editButton) {
+  editButton.disabled = isEditButtonClicked;
+}
+
+function toggleDelete(button) {
+  if(button === deleteButton) {
+    button.parentNode.parentNode.classList.add('delete', 'show');
+  } else {
+    button.parentNode.parentNode.parentNode.classList.remove('delete', 'show');
+  }
 }
 
 function saveProject(event, formElement, updateElements) {
@@ -435,8 +484,29 @@ function saveProject(event, formElement, updateElements) {
     const newTextArray = Array.from(updateElements);
     newTextArray.forEach(element => {
       element.innerHTML = data.newText.replace(/\n/g, '<br>');
+
+      const value = formElement.querySelector('.form-control').value;
+      const card = formElement.parentNode.parentNode;
+      const editButton = card.querySelector('.arrow');
+      const submitButton = card.querySelector('[type="submit"]');
+
+      if(value === '') {
+        card.classList.add('empty');
+        editButton.classList.replace('button-primary', 'button-secondary');
+        editButton.innerHTML = 'add';
+        submitButton.classList.replace('button-primary', 'button-secondary');
+        submitButton.innerHTML = 'Add';
+      } else {
+        card.classList.remove('empty');
+        editButton.classList.replace('button-secondary', 'button-primary');
+        editButton.innerHTML = 'edit';
+        submitButton.classList.replace('button-secondary', 'button-primary');
+        submitButton.innerHTML = 'Save changes';
+      }
+
+      editButton.disabled = false;
     });
-    toggleDetails(form);
+    toggleCollapse(form);
   })
   .catch(error => console.error(error));
 }
@@ -444,12 +514,21 @@ function saveProject(event, formElement, updateElements) {
 /* Project Visibility */
 
 const visibilityCheckbox = document.querySelector('[data-checkbox-type="visibility"]');
+const visibleElement = document.querySelector('[data-switch="visible"]');
+const hiddenElement = document.querySelector('[data-switch="hidden"]');
 
-// Fetch form data and submit to PHP script
-visibilityCheckbox.addEventListener("change", function(event) {
-  event.preventDefault(); // Prevent default form submission behavior
-  const projectId = document.querySelector('[name="project_id"]').value;
-  const visible = visibilityCheckbox.checked ? 1 : 0;
+visibleElement.addEventListener("click", function(event) {
+  event.preventDefault();
+  submitFormData(1);
+});
+
+hiddenElement.addEventListener("click", function(event) {
+  event.preventDefault();
+  submitFormData(0);
+});
+
+function submitFormData(visible) {
+  const projectId = visibilityCheckbox.getAttribute('data-id');
   const formData = new FormData();
   formData.append('project_id', projectId);
   formData.append('visible', visible);
@@ -462,6 +541,13 @@ visibilityCheckbox.addEventListener("change", function(event) {
   .then(response => response.json())
   .then(data => {
     console.log(data);
+    if (visible) {
+      hiddenElement.classList.remove('checked');
+      visibleElement.classList.add('checked');
+    } else {
+      hiddenElement.classList.add('checked');
+      visibleElement.classList.remove('checked');
+    }
   })
   .catch(error => console.error(error));
-});
+}

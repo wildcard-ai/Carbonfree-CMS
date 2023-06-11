@@ -53,33 +53,36 @@ include(SHARED_PATH . '/admin_header.php');
       <h2 class="section-title">Details</h2>
     </header>
     <div class="card-group">
-      <div class="card">
+      <label class="card <?php if(empty($project["project_name"])) { echo "empty";} ?>" data-collapse-id="project-name">
+        <div class="arrow-button-container">
+          <button class="button <?php echo empty($project["project_name"]) ? "button-secondary" : "button-primary"; ?> arrow" data-edit-button="project-name" data-collapse-target="project-name">Edit</button>
+        </div>
         <div class="col-fg-1">
-          <header class="card-header">Project Title</header>
-          <div class="collapse show" data-collapse-id="project-name" data-update="project-name">
+          <header class="card-header">Title</header>
+          <div class="collapse show card-text" data-collapse-id="project-name" data-update="project-name">
             <?php echo $project["project_name"]; ?>
           </div>
           <form class="collapse" data-form-id="project-name" data-collapse-id="project-name" data-collapse-target="project-name">
             <div class="input-group">
               <input type="hidden" name="project-id" value="<?php echo $project_id; ?>">
-              <input class="form-control" type="text" data-input-id="project-name" name="project-name" value="<?php echo $project["project_name"]; ?>" required>
+              <input class="form-control" type="text" data-input-id="project-name" name="project-name" value="<?php echo $project["project_name"]; ?>" autocomplete="off" required>
             </div>
             <div class="form-actions">
-              <button class="button button-secondary" type="submit">Save</button>
+              <button class="button <?php echo empty($project["project_name"]) ? "button-secondary" : "button-primary"; ?>" type="submit"><?php echo empty($project["project_name"]) ? "Add" : "Save changes"; ?></button>
               <button class="button button-light" data-cancel-button="project-name" data-collapse-target="project-name" type="button">Cancel</button>
             </div>
           </form>
         </div>
-        <div class="collapse show" data-collapse-id="project-name">
-          <button class="button button-primary" data-edit-button="project-name" data-collapse-target="project-name">Edit</button>
-        </div>
-      </div>
+      </label>
 
-      <div class="card">
+      <label class="card <?php if(empty($project["description"])) { echo "empty";} ?>" data-collapse-id="description">
+        <div class="arrow-button-container">
+          <button class="button <?php echo empty($project["description"]) ? "button-secondary" : "button-primary"; ?> arrow" data-edit-button="description" data-collapse-target="description"><?php echo empty($project["description"]) ? "Add" : "Edit"; ?></button>
+        </div>
         <div class="col-fg-1">
           <header class="card-header">Description</header>
-          <div class="collapse show" data-collapse-id="description" data-update="description">
-            <?php echo empty($project["description"]) ? "No description" : nl2br($project["description"]); ?>
+          <div class="collapse show card-text small" data-collapse-id="description" data-update="description">
+            <?php echo empty($project["description"]) ? "Anything your viewers should know about the project." : nl2br($project["description"]); ?>
           </div>
           <form class="collapse" data-form-id="description" data-collapse-id="description" data-collapse-target="description">
             <div class="input-group">
@@ -87,15 +90,12 @@ include(SHARED_PATH . '/admin_header.php');
               <textarea class="form-control" data-input-id="description" name="description" rows="5"><?php echo $project["description"]; ?></textarea>
             </div>
             <div class="form-actions">
-              <button class="button button-secondary" data-save-button="description" type="submit">Save</button>
+              <button class="button <?php echo empty($project["description"]) ? "button-secondary" : "button-primary"; ?>" data-save-button="description" type="submit"><?php echo empty($project["description"]) ? "Add" : "Save changes"; ?></button>
               <button class="button button-light" data-cancel-button="description" data-collapse-target="description" type="button">Cancel</button>
             </div>
           </form>
         </div>
-        <div class="collapse show" data-collapse-id="description">
-          <button class="button button-primary" data-edit-button="description" data-collapse-target="description"><?php echo empty($project["description"]) ? "Add" : "Edit"; ?></button>
-        </div>
-      </div>
+      </label>
     </div>
   </section>
 
@@ -106,13 +106,16 @@ include(SHARED_PATH . '/admin_header.php');
 
     <div class="card-group">
       <div class="single-card">
-        <header class="wrapper-centered card-header">
-          Visibility
-        </header>
-        <form class="wrapper-centered">
-          <input type="hidden" name="project_id" value="<?php echo $project_id; ?>">
-          <input data-checkbox-type="visibility" name="visibility-checkbox" class="toggle-switch" type="checkbox" <?php if($project["visible"] == "1") { echo " checked"; } ?>>
-        </form>
+        <div class="visibility-switch" data-checkbox-type="visibility" data-id="<?php echo $project_id; ?>">
+          <div data-switch="visible" class="visible<?php if($project["visible"] == "1") { echo " checked"; } ?>">
+            <div class="visibility-pic"></div>
+            <div class="visibility-text">Visible</div>
+          </div>
+          <div data-switch="hidden" class="hidden<?php if($project["visible"] == "0") { echo " checked"; } ?>">
+            <div class="visibility-pic"></div>
+            <div class="visibility-text">Hidden</div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -123,14 +126,23 @@ include(SHARED_PATH . '/admin_header.php');
     </header>
 
     <div class="card-group">
-      <div class="single-card">
-        <header class="wrapper-centered card-header">
-          Delete this project
-        </header>
-        <div class="wrapper-centered">
-          <button class="button button-danger" data-modal-target="modal">Delete</button>
+      <label class="card">
+        <div class="arrow-button-container">
+          <button class="button button-danger arrow" data-button="delete" data-collapse-target="delete">Delete</button>
         </div>
-      </div>
+        <div class="collapse show wrapper-centered card-text delete" data-collapse-id="delete">
+          this project
+        </div>
+        <div class="collapse" data-collapse-id="delete">
+          <p class="delete-message">This cannot be undone, are you sure?</p>
+          <div class="form-actions">
+            <form method="post" action="<?php echo url_for('admin/project.php?id=' . h(u($project['id']))); ?>">
+              <button class="button button-danger" type="submit">Yes, Delete</button>
+            </form>
+            <button class="button button-light" data-cancel-button="delete" data-collapse-target="delete" type="button">Cancel</button>
+          </div>
+        </div>
+      </label>
     </div>
   </section>
 
@@ -161,25 +173,6 @@ include(SHARED_PATH . '/admin_header.php');
 
     </div>
 
-  </div>
-</dialog>
-
-
-<dialog class="modal" data-dialog="modal">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h5 class="modal-title">Delete project</h5>
-      <button class="close" data-dismiss="modal"><span>×</span></button>
-    </div>
-    <div class="modal-body">
-      <p>Are you sure you want to delete this project and its images? This action cannot be undone.</p>
-    </div>
-    <div class="modal-footer">
-      <button class="button button-light" data-dismiss="modal">Cancel</button>
-      <form method="post" action="<?php echo url_for('admin/project.php?id=' . h(u($project['id']))); ?>">
-        <button class="button button-danger" type="submit">Delete</button>
-      </form>
-    </div>
   </div>
 </dialog>
 

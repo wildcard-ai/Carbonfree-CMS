@@ -69,8 +69,8 @@
   </div>
 
   <header class="page-header">
-    <button class="button button-secondary create-project-button" data-modal-target="modal">Add a project</button>
-    <button class="ml-auto button button-muted collapse show" data-button="display"><i class="paintbrush-icon"></i> Display Options</button>
+    <button class="button button-secondary create-project-button button-big" data-modal-target="modal">Add a project</button>
+    <button class="ml-auto button button-muted collapse show button-big" data-button="display"><i class="paintbrush-icon"></i> Display Options</button>
   </header>
 
   <?php echo display_errors($errors); ?>
@@ -132,8 +132,8 @@
       </form>
     </div>
     <div class="modal-footer">
-      <button class="button button-light" data-dismiss="modal">Cancel</button>
-      <button form="create-project" data-button-id="create-project-form" class="button button-secondary" type="submit">Create your project</button>
+      <button class="button button-light button-big" data-dismiss="modal">Cancel</button>
+      <button form="create-project" data-button-id="create-project-form" class="button button-secondary button-big" type="submit">Create your project</button>
     </div>
   </div>
 </dialog>

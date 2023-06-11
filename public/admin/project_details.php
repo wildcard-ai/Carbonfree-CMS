@@ -33,7 +33,7 @@
     if (isset($project['description'])) {
       $successMessages['message'] = "Project description updated successfully.";
       if (empty($project['description'])) {
-        $successMessages['data'] = "No description";
+        $successMessages['data'] = "Anything your viewers should know about the project.";
       } else {
         $successMessages['data'] = $project['description'];
       }

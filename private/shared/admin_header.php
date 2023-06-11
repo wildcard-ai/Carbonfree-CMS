@@ -14,7 +14,6 @@ if(!isset($page_title)) { $page_title = 'Admin Panel'; }
   <?php
     echo load_script('index', 'modal');
     echo load_script('index', 'script');
-    echo load_script('project', 'modal');
     echo load_script('project', 'project');
     echo load_script('index', 'display');
   ?>
@@ -22,12 +21,12 @@ if(!isset($page_title)) { $page_title = 'Admin Panel'; }
 <body>
 <nav>
   <div class="navbar">
-    <a class="navbar-brand" href="<?php echo url_for('admin/'); ?>" title="Admin Panel">Admin Panel</a>
     <button class="navbar-toggler" data-toggle="collapse" data-target="navbar"><i class="navbar-toggler-icon"></i></button>
     <div class="navbar-collapse collapse" data-navbar-collapse-id="navbar">
       <div class="navbar-nav">
         <a class="nav-link<?php echo (is_page( 'index' )) ? ' active':''; ?>" href="<?php echo url_for('admin'); ?>">Projects</a>
         <a class="nav-link<?php echo (is_page( 'password' )) ? ' active':''; ?>" href="<?php echo url_for('admin/password.php'); ?>">Password</a>
+        <a class="nav-link ml-auto" href="<?php echo url_for('/'); ?>" target="_blank">View portfolio</a>
         <a class="nav-link" href="<?php echo url_for('admin/login.php?action=logout'); ?>">Log out</a>
       </div>
     </div>

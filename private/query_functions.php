@@ -190,9 +190,9 @@
     }
   }
 
-  function update_project($db, $project) {
+  function update_project_by_id($db, $project) {
     $fields = array_filter($project, function($value, $key) {
-      return in_array($key, ['project_name', 'description', 'cover_path', 'visible']);
+      return in_array($key, ['project_name', 'description', 'url', 'client', 'project_type', 'cover_path', 'visible']);
     }, ARRAY_FILTER_USE_BOTH);
     
     $sql = "UPDATE projects SET ";

@@ -96,6 +96,72 @@ include(SHARED_PATH . '/admin_header.php');
           </form>
         </div>
       </label>
+
+      <label class="card <?php if(empty($project["url"])) { echo "empty";} ?>" data-collapse-id="url">
+        <div class="arrow-button-container">
+          <button class="button <?php echo empty($project["url"]) ? "button-secondary" : "button-primary"; ?> arrow" data-edit-button="url" data-collapse-target="url"><?php echo empty($project["url"]) ? "Add" : "Edit"; ?></button>
+        </div>
+        <div class="col-fg-1">
+          <header class="card-header">Project Web Address (URL)</header>
+          <div class="collapse show card-text small" data-collapse-id="url" data-update="url">
+            <?php echo empty($project["url"]) ? "If your project has external assets you can link to them here. The site will open up in a new window." : $project["url"]; ?>
+          </div>
+          <form class="collapse" data-form-id="url" data-collapse-id="url" data-collapse-target="url">
+            <div class="input-group">
+              <input type="hidden" name="project-id" value="<?php echo $project_id; ?>">
+              <input class="form-control" type="text" data-input-id="url" name="url" value="<?php echo $project["url"]; ?>" autocomplete="off">
+            </div>
+            <div class="form-actions">
+              <button class="button <?php echo empty($project["url"]) ? "button-secondary" : "button-primary"; ?>" type="submit"><?php echo empty($project["url"]) ? "Add" : "Save changes"; ?></button>
+              <button class="button button-light" data-cancel-button="url" data-collapse-target="url" type="button">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </label>
+
+      <label class="card <?php if(empty($project["client"])) { echo "empty";} ?>" data-collapse-id="client">
+        <div class="arrow-button-container">
+          <button class="button <?php echo empty($project["client"]) ? "button-secondary" : "button-primary"; ?> arrow" data-edit-button="client" data-collapse-target="client"><?php echo empty($project["client"]) ? "Add" : "Edit"; ?></button>
+        </div>
+        <div class="col-fg-1">
+          <header class="card-header">Client</header>
+          <div class="collapse show card-text small" data-collapse-id="client" data-update="client">
+            <?php echo empty($project["client"]) ? "Who you did the work for." : $project["client"]; ?>
+          </div>
+          <form class="collapse" data-form-id="client" data-collapse-id="client" data-collapse-target="client">
+            <div class="input-group">
+              <input type="hidden" name="project-id" value="<?php echo $project_id; ?>">
+              <input class="form-control" type="text" data-input-id="client" name="client" value="<?php echo $project["client"]; ?>" autocomplete="off">
+            </div>
+            <div class="form-actions">
+              <button class="button <?php echo empty($project["client"]) ? "button-secondary" : "button-primary"; ?>" type="submit"><?php echo empty($project["client"]) ? "Add" : "Save changes"; ?></button>
+              <button class="button button-light" data-cancel-button="client" data-collapse-target="client" type="button">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </label>
+
+      <label class="card <?php if(empty($project["project_type"])) { echo "empty";} ?>" data-collapse-id="project-type">
+        <div class="arrow-button-container">
+          <button class="button <?php echo empty($project["project_type"]) ? "button-secondary" : "button-primary"; ?> arrow" data-edit-button="project-type" data-collapse-target="project-type"><?php echo empty($project["project_type"]) ? "Add" : "Edit"; ?></button>
+        </div>
+        <div class="col-fg-1">
+          <header class="card-header">Project Type</header>
+          <div class="collapse show card-text small" data-collapse-id="project-type" data-update="project-type">
+            <?php echo empty($project["project_type"]) ? "Separate types with commas (e.g Illustration, Website)." : $project["project_type"]; ?>
+          </div>
+          <form class="collapse" data-form-id="project-type" data-collapse-id="project-type" data-collapse-target="project-type">
+            <div class="input-group">
+              <input type="hidden" name="project-id" value="<?php echo $project_id; ?>">
+              <input class="form-control" type="text" data-input-id="project-type" name="project-type" value="<?php echo $project["project_type"]; ?>" autocomplete="off">
+            </div>
+            <div class="form-actions">
+              <button class="button <?php echo empty($project["project_type"]) ? "button-secondary" : "button-primary"; ?>" type="submit"><?php echo empty($project["project_type"]) ? "Add" : "Save changes"; ?></button>
+              <button class="button button-light" data-cancel-button="project-type" data-collapse-target="project-type" type="button">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </label>
     </div>
   </section>
 

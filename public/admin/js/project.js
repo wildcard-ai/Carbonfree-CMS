@@ -376,15 +376,35 @@ function updateDeleteImageIds(event) {
 */
 
 const projectNameEditButton = document.querySelector('[data-edit-button="project-name"]');
-const projectNameCancelButton = document.querySelector('[data-cancel-button="project-name"]');
-const projectNameForm = document.querySelector('[data-form-id="project-name"]');
-const projectNameNew = document.querySelectorAll('[data-update="project-name"]');
-const projectNameInput = document.querySelector('[data-input-id="project-name"]');
 const descriptionEditButton = document.querySelector('[data-edit-button="description"]');
+const urlEditButton = document.querySelector('[data-edit-button="url"]');
+const clientEditButton = document.querySelector('[data-edit-button="client"]');
+const projectTypeEditButton = document.querySelector('[data-edit-button="project-type"]');
+
+const projectNameCancelButton = document.querySelector('[data-cancel-button="project-name"]');
 const descriptionCancelButton = document.querySelector('[data-cancel-button="description"]');
+const urlCancelButton = document.querySelector('[data-cancel-button="url"]');
+const clientCancelButton = document.querySelector('[data-cancel-button="client"]');
+const projectTypeCancelButton = document.querySelector('[data-cancel-button="project-type"]');
+
+const projectNameForm = document.querySelector('[data-form-id="project-name"]');
 const descriptionForm = document.querySelector('[data-form-id="description"]');
+const urlForm = document.querySelector('[data-form-id="url"]');
+const clientForm = document.querySelector('[data-form-id="client"]');
+const projectTypeForm = document.querySelector('[data-form-id="project-type"]');
+
+const projectNameNew = document.querySelectorAll('[data-update="project-name"]');
 const descriptionNew = document.querySelectorAll('[data-update="description"]');
+const urlNew = document.querySelectorAll('[data-update="url"]');
+const clientNew = document.querySelectorAll('[data-update="client"]');
+const projectTypeNew = document.querySelectorAll('[data-update="project-type"]');
+
+const projectNameInput = document.querySelector('[data-input-id="project-name"]');
 const descriptionTextArea = document.querySelector('[data-input-id="description"]');
+const urlInput = document.querySelector('[data-input-id="url"]');
+const clientInput = document.querySelector('[data-input-id="client"]');
+const projectTypeInput = document.querySelector('[data-input-id="project-type"]');
+
 const deleteButton = document.querySelector('[data-button="delete"]');
 const deleteCancelButton = document.querySelector('[data-cancel-button="delete"]');
 
@@ -393,29 +413,62 @@ projectNameEditButton.addEventListener('click', () => {
   toggleFocus(projectNameInput);
   toggleDisabled(true, projectNameEditButton);
 });
-
-projectNameCancelButton.addEventListener('click', () => {
-  toggleCollapse(projectNameCancelButton);
-  toggleDisabled(false, projectNameEditButton);
-});
-
-projectNameForm.addEventListener('submit', (event) => {
-  saveProject(event, projectNameForm, projectNameNew);
-});
-
 descriptionEditButton.addEventListener('click', () => {
   toggleCollapse(descriptionEditButton);
   toggleFocus(descriptionTextArea);
   toggleDisabled(true, descriptionEditButton);
 });
+urlEditButton.addEventListener('click', () => {
+  toggleCollapse(urlEditButton);
+  toggleFocus(urlInput);
+  toggleDisabled(true, urlEditButton);
+});
+clientEditButton.addEventListener('click', () => {
+  toggleCollapse(clientEditButton);
+  toggleFocus(clientInput);
+  toggleDisabled(true, clientEditButton);
+});
+projectTypeEditButton.addEventListener('click', () => {
+  toggleCollapse(projectTypeEditButton);
+  toggleFocus(projectTypeInput);
+  toggleDisabled(true, projectTypeEditButton);
+});
 
+projectNameCancelButton.addEventListener('click', () => {
+  toggleCollapse(projectNameCancelButton);
+  toggleDisabled(false, projectNameEditButton);
+});
 descriptionCancelButton.addEventListener('click', () => {
   toggleCollapse(descriptionCancelButton);
   toggleDisabled(false, descriptionEditButton);
 });
+urlCancelButton.addEventListener('click', () => {
+  toggleCollapse(urlCancelButton);
+  toggleDisabled(false, urlEditButton);
+});
+clientCancelButton.addEventListener('click', () => {
+  toggleCollapse(clientCancelButton);
+  toggleDisabled(false, clientEditButton);
+});
+projectTypeCancelButton.addEventListener('click', () => {
+  toggleCollapse(projectTypeCancelButton);
+  toggleDisabled(false, projectTypeEditButton);
+});
 
+projectNameForm.addEventListener('submit', (event) => {
+  saveProject(event, projectNameForm, projectNameNew);
+});
 descriptionForm.addEventListener('submit', (event) => {
   saveProject(event, descriptionForm, descriptionNew);
+});
+urlForm.addEventListener('submit', (event) => {
+  saveProject(event, urlForm, urlNew);
+});
+clientForm.addEventListener('submit', (event) => {
+  saveProject(event, clientForm, clientNew);
+});
+projectTypeForm.addEventListener('submit', (event) => {
+  saveProject(event, projectTypeForm, projectTypeNew);
 });
 
 deleteButton.addEventListener('click', () => {
@@ -473,6 +526,21 @@ function saveProject(event, formElement, updateElements) {
     formData.append('description', description);
   }
 
+  if (formElement === urlForm) {
+    const url = form.querySelector('[name="url"]').value;
+    formData.append('url', url);
+  }
+
+  if (formElement === clientForm) {
+    const client = form.querySelector('[name="client"]').value;
+    formData.append('client', client);
+  }
+
+  if (formElement === projectTypeForm) {
+    const projectType = form.querySelector('[name="project-type"]').value;
+    formData.append('project_type', projectType);
+  }
+
   // Create fetch request
   fetch("project_details.php", {
     method: "POST",
@@ -517,15 +585,8 @@ const visibilityCheckbox = document.querySelector('[data-checkbox-type="visibili
 const visibleElement = document.querySelector('[data-switch="visible"]');
 const hiddenElement = document.querySelector('[data-switch="hidden"]');
 
-visibleElement.addEventListener("click", function(event) {
-  event.preventDefault();
-  submitFormData(1);
-});
-
-hiddenElement.addEventListener("click", function(event) {
-  event.preventDefault();
-  submitFormData(0);
-});
+visibleElement.addEventListener("click", () => submitFormData(1));
+hiddenElement.addEventListener("click", () => submitFormData(0));
 
 function submitFormData(visible) {
   const projectId = visibilityCheckbox.getAttribute('data-id');

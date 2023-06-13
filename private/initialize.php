@@ -34,4 +34,4 @@
   $errors = [];
 
   // Set up website name
-  $site_name = "Portfolio";
+  $site_name = "LCN";

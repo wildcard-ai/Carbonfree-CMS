@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 11, 2023 at 02:33 PM
+-- Generation Time: Jun 13, 2023 at 11:26 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -39,7 +39,7 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`id`, `username`, `email`, `hashed_password`) VALUES
-(1, 'admin', NULL, '$2y$10$yJX80AaZEjsFnWj0IQuo2u9Fh8Wj1yEmov9jarDrwQtcIVMKPLDoa');
+(1, 'admin', 'admin@example.com', '$2y$10$yJX80AaZEjsFnWj0IQuo2u9Fh8Wj1yEmov9jarDrwQtcIVMKPLDoa');
 
 -- --------------------------------------------------------
 
@@ -57,7 +57,7 @@ CREATE TABLE `display_options` (
 --
 
 INSERT INTO `display_options` (`text_position`, `column_number`) VALUES
-('inside', '3');
+('below', '3');
 
 -- --------------------------------------------------------
 
@@ -83,8 +83,12 @@ CREATE TABLE `projects` (
   `id` int(11) NOT NULL,
   `project_name` varchar(255) DEFAULT NULL,
   `description` varchar(5000) DEFAULT NULL,
+  `url` varchar(255) DEFAULT NULL,
+  `client` varchar(255) DEFAULT NULL,
+  `project_type` varchar(255) DEFAULT NULL,
   `cover_path` varchar(255) DEFAULT NULL,
-  `visible` tinyint(1) DEFAULT NULL
+  `visible` tinyint(1) DEFAULT 1,
+  `layout` enum('flipbook','flipbook_with_thumbs','list') DEFAULT 'list'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -131,13 +135,13 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT for table `images`
 --
 ALTER TABLE `images`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=805;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=807;
 
 --
 -- AUTO_INCREMENT for table `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1122;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1127;
 
 --
 -- Constraints for dumped tables

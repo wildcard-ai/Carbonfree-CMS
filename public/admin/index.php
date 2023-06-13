@@ -6,7 +6,6 @@
 
     $new_project = [];
     $new_project['project_name'] = $_POST['project_name'] ?? '';
-    $new_project['visible'] = $_POST['visible'] ?? 1;
 
     $result = insert_project($new_project);
     if($result === true) {
@@ -115,7 +114,7 @@
   </section>
 
 </main>
-<label class="create-project-button create-project-float" data-modal-target="modal"><i class="plus-icon"></i></label>
+
 <!-- Modal -->
 <dialog class="modal" data-dialog="modal">
   <div class="modal-content">

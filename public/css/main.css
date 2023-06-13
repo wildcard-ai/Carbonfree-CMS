@@ -321,14 +321,13 @@ footer {
 
   header {
     background-color: #365de3;
-    border-bottom: 2px solid #000;
     align-items: center;
     display: flex;
     width: 100%;
   }
   
   header a {
-    color: #dfff00;
+    color: #f5f6fd;
     font-size: 5rem;
     font-weight: 900;
     text-decoration: none;
@@ -341,6 +340,7 @@ footer {
     background-color: #dfff00;
     justify-content: flex-start;
     padding: 0;
+    border-bottom: none;
   }
 
   .collapse:not(.show) {
@@ -353,16 +353,27 @@ footer {
   }
 
   .nav-link {
-    color: #000;
+    align-items: center;
     border-radius: 0;
-    padding: 0.5rem 3rem;
+    color: #fff;
+    display: flex;
     font-size: 1.125rem;
+    justify-content: center;
+    padding: 0.5rem 3rem;
+    width: 150px;
+  }
+
+  .nav-link:not(:first-child) {
+    border-left: 1px solid #365de3;
+  }
+
+  .nav-link:last-child {
+    border-right: 1px solid #365de3;
   }
 
   .nav-link:hover,
   .active {
-    color: #dfff00;
-    background-color: #000;
+    background: linear-gradient(hsl(248 3% 60% / 1), hsl(0deg 0% 16.08%));
     text-decoration: none;
   }
 
@@ -371,6 +382,7 @@ footer {
     gap: 0;
     margin-top: 0;
     justify-content: flex-start;
+    background: linear-gradient(hsl(90deg 12.5% 12.55%), hsl(120deg 1.54% 12.75%));
   }
 
   /* Work Tab */

@@ -40,7 +40,7 @@
   $project['cover_path'] = $trimmed_target;
 
   // Prepare SQL query
-  $result = update_project($db, $project);
+  $result = update_project_by_id($db, $project);
 
   // Execute SQL query to update record in database
   if ($result === true) {

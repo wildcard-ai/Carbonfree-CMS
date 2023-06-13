@@ -612,3 +612,49 @@ function submitFormData(visible) {
   })
   .catch(error => console.error(error));
 }
+
+/* Layout */
+
+const layout = document.querySelector('[data-checkbox-type="layout"]');
+const flipbook = document.querySelector('[data-switch="flipbook"]');
+const thumbs = document.querySelector('[data-switch="thumbs"]');
+const list = document.querySelector('[data-switch="list"]');
+
+flipbook.addEventListener("click", () => submitLayoutForm('flipbook'));
+thumbs.addEventListener("click", () => submitLayoutForm('flipbook_with_thumbs'));
+list.addEventListener("click", () => submitLayoutForm('list'));
+
+function submitLayoutForm(layoutType) {
+  const projectId = layout.getAttribute('data-id');
+  const formData = new FormData();
+  formData.append('project_id', projectId);
+  formData.append('layout', layoutType);
+
+  // Create fetch request
+  fetch("project_layout.php", {
+    method: "POST",
+    body: formData
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+    if (layoutType === 'flipbook') {
+      flipbook.classList.add('checked');
+      thumbs.classList.remove('checked');
+      list.classList.remove('checked');
+    }
+    
+    if (layoutType === 'flipbook_with_thumbs') {
+      flipbook.classList.remove('checked');
+      thumbs.classList.add('checked');
+      list.classList.remove('checked');
+    }
+
+    if (layoutType === 'list') {
+      flipbook.classList.remove('checked');
+      thumbs.classList.remove('checked');
+      list.classList.add('checked');
+    }
+  })
+  .catch(error => console.error(error));
+}

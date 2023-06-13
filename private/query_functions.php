@@ -154,13 +154,6 @@
       $errors[] = "Name cannot be blank.";
     }
 
-    // visible
-    // Make sure we are working with a string
-    $visible_str = (string) $project['visible'];
-    if(!has_inclusion_of($visible_str, ["0","1"])) {
-      $errors[] = "Visible must be true or false.";
-    }
-
     return $errors;
   }
 
@@ -173,10 +166,9 @@
     }
 
     $sql = "INSERT INTO projects ";
-    $sql .= "(project_name, visible) ";
+    $sql .= "(project_name) ";
     $sql .= "VALUES (";
-    $sql .= "'" . db_escape($db, $project['project_name']) . "',";
-    $sql .= "'" . db_escape($db, $project['visible']) . "'";
+    $sql .= "'" . db_escape($db, $project['project_name']) . "'";
     $sql .= ")";
     $result = mysqli_query($db, $sql);
     // For INSERT statements, $result is true/false
@@ -192,7 +184,7 @@
 
   function update_project_by_id($db, $project) {
     $fields = array_filter($project, function($value, $key) {
-      return in_array($key, ['project_name', 'description', 'url', 'client', 'project_type', 'cover_path', 'visible']);
+      return in_array($key, ['project_name', 'description', 'url', 'client', 'project_type', 'cover_path', 'visible', 'layout']);
     }, ARRAY_FILTER_USE_BOTH);
     
     $sql = "UPDATE projects SET ";

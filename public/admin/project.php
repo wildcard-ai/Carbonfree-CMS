@@ -167,20 +167,44 @@ include(SHARED_PATH . '/admin_header.php');
 
   <section>
     <header>
+      <h2 class="section-title">Layout</h2>
+    </header>
+
+    <div class="card-group">
+      <div class="visibility-switch layout" data-checkbox-type="layout" data-id="<?php echo $project_id; ?>">
+        <div class="flipbook">
+          <div data-switch="flipbook" class="rounded-left visible flip<?php if($project["layout"] == "flipbook") { echo " checked"; } ?>">
+            <div class="visibility-pic"></div>
+            <div class="visibility-text">Flipbook</div>
+          </div>
+          <div data-switch="thumbs" class="rounded-right visible flip<?php if($project["layout"] == "flipbook_with_thumbs") { echo " checked"; } ?>">
+            <div class="visibility-pic"></div>
+            <div class="visibility-text">Flipbook w/ thumbs</div>
+          </div>
+        </div>
+
+        <div data-switch="list" class="rounded-left rounded-right visible flip<?php if($project["layout"] == "list") { echo " checked"; } ?>">
+          <div class="visibility-pic"></div>
+          <div class="visibility-text">List</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <header>
       <h2 class="section-title">Visibility</h2>
     </header>
 
     <div class="card-group">
-      <div class="single-card">
-        <div class="visibility-switch" data-checkbox-type="visibility" data-id="<?php echo $project_id; ?>">
-          <div data-switch="visible" class="visible<?php if($project["visible"] == "1") { echo " checked"; } ?>">
-            <div class="visibility-pic"></div>
-            <div class="visibility-text">Visible</div>
-          </div>
-          <div data-switch="hidden" class="hidden<?php if($project["visible"] == "0") { echo " checked"; } ?>">
-            <div class="visibility-pic"></div>
-            <div class="visibility-text">Hidden</div>
-          </div>
+      <div class="visibility-switch" data-checkbox-type="visibility" data-id="<?php echo $project_id; ?>">
+        <div data-switch="visible" class="rounded-left visible<?php if($project["visible"] == "1") { echo " checked"; } ?>">
+          <div class="visibility-pic"></div>
+          <div class="visibility-text">Visible</div>
+        </div>
+        <div data-switch="hidden" class="rounded-right hidden<?php if($project["visible"] == "0") { echo " checked"; } ?>">
+          <div class="visibility-pic"></div>
+          <div class="visibility-text">Hidden</div>
         </div>
       </div>
     </div>

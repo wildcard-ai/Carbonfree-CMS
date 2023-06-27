@@ -49,7 +49,7 @@ include(SHARED_PATH . '/admin_header.php');
 <main>
 
   <section class="details">
-    <header>
+    <header class="section-header">
       <h2 class="section-title">Details</h2>
     </header>
     <div class="card-group">
@@ -103,7 +103,7 @@ include(SHARED_PATH . '/admin_header.php');
         </div>
         <div class="col-fg-1">
           <header class="card-header">Project Web Address (URL)</header>
-          <div class="collapse show card-text small" data-collapse="toggle" data-update="url">
+          <div class="collapse show card-text" data-collapse="toggle" data-update="url">
             <?php echo empty($project["url"]) ? "If your project has external assets you can link to them here. The site will open up in a new window." : $project["url"]; ?>
           </div>
           <form class="collapse" data-form-id="url" data-collapse="toggle">
@@ -125,7 +125,7 @@ include(SHARED_PATH . '/admin_header.php');
         </div>
         <div class="col-fg-1">
           <header class="card-header">Client</header>
-          <div class="collapse show card-text small" data-collapse="toggle" data-update="client">
+          <div class="collapse show card-text" data-collapse="toggle" data-update="client">
             <?php echo empty($project["client"]) ? "Who you did the work for." : $project["client"]; ?>
           </div>
           <form class="collapse" data-form-id="client" data-collapse="toggle">
@@ -147,7 +147,7 @@ include(SHARED_PATH . '/admin_header.php');
         </div>
         <div class="col-fg-1">
           <header class="card-header">Project Type</header>
-          <div class="collapse show card-text small" data-collapse="toggle" data-update="project-type">
+          <div class="collapse show card-text" data-collapse="toggle" data-update="project-type">
             <?php echo empty($project["project_type"]) ? "Separate types with commas (e.g Illustration, Website)." : $project["project_type"]; ?>
           </div>
           <form class="collapse" data-form-id="project-type" data-collapse="toggle">
@@ -166,7 +166,7 @@ include(SHARED_PATH . '/admin_header.php');
   </section>
 
   <section>
-    <header>
+    <header class="section-header">
       <h2 class="section-title">Layout</h2>
     </header>
 
@@ -192,7 +192,7 @@ include(SHARED_PATH . '/admin_header.php');
   </section>
 
   <section>
-    <header>
+    <header class="section-header">
       <h2 class="section-title">Visibility</h2>
     </header>
 
@@ -211,25 +211,25 @@ include(SHARED_PATH . '/admin_header.php');
   </section>
 
   <section>
-    <header>
+    <header class="section-header">
       <h2 class="section-title">Delete</h2>
     </header>
 
     <div class="card-group">
       <label class="card">
         <div class="arrow-button-container">
-          <button class="button button-danger arrow" data-button="delete" data-collapse-target="delete">Delete</button>
+          <button class="button button-danger arrow" data-button="delete">Delete</button>
         </div>
-        <div class="collapse show wrapper-centered card-text delete" data-collapse-id="delete">
+        <div class="collapse show wrapper-centered card-text delete" data-collapse="toggle">
           this project
         </div>
-        <div class="collapse" data-collapse-id="delete">
+        <div class="collapse" data-collapse="toggle">
           <p class="delete-message">This cannot be undone, are you sure?</p>
           <div class="form-actions">
             <form method="post" action="<?php echo url_for('admin/project.php?id=' . h(u($project['id']))); ?>">
               <button class="button button-danger" type="submit">Yes, Delete</button>
             </form>
-            <button class="button button-light" data-cancel-button="delete" data-collapse-target="delete" type="button">Cancel</button>
+            <button class="button button-light" data-cancel-button="delete" type="button">Cancel</button>
           </div>
         </div>
       </label>

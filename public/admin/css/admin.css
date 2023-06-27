@@ -901,15 +901,27 @@ main > section {
   background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjxzdmcKICAgdmlld0JveD0iMCAwIDUxMiA1MTIiCiAgIHZlcnNpb249IjEuMSIKICAgaWQ9InN2ZzQiCiAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgeG1sbnM6c3ZnPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPGRlZnMKICAgICBpZD0iZGVmczgiIC8+CiAgPCEtLSEgRm9udCBBd2Vzb21lIFBybyA2LjQuMCBieSBAZm9udGF3ZXNvbWUgLSBodHRwczovL2ZvbnRhd2Vzb21lLmNvbSBMaWNlbnNlIC0gaHR0cHM6Ly9mb250YXdlc29tZS5jb20vbGljZW5zZSAoQ29tbWVyY2lhbCBMaWNlbnNlKSBDb3B5cmlnaHQgMjAyMyBGb250aWNvbnMsIEluYy4gLS0+CiAgPHBhdGgKICAgICBkPSJNIDQwNS41NDMwMywxODguMTkzNyAyMzEuMzc4NjQsMzYyLjM1ODA4IGMgLTEyLjc5MDE5LDEyLjc5MDE5IC0zMy40NzIyMSwxMi43OTAxOSAtNDYuMTI2MzQsMCBMIDk4LjE3MDExMSwyNzUuMjc1ODkgYyAtMTIuNzkwMiwtMTIuNzkwMiAtMTIuNzkwMiwtMzMuNDcyMjIgMCwtNDYuMTI2MzUgMTIuNzkwMTg5LC0xMi42NTQxMyAzMy40NzIyMDksLTEyLjc5MDIgNDYuMTI2MzM5LDAgbCA2My45NTA5OSw2My45NTA5OCAxNTEuMDMzMTcsLTE1MS4xNjkyNCBjIDEyLjc5MDIsLTEyLjc5MDE5IDMzLjQ3MjIyLC0xMi43OTAxOSA0Ni4xMjYzNSwwIDEyLjY1NDEzLDEyLjc5MDIgMTIuNzkwMiwzMy40NzIyMiAwLDQ2LjEyNjM1IHoiCiAgICAgaWQ9InBhdGg0NjA2IgogICAgIHN0eWxlPSJmaWxsOiNmZmZmZmY7c3Ryb2tlLXdpZHRoOjEuMzYwNjYiIC8+Cjwvc3ZnPgo=");
 }
 
+.section-header {
+  margin-left: 10px;
+}
+
+.section-header p {
+  font-size: 13px;
+}
+
 .section-title {
   font-size: 16px;
   font-weight: 400;
-  margin-bottom: 7px;
-  margin-left: 10px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   color: #676365;
+}
+
+.profile-image {
+  width: fit-content;
+  margin-top: 0.4rem;
+  margin-bottom: 1rem;
 }
 
 .card-group {
@@ -965,7 +977,7 @@ main > section {
 }
 
 .card-text.small {
-  font-size: 13px;
+  font-size: 16px;
   letter-spacing: 0.5px;
 }
 

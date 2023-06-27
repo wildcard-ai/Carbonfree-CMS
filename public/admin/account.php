@@ -36,7 +36,7 @@ if(is_post_request()) {
   </section>
 
   <section class="details">
-    <header>
+    <header class="section-header">
       <h2 class="section-title">Login Settings</h2>
     </header>
     <div class="card-group">
@@ -107,7 +107,7 @@ if(is_post_request()) {
   </section>
 
   <section class="details">
-    <header>
+    <header class="section-header">
       <h2 class="section-title">Email Settings</h2>
     </header>
     <div class="card-group">

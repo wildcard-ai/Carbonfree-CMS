@@ -23,7 +23,7 @@ if(is_post_request()) {
     $errors = $result;
   }
 } else {
-  $admin = find_admin_by_id($id);
+  $admin = find_admin();
 }
 
 ?>

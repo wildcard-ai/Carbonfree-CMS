@@ -1,58 +1,57 @@
-const toggleButton = document.querySelector('[data-toggle="collapse"]');
+const toggleButton = document.querySelector("[data-toggle='collapse']");
 let isTransitioning = false;
 
-toggleButton.addEventListener('click', function() {
-  if (isTransitioning) {
-    return;
-  }
+toggleButton.addEventListener("click", function () {
+    if (isTransitioning) {
+        return;
+    }
 
-  const targetId = toggleButton.getAttribute('data-target');
-  const target = document.querySelector(`[data-navbar-collapse-id="${targetId}"]`);
+    const targetId = toggleButton.getAttribute("data-target");
+    const target = document.querySelector(`[data-id="${targetId}"]`);
 
-  const isShown = target.classList.contains('show');
+    const isShown = target.classList.contains("show");
 
-  if (!isShown) {
-    expand(target);
-  } else {
-    collapse(target);
-  }
+    if (!isShown) {
+        expand(target);
+    } else {
+        collapse(target);
+    }
 });
 
-function expand(element) {
-  isTransitioning = true;
+function expand(el) {
+    isTransitioning = true;
 
-  element.classList.replace('collapse', 'collapsing');
-  element.style.height = element.scrollHeight + 'px'; // Set the expanded height immediately
+    el.classList.replace("collapse", "collapsing");
+    el.style.height = el.scrollHeight + "px";
 
-  function onTransitionEnd() {
-    element.classList.replace('collapsing', 'collapse');
-    element.classList.add('show');
-    element.style.height = null;
-    element.removeEventListener('transitionend', onTransitionEnd);
-    isTransitioning = false;
-  }
+    function onTransitionEnd() {
+        el.classList.replace("collapsing", "collapse");
+        el.classList.add("show");
+        el.style.height = null;
+        el.removeEventListener("transitionend", onTransitionEnd);
+        isTransitioning = false;
+    }
 
-  element.addEventListener('transitionend', onTransitionEnd);
+    el.addEventListener("transitionend", onTransitionEnd);
 }
 
-function collapse(element) {
-  isTransitioning = true;
+function collapse(el) {
+    isTransitioning = true;
 
-  const expandedHeight = element.clientHeight + 'px';
-  element.style.height = expandedHeight;
+    const expandedHeight = el.clientHeight + "px";
+    el.style.height = expandedHeight;
 
-  // Check if the style change has been applied
-  if (window.getComputedStyle(element).height === expandedHeight) {
-    element.classList.remove('collapse', 'show');
-    element.classList.add('collapsing');
-    element.style.height = null; // collapse
-  }
+    if (window.getComputedStyle(el).height === expandedHeight) {
+        el.classList.remove("collapse", "show");
+        el.classList.add("collapsing");
+        el.style.height = null;
+    }
 
-  function onTransitionEnd() {
-    element.classList.replace('collapsing', 'collapse');
-    element.removeEventListener('transitionend', onTransitionEnd);
-    isTransitioning = false;
-  }
+    function onTransitionEnd() {
+        el.classList.replace("collapsing", "collapse");
+        el.removeEventListener("transitionend", onTransitionEnd);
+        isTransitioning = false;
+    }
 
-  element.addEventListener('transitionend', onTransitionEnd);
+    el.addEventListener("transitionend", onTransitionEnd);
 }

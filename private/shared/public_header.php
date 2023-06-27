@@ -19,7 +19,7 @@
 <nav class="navbar">
   <a class="navbar-brand" href="<?php echo url_for('/'); ?>"><?php echo $site_name; ?></a>
   <button class="navbar-toggler" data-toggle="collapse" data-target="navbar"><i class="navbar-toggler-icon"></i></button>
-  <div class="navbar-collapse collapse" data-navbar-collapse-id="navbar">
+  <div class="navbar-collapse collapse" data-id="navbar">
     <div class="navbar-nav">
       <a class="nav-link<?php echo (is_page('index')) ? ' active':''; ?>" href="<?php echo url_for('/'); ?>">Work</a>
       <a class="nav-link<?php echo (is_page('about')) ? ' active':''; ?>" href="<?php echo url_for('/about.php'); ?>">About</a>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 13, 2023 at 11:26 PM
+-- Generation Time: Jun 27, 2023 at 03:36 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -28,18 +28,17 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `admins` (
-  `id` int(11) NOT NULL,
-  `username` varchar(255) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `hashed_password` varchar(255) DEFAULT NULL
+  `username` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `hashed_password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `admins`
 --
 
-INSERT INTO `admins` (`id`, `username`, `email`, `hashed_password`) VALUES
-(1, 'admin', 'admin@example.com', '$2y$10$yJX80AaZEjsFnWj0IQuo2u9Fh8Wj1yEmov9jarDrwQtcIVMKPLDoa');
+INSERT INTO `admins` (`username`, `email`, `hashed_password`) VALUES
+('admin', 'admin@example.com', '$2y$10$yJX80AaZEjsFnWj0IQuo2u9Fh8Wj1yEmov9jarDrwQtcIVMKPLDoa');
 
 -- --------------------------------------------------------
 
@@ -57,7 +56,7 @@ CREATE TABLE `display_options` (
 --
 
 INSERT INTO `display_options` (`text_position`, `column_number`) VALUES
-('below', '3');
+('below', '1');
 
 -- --------------------------------------------------------
 
@@ -99,8 +98,7 @@ CREATE TABLE `projects` (
 -- Indexes for table `admins`
 --
 ALTER TABLE `admins`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `index_username` (`username`);
+  ADD PRIMARY KEY (`username`,`email`,`hashed_password`);
 
 --
 -- Indexes for table `display_options`
@@ -126,22 +124,16 @@ ALTER TABLE `projects`
 --
 
 --
--- AUTO_INCREMENT for table `admins`
---
-ALTER TABLE `admins`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
 -- AUTO_INCREMENT for table `images`
 --
 ALTER TABLE `images`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=807;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=810;
 
 --
 -- AUTO_INCREMENT for table `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1127;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1129;
 
 --
 -- Constraints for dumped tables

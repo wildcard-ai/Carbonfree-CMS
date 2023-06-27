@@ -259,7 +259,6 @@ footer {
 .input,
 .textarea {
   background-color: #fff;
-  border-radius: 0.25rem;
   border: 0.063rem solid #000;
   font-family: inherit;
   font-size: inherit;

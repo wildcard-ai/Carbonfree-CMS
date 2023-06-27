@@ -2,11 +2,10 @@
 
   // Admins
 
-  function find_admin_by_id($id) {
+  function find_admin() {
     global $db;
 
     $sql = "SELECT * FROM admins ";
-    $sql .= "WHERE id='" . db_escape($db, $id) . "' ";
     $sql .= "LIMIT 1";
     $result = mysqli_query($db, $sql);
     confirm_result_set($result);
@@ -63,38 +62,6 @@
     }
 
     return $errors;
-  }
-
-  function update_admin($admin) {
-    global $db;
-
-    $password_sent = !is_blank($admin['password']);
-
-    $errors = validate_admin($admin, ['password_required' => $password_sent]);
-    if (!empty($errors)) {
-      return $errors;
-    }
-
-    $hashed_password = password_hash($admin['password'], PASSWORD_BCRYPT);
-
-    $sql = "UPDATE admins SET ";
-    if($password_sent) {
-      $sql .= "hashed_password='" . db_escape($db, $hashed_password) . "', ";
-    }
-    $sql .= "username='" . db_escape($db, $admin['username']) . "' ";
-    $sql .= "WHERE id='" . db_escape($db, $admin['id']) . "' ";
-    $sql .= "LIMIT 1";
-    $result = mysqli_query($db, $sql);
-
-    // For UPDATE statements, $result is true/false
-    if($result) {
-      return true;
-    } else {
-      // UPDATE failed
-      echo mysqli_error($db);
-      db_disconnect($db);
-      exit;
-    }
   }
 
   // Projects

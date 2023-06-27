@@ -23,7 +23,7 @@ if(is_post_request()) {
     $errors = $result;
   }
 } else {
-  $admin = find_admin_by_id($id);
+  $admin = find_admin();
 }
 
 ?>
@@ -37,48 +37,105 @@ if(is_post_request()) {
 
   <section class="details">
     <header>
-      <h2 class="section-title">Sign-in Settings</h2>
+      <h2 class="section-title">Login Settings</h2>
     </header>
     <div class="card-group">
-      <label class="card <?php if(empty($admin["email"])) { echo "empty";} ?>" data-collapse-id="email">
+      <label class="card <?php if(empty($admin["username"])) { echo "empty";} ?>" data-collapse="toggle">
         <div class="arrow-button-container">
-          <button class="button button-light arrow" data-edit-button="email" data-collapse-target="email">Change</button>
+          <button class="button button-light arrow" data-button="edit">Change</button>
         </div>
         <div class="col-fg-1">
-          <header class="card-header">Password</header>
-          <div class="collapse show card-text" data-collapse-id="email" data-update="email">
-            <?php echo "************"; ?>
+          <div class="collapse show" data-collapse="toggle">
+            <header class="card-header">Username</header>
+            <div class="card-text">
+              <?php echo $admin["username"]; ?>
+            </div>
           </div>
-          <form class="collapse" data-form-id="email" data-collapse-id="email" data-collapse-target="email">
+          <form class="collapse" data-collapse="toggle" data-form="username">
             <div class="input-group">
-              <input type="hidden" name="project-id" value="<?php echo $id; ?>">
-              <input class="form-control" type="text" data-input-id="email" name="email" value="<?php echo $admin["email"]; ?>" autocomplete="off" required>
+              <label class="card-header">
+                Username
+                <input class="form-control" type="text" data-input="focus" name="username" value="<?php echo $admin["username"]; ?>" autocomplete="off" required>
+              </label>
+              <label class="card-header">
+                Current Password
+                <input class="form-control" type="password" name="password" value="" autocomplete="off" required>
+              </label>
             </div>
             <div class="form-actions">
               <button class="button button-primary" type="submit">Save changes</button>
-              <button class="button button-light" data-cancel-button="email" data-collapse-target="email" type="button">Cancel</button>
+              <button class="button button-light" data-button="cancel" type="button">Cancel</button>
             </div>
           </form>
         </div>
       </label>
 
-      <label class="card <?php if(empty($admin["email"])) { echo "empty";} ?>" data-collapse-id="email">
+      <label class="card <?php if(empty($admin["hashed_password"])) { echo "empty";} ?>" data-collapse="toggle">
         <div class="arrow-button-container">
-          <button class="button button-light arrow" data-edit-button="email" data-collapse-target="email">Change</button>
+          <button class="button button-light arrow" data-button="edit">Change</button>
         </div>
         <div class="col-fg-1">
-          <header class="card-header">Sign-in Email</header>
-          <div class="collapse show card-text" data-collapse-id="email" data-update="email">
-            <?php echo $admin["email"]; ?>
+          <div class="collapse show" data-collapse="toggle">
+            <header class="card-header">Password</header>
+            <div class="card-text">
+              <?php echo "************"; ?>
+            </div>
           </div>
-          <form class="collapse" data-form-id="email" data-collapse-id="email" data-collapse-target="email">
+          <form class="collapse" data-collapse="toggle" data-form="password">
             <div class="input-group">
-              <input type="hidden" name="project-id" value="<?php echo $id; ?>">
-              <input class="form-control" type="text" data-input-id="email" name="email" value="<?php echo $admin["email"]; ?>" autocomplete="off" required>
+              <label class="card-header">
+                Current Password
+                <input class="form-control" type="password" data-input="focus" name="password" value="" autocomplete="off" required>
+              </label>
+              <label class="card-header">
+                New Password
+                <input class="form-control" type="password" name="password" value="" autocomplete="off" required>
+              </label>
+              <label class="card-header">
+                Confirm Password
+                <input class="form-control" type="password" name="password" value="" autocomplete="off" required>
+              </label>
             </div>
             <div class="form-actions">
               <button class="button button-primary" type="submit">Save changes</button>
-              <button class="button button-light" data-cancel-button="email" data-collapse-target="email" type="button">Cancel</button>
+              <button class="button button-light" data-button="cancel" type="button">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </label>
+    </div>
+  </section>
+
+  <section class="details">
+    <header>
+      <h2 class="section-title">Email Settings</h2>
+    </header>
+    <div class="card-group">
+      <label class="card <?php if(empty($admin["email"])) { echo "empty";} ?>" data-collapse="toggle">
+        <div class="arrow-button-container">
+          <button class="button button-light arrow" data-button="edit">Change</button>
+        </div>
+        <div class="col-fg-1">
+          <div class="collapse show" data-collapse="toggle">
+            <header class="card-header">Email</header>
+            <div class="card-text">
+              <?php echo $admin["email"]; ?>
+            </div>
+          </div>
+          <form class="collapse" data-collapse="toggle" data-form="email">
+            <div class="input-group">
+              <label class="card-header">
+                Email
+                <input class="form-control" type="text" data-input="focus" name="email" value="<?php echo $admin["email"]; ?>" autocomplete="off" required>
+              </label>
+              <label class="card-header">
+                Current Password
+                <input class="form-control" type="password" name="password" value="" autocomplete="off" required>
+              </label>
+            </div>
+            <div class="form-actions">
+              <button class="button button-primary" type="submit">Save changes</button>
+              <button class="button button-light" data-button="cancel" type="button">Cancel</button>
             </div>
           </form>
         </div>

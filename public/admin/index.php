@@ -62,7 +62,7 @@
       </div>
       <div class="control">
         <label class="vertical-align" for="thumbnail-toggle-switch">Edit thumbnails</label>
-        <input id="thumbnail-toggle-switch" class="toggle-switch" type="checkbox" data-switch-type="thumbnail">
+        <input id="thumbnail-toggle-switch" class="toggle-switch" type="checkbox" data-switch="thumbnail">
       </div>
     </div>
   </div>
@@ -93,7 +93,7 @@
         <div class="project">
           <a class="project-link" href="<?php echo url_for('/admin/project.php?id=' . h(u($project['id']))); ?>">
             <div class="thumbnail-container">
-              <img class="thumbnail" data-thumbnail-id="<?php echo $project['id']; ?>" src="<?php echo $project_cover; ?>" loading="lazy">
+              <img class="thumbnail" data-id="<?php echo $project['id']; ?>" src="<?php echo $project_cover; ?>" loading="lazy">
             </div>
             <div class="project-title-container <?php echo 'text-' . $display_options['text_position']; ?>" data-text="position">
               <div><?php echo h($project['project_name']); ?></div>

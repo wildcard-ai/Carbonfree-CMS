@@ -660,7 +660,7 @@ nav {
 /* Input fields */
 
 .form-control {
-  border: 1px solid #adadad;
+  border: 1px solid #6e6e6e;
   font-size: 1rem;
   padding: 6px;
   width: 100%;
@@ -935,7 +935,8 @@ main > section {
   margin-top: 0.5rem;
 }
 
-.card-header {
+.card-header,
+.card.show .card-header {
   color: #766e73;
   font-size: 13px;
   font-weight: 400;
@@ -943,10 +944,8 @@ main > section {
   letter-spacing: 0.5px;
 }
 
-.card.show .card-header {
-  font-size: 13px;
-  letter-spacing: 0.5px;
-  margin-top: 5px;
+.card-header .form-control {
+  margin-top: 2px;
 }
 
 .card-text {
@@ -1015,7 +1014,6 @@ main > section {
 }
 
 .card .input-group {
-  margin-top: 0.5rem;
   margin-bottom: 0.5rem;
 }
 

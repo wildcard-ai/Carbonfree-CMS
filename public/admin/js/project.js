@@ -84,7 +84,8 @@ function handleFileUpload(event) {
         const id = ids[i];
         const path = Object.keys(pathUrls)[i];
         const url = pathUrls[path];
-        const newDiv = createImageContainer(id, url);
+        const caption = '';
+        const newDiv = createImageContainer(id, url, caption);
 
         imageList.insertBefore(newDiv, imageList.firstChild);
       }

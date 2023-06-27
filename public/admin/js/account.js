@@ -4,9 +4,10 @@ const usernameForm = document.querySelector("[data-form='username']");
 const passwordForm = document.querySelector("[data-form='password']");
 const emailForm = document.querySelector("[data-form='email']");
 
-editButtons.forEach((editButton) => {
-    editButton.addEventListener('click', function() {
-        const inputField = editButton.closest("label").querySelector("[data-input='focus']");
+editButtons.forEach(function (editButton) {
+    editButton.addEventListener("click", function () {
+        const label = editButton.closest("label");
+        const inputField = label.querySelector("[data-input='focus']");
 
         toggleCollapse(editButton);
         toggleDisabled(true, editButton);
@@ -14,9 +15,10 @@ editButtons.forEach((editButton) => {
     });
 });
 
-cancelButtons.forEach((cancelButton) => {
-    cancelButton.addEventListener('click', function() {
-        const closestEditButton = cancelButton.closest("label").querySelector("[data-button='edit']");
+cancelButtons.forEach(function (cancelButton) {
+    cancelButton.addEventListener("click", function () {
+        const label = cancelButton.closest("label");
+        const closestEditButton = label.querySelector("[data-button='edit']");
 
         toggleCollapse(cancelButton);
         toggleDisabled(false, closestEditButton);

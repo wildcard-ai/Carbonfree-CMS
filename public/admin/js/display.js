@@ -35,7 +35,7 @@ function reduceGridColumns() {
     let currentColumns = parseInt(columnNumber.innerText);
     if (currentColumns > 1) {
         gridBox.classList.remove(`${toWords(currentColumns)}-col`);
-        currentColumns--;
+        currentColumns = currentColumns - 1;
         gridBox.classList.add(`${toWords(currentColumns)}-col`);
         columnNumber.innerText = currentColumns;
     }
@@ -48,7 +48,7 @@ function increaseGridColumns() {
     let currentColumns = parseInt(columnNumber.innerText);
     if (currentColumns < 3) {
         gridBox.classList.remove(`${toWords(currentColumns)}-col`);
-        currentColumns++;
+        currentColumns = currentColumns + 1;
         gridBox.classList.add(`${toWords(currentColumns)}-col`);
         columnNumber.innerText = currentColumns;
     }
@@ -70,7 +70,7 @@ function toWords(number) {
 
 function updateColumns(columnCount) {
     const url = "update_column.php";
-    const data = { columnNumber: columnCount };
+    const data = {columnNumber: columnCount};
 
     fetch(url, {
         body: JSON.stringify(data),
@@ -78,12 +78,11 @@ function updateColumns(columnCount) {
             "Content-Type": "application/json"
         },
         method: "POST"
-    })
-    .then(response => response.json())
-    .then(data => {
+    }).then(function (response) {
+        return response.json();
+    }).then(function (data) {
         console.log(data);
-    })
-    .catch(error => {
+    }).catch(function (error) {
         console.error(error);
     });
 }
@@ -101,34 +100,33 @@ function changeTextPosition() {
     const selectedOption = textSelect.value;
 
     // Remove all existing classes from the textBox elements
-    textBox.forEach(element => {
+    textBox.forEach(function (element) {
         element.classList.remove("text-below", "text-inside", "text-hidden");
     });
 
     // Add the appropriate class based on the selected option
-    textBox.forEach(element => {
+    textBox.forEach(function (element) {
         element.classList.add(`text-${selectedOption}`);
     });
 
     updateTextPosition(selectedOption);
 }
 
-function updateTextPosition(textPosition) {
+function updateTextPosition(selectedOption) {
     const url = "update_text_position.php";
-    const data = { textPosition: textPosition };
+    const data = {textPosition: selectedOption};
 
     fetch(url, {
-        method: "POST",
+        body: JSON.stringify(data),
         headers: {
-        "Content-Type": "application/json"
+            "Content-Type": "application/json"
         },
-        body: JSON.stringify(data)
-    })
-    .then(response => response.json())
-    .then(data => {
+        method: "POST"
+    }).then(function (response) {
+        return response.json();
+    }).then(function (data) {
         console.log(data);
-    })
-    .catch(error => {
+    }).catch(function (error) {
         console.error(error);
     });
 }
@@ -140,47 +138,48 @@ function updateTextPosition(textPosition) {
 const thumbToggleSwitch = document.querySelector("[data-switch='thumbnail']");
 const buttons = document.querySelectorAll("[data-button-type='thumbnail']");
 
-thumbToggleSwitch.addEventListener("change", () => {
-    buttons.forEach(button => button.classList.toggle("show-buttons"));
+thumbToggleSwitch.addEventListener("change", function () {
+    buttons.forEach(function (button) {
+        button.classList.toggle("show-buttons");
+    });
 });
 
 // Upload Thumbnail
 
 const uploadForms = document.querySelectorAll("[data-form-type='thumbnail']");
 
-uploadForms.forEach(async (uploadForm) => {
+uploadForms.forEach(function (uploadForm) {
     const projectId = uploadForm.querySelector("[data-project-id='thumbnail']");
     const fileInput = uploadForm.querySelector("[data-file-type='thumbnail']");
     const thumbnail = document.querySelector(`[data-id="${projectId.value}"]`);
-    const status = thumbnail.closest("[data-status='thumbnail']");
+    const target = thumbnail.parentNode.parentNode.parentNode;
+    const status = target.querySelector("[data-status='thumbnail']");
 
-    uploadForm.addEventListener("change", async (event) => {
+    uploadForm.addEventListener("change", function (event) {
         event.preventDefault();
         const id = projectId.value;
         const files = fileInput.files;
         const formData = new FormData();
         formData.append("project_id", id);
         formData.append("file", files[0]);
-
+        console.log(status);
         status.style.visibility = "visible";
 
         fetch("thumbnail_upload.php", {
-        method: "POST",
-        body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
+            body: formData,
+            method: "POST"
+        }).then(function (response) {
+            return response.json();
+        }).then(function (data) {
             console.log(data);
 
             const img = thumbnail;
             img.src = "";
 
             img.src = data.cover_path;
-        })
-        .catch(error => {
+        }).catch(function (error) {
             console.error(error);
-        })
-        .finally(() => {
+        }).finally(function () {
             status.style.visibility = "hidden";
         });
 

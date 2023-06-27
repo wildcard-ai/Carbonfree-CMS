@@ -31,7 +31,7 @@ include(SHARED_PATH . '/admin_header.php');
 
     <div class="viewer-heading">
       <div class="center-viewer">
-        <div class="page-title"><?php echo $project["project_name"]; ?></div>
+        <div class="page-title" data-update="project-name"><?php echo $project["project_name"]; ?></div>
         <button class="button button-secondary" data-modal-target="image">Manage images</button>
       </div>
     </div>
@@ -53,111 +53,111 @@ include(SHARED_PATH . '/admin_header.php');
       <h2 class="section-title">Details</h2>
     </header>
     <div class="card-group">
-      <label class="card <?php if(empty($project["project_name"])) { echo "empty";} ?>" data-collapse-id="project-name">
+      <label class="card <?php if(empty($project["project_name"])) { echo "empty";} ?>" data-collapse="toggle">
         <div class="arrow-button-container">
-          <button class="button <?php echo empty($project["project_name"]) ? "button-secondary" : "button-primary"; ?> arrow" data-edit-button="project-name" data-collapse-target="project-name">Edit</button>
+          <button class="button <?php echo empty($project["project_name"]) ? "button-secondary" : "button-primary"; ?> arrow" data-button="edit">Edit</button>
         </div>
         <div class="col-fg-1">
           <header class="card-header">Title</header>
-          <div class="collapse show card-text" data-collapse-id="project-name" data-update="project-name">
+          <div class="collapse show card-text" data-collapse="toggle" data-update="project-name">
             <?php echo $project["project_name"]; ?>
           </div>
-          <form class="collapse" data-form-id="project-name" data-collapse-id="project-name" data-collapse-target="project-name">
+          <form class="collapse" data-form-id="project-name" data-collapse="toggle">
             <div class="input-group">
               <input type="hidden" name="project-id" value="<?php echo $project_id; ?>">
-              <input class="form-control" type="text" data-input-id="project-name" name="project-name" value="<?php echo $project["project_name"]; ?>" autocomplete="off" required>
+              <input class="form-control" type="text" data-input-id="project-name" data-input="focus" name="project-name" value="<?php echo $project["project_name"]; ?>" autocomplete="off" required>
             </div>
             <div class="form-actions">
               <button class="button <?php echo empty($project["project_name"]) ? "button-secondary" : "button-primary"; ?>" type="submit"><?php echo empty($project["project_name"]) ? "Add" : "Save changes"; ?></button>
-              <button class="button button-light" data-cancel-button="project-name" data-collapse-target="project-name" type="button">Cancel</button>
+              <button class="button button-light" data-button="cancel" type="button">Cancel</button>
             </div>
           </form>
         </div>
       </label>
 
-      <label class="card <?php if(empty($project["description"])) { echo "empty";} ?>" data-collapse-id="description">
+      <label class="card <?php if(empty($project["description"])) { echo "empty";} ?>" data-collapse="toggle">
         <div class="arrow-button-container">
-          <button class="button <?php echo empty($project["description"]) ? "button-secondary" : "button-primary"; ?> arrow" data-edit-button="description" data-collapse-target="description"><?php echo empty($project["description"]) ? "Add" : "Edit"; ?></button>
+          <button class="button <?php echo empty($project["description"]) ? "button-secondary" : "button-primary"; ?> arrow" data-button="edit"><?php echo empty($project["description"]) ? "Add" : "Edit"; ?></button>
         </div>
         <div class="col-fg-1">
           <header class="card-header">Description</header>
-          <div class="collapse show card-text small" data-collapse-id="description" data-update="description">
+          <div class="collapse show card-text small" data-collapse="toggle" data-update="description">
             <?php echo empty($project["description"]) ? "Anything your viewers should know about the project." : nl2br($project["description"]); ?>
           </div>
-          <form class="collapse" data-form-id="description" data-collapse-id="description" data-collapse-target="description">
+          <form class="collapse" data-form-id="description" data-collapse="toggle">
             <div class="input-group">
               <input type="hidden" name="project-id" value="<?php echo $project_id; ?>">
-              <textarea class="form-control" data-input-id="description" name="description" rows="5"><?php echo $project["description"]; ?></textarea>
+              <textarea class="form-control" data-input-id="description" data-input="focus" name="description" rows="5"><?php echo $project["description"]; ?></textarea>
             </div>
             <div class="form-actions">
               <button class="button <?php echo empty($project["description"]) ? "button-secondary" : "button-primary"; ?>" data-save-button="description" type="submit"><?php echo empty($project["description"]) ? "Add" : "Save changes"; ?></button>
-              <button class="button button-light" data-cancel-button="description" data-collapse-target="description" type="button">Cancel</button>
+              <button class="button button-light" data-button="cancel" type="button">Cancel</button>
             </div>
           </form>
         </div>
       </label>
 
-      <label class="card <?php if(empty($project["url"])) { echo "empty";} ?>" data-collapse-id="url">
+      <label class="card <?php if(empty($project["url"])) { echo "empty";} ?>" data-collapse="toggle">
         <div class="arrow-button-container">
-          <button class="button <?php echo empty($project["url"]) ? "button-secondary" : "button-primary"; ?> arrow" data-edit-button="url" data-collapse-target="url"><?php echo empty($project["url"]) ? "Add" : "Edit"; ?></button>
+          <button class="button <?php echo empty($project["url"]) ? "button-secondary" : "button-primary"; ?> arrow" data-button="edit"><?php echo empty($project["url"]) ? "Add" : "Edit"; ?></button>
         </div>
         <div class="col-fg-1">
           <header class="card-header">Project Web Address (URL)</header>
-          <div class="collapse show card-text small" data-collapse-id="url" data-update="url">
+          <div class="collapse show card-text small" data-collapse="toggle" data-update="url">
             <?php echo empty($project["url"]) ? "If your project has external assets you can link to them here. The site will open up in a new window." : $project["url"]; ?>
           </div>
-          <form class="collapse" data-form-id="url" data-collapse-id="url" data-collapse-target="url">
+          <form class="collapse" data-form-id="url" data-collapse="toggle">
             <div class="input-group">
               <input type="hidden" name="project-id" value="<?php echo $project_id; ?>">
-              <input class="form-control" type="text" data-input-id="url" name="url" value="<?php echo $project["url"]; ?>" autocomplete="off">
+              <input class="form-control" type="text" data-input-id="url" data-input="focus" name="url" value="<?php echo $project["url"]; ?>" autocomplete="off">
             </div>
             <div class="form-actions">
               <button class="button <?php echo empty($project["url"]) ? "button-secondary" : "button-primary"; ?>" type="submit"><?php echo empty($project["url"]) ? "Add" : "Save changes"; ?></button>
-              <button class="button button-light" data-cancel-button="url" data-collapse-target="url" type="button">Cancel</button>
+              <button class="button button-light" data-button="cancel" type="button">Cancel</button>
             </div>
           </form>
         </div>
       </label>
 
-      <label class="card <?php if(empty($project["client"])) { echo "empty";} ?>" data-collapse-id="client">
+      <label class="card <?php if(empty($project["client"])) { echo "empty";} ?>" data-collapse="toggle">
         <div class="arrow-button-container">
-          <button class="button <?php echo empty($project["client"]) ? "button-secondary" : "button-primary"; ?> arrow" data-edit-button="client" data-collapse-target="client"><?php echo empty($project["client"]) ? "Add" : "Edit"; ?></button>
+          <button class="button <?php echo empty($project["client"]) ? "button-secondary" : "button-primary"; ?> arrow" data-button="edit"><?php echo empty($project["client"]) ? "Add" : "Edit"; ?></button>
         </div>
         <div class="col-fg-1">
           <header class="card-header">Client</header>
-          <div class="collapse show card-text small" data-collapse-id="client" data-update="client">
+          <div class="collapse show card-text small" data-collapse="toggle" data-update="client">
             <?php echo empty($project["client"]) ? "Who you did the work for." : $project["client"]; ?>
           </div>
-          <form class="collapse" data-form-id="client" data-collapse-id="client" data-collapse-target="client">
+          <form class="collapse" data-form-id="client" data-collapse="toggle">
             <div class="input-group">
               <input type="hidden" name="project-id" value="<?php echo $project_id; ?>">
-              <input class="form-control" type="text" data-input-id="client" name="client" value="<?php echo $project["client"]; ?>" autocomplete="off">
+              <input class="form-control" type="text" data-input-id="client" data-input="focus" name="client" value="<?php echo $project["client"]; ?>" autocomplete="off">
             </div>
             <div class="form-actions">
               <button class="button <?php echo empty($project["client"]) ? "button-secondary" : "button-primary"; ?>" type="submit"><?php echo empty($project["client"]) ? "Add" : "Save changes"; ?></button>
-              <button class="button button-light" data-cancel-button="client" data-collapse-target="client" type="button">Cancel</button>
+              <button class="button button-light" data-button="cancel" type="button">Cancel</button>
             </div>
           </form>
         </div>
       </label>
 
-      <label class="card <?php if(empty($project["project_type"])) { echo "empty";} ?>" data-collapse-id="project-type">
+      <label class="card <?php if(empty($project["project_type"])) { echo "empty";} ?>" data-collapse="toggle">
         <div class="arrow-button-container">
-          <button class="button <?php echo empty($project["project_type"]) ? "button-secondary" : "button-primary"; ?> arrow" data-edit-button="project-type" data-collapse-target="project-type"><?php echo empty($project["project_type"]) ? "Add" : "Edit"; ?></button>
+          <button class="button <?php echo empty($project["project_type"]) ? "button-secondary" : "button-primary"; ?> arrow" data-button="edit"><?php echo empty($project["project_type"]) ? "Add" : "Edit"; ?></button>
         </div>
         <div class="col-fg-1">
           <header class="card-header">Project Type</header>
-          <div class="collapse show card-text small" data-collapse-id="project-type" data-update="project-type">
+          <div class="collapse show card-text small" data-collapse="toggle" data-update="project-type">
             <?php echo empty($project["project_type"]) ? "Separate types with commas (e.g Illustration, Website)." : $project["project_type"]; ?>
           </div>
-          <form class="collapse" data-form-id="project-type" data-collapse-id="project-type" data-collapse-target="project-type">
+          <form class="collapse" data-form-id="project-type" data-collapse="toggle">
             <div class="input-group">
               <input type="hidden" name="project-id" value="<?php echo $project_id; ?>">
-              <input class="form-control" type="text" data-input-id="project-type" name="project-type" value="<?php echo $project["project_type"]; ?>" autocomplete="off">
+              <input class="form-control" type="text" data-input-id="project-type" data-input="focus" name="project-type" value="<?php echo $project["project_type"]; ?>" autocomplete="off">
             </div>
             <div class="form-actions">
               <button class="button <?php echo empty($project["project_type"]) ? "button-secondary" : "button-primary"; ?>" type="submit"><?php echo empty($project["project_type"]) ? "Add" : "Save changes"; ?></button>
-              <button class="button button-light" data-cancel-button="project-type" data-collapse-target="project-type" type="button">Cancel</button>
+              <button class="button button-light" data-button="cancel" type="button">Cancel</button>
             </div>
           </form>
         </div>
